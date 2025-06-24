@@ -25,15 +25,15 @@ export const ChatArea = ({
     <div className={`flex-1 flex flex-col transition-all duration-300 ${
       isSidebarCollapsed ? 'md:ml-16' : 'md:ml-64'
     } pt-16 md:pt-0`}>
-      {/* Header */}
-      <div className="flex items-center justify-between p-4">
+      {/* Desktop Header */}
+      <div className="hidden md:flex items-center justify-between p-4">
         <div className="flex items-center space-x-3">
           {isSidebarCollapsed && (
             <Button
               variant="ghost"
               size="sm"
               onClick={onToggleSidebar}
-              className="text-gray-400 hover:text-white hidden md:flex"
+              className="text-gray-400 hover:text-white"
             >
               <Menu size={16} />
             </Button>
@@ -42,9 +42,9 @@ export const ChatArea = ({
           <Button
             variant="ghost"
             onClick={onOpenModelSelector}
-            className="text-white hover:bg-[#1a1a1a] flex items-center space-x-2 text-sm md:text-base"
+            className="text-white hover:bg-[#1a1a1a] flex items-center space-x-2"
           >
-            <span className="truncate max-w-[150px] md:max-w-none">OpenAI GPT-4o-mini</span>
+            <span>OpenAI GPT-4o-mini</span>
             <ChevronDown size={16} />
           </Button>
         </div>
@@ -53,21 +53,58 @@ export const ChatArea = ({
           <Button 
             variant="ghost" 
             size="sm" 
-            className="text-gray-400 hover:text-white text-xs md:text-sm"
+            className="text-gray-400 hover:text-white"
             onClick={onOpenUsage}
           >
             <span className="mr-1">⚡</span>
-            <span className="hidden sm:inline">Usage</span>
+            Usage
           </Button>
           <Button 
             variant="ghost" 
             size="sm" 
-            className="text-gray-400 hover:text-white text-xs md:text-sm"
+            className="text-gray-400 hover:text-white"
             onClick={onOpenHistory}
           >
             <span className="mr-1">🕒</span>
-            <span className="hidden sm:inline">History</span>
+            History
           </Button>
+        </div>
+      </div>
+
+      {/* Mobile Header - Single Row */}
+      <div className="md:hidden fixed top-0 left-0 right-0 bg-[#1a1a1a] p-4 z-30">
+        <div className="flex items-center justify-between">
+          {/* Left: Model selector with truncated text */}
+          <div className="flex items-center space-x-2 flex-1 min-w-0">
+            <Button
+              variant="ghost"
+              onClick={onOpenModelSelector}
+              className="text-white hover:bg-[#2a2a2a] flex items-center space-x-2 min-w-0 flex-1 justify-start px-3 py-2"
+            >
+              <span className="truncate text-sm">OpenAI GPT-4o-mini</span>
+              <ChevronDown size={14} className="flex-shrink-0" />
+            </Button>
+          </div>
+
+          {/* Right: Usage and History buttons */}
+          <div className="flex items-center space-x-1 flex-shrink-0">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="text-gray-400 hover:text-white p-2"
+              onClick={onOpenUsage}
+            >
+              <span className="text-lg">⚡</span>
+            </Button>
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="text-gray-400 hover:text-white p-2"
+              onClick={onOpenHistory}
+            >
+              <span className="text-lg">🕒</span>
+            </Button>
+          </div>
         </div>
       </div>
 

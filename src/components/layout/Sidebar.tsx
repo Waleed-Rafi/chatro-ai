@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Plus, MessageSquare, Image, Search, HelpCircle, BarChart, Settings, CreditCard, ChevronLeft, ChevronRight, ChevronDown, ChevronUp, X } from "lucide-react";
@@ -19,172 +20,182 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
 
   return (
     <>
-      {/* Mobile Bottom Sheet Overlay */}
+      {/* Mobile Overlay Sidebar */}
       {isMobileMenuOpen && (
-        <div 
-          className="fixed inset-0 bg-black/50 z-50 md:hidden" 
-          onClick={() => setIsMobileMenuOpen(false)}
-        />
-      )}
-
-      {/* Mobile Bottom Sheet */}
-      <div className={`fixed bottom-0 left-0 right-0 bg-[#0d0d0d] transform transition-transform duration-300 z-50 md:hidden ${
-        isMobileMenuOpen ? 'translate-y-0' : 'translate-y-full'
-      }`}>
-        <div className="p-4">
-          {/* Close button */}
-          <div className="flex justify-end mb-4">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-gray-400 hover:text-white"
-            >
-              <X size={20} />
-            </Button>
-          </div>
-
-          {/* Start New Button */}
-          <Button 
-            className="w-full bg-[#1a1a1a] hover:bg-[#2a2a2a] text-white justify-start mb-4"
-            variant="outline"
-          >
-            <Plus size={16} className="mr-2" />
-            Start New
-          </Button>
-
-          {/* Tools Section */}
-          <div className="mb-4">
-            <div className="text-xs text-gray-400 mb-2 px-2">Tools</div>
-            <div className="space-y-1">
-              <Button 
-                variant="ghost" 
-                className={`w-full justify-start ${
-                  isActive('/') 
-                    ? 'text-white bg-[#1a1a1a]' 
-                    : 'text-gray-400 hover:text-white hover:bg-[#1a1a1a]'
-                }`}
-                onClick={() => {
-                  navigate('/');
-                  setIsMobileMenuOpen(false);
-                }}
-              >
-                <MessageSquare size={16} className="mr-3" />
-                AI Chat
-              </Button>
-              
-              <Button 
-                variant="ghost" 
-                className="w-full justify-start text-gray-400 hover:text-white hover:bg-[#1a1a1a]"
-              >
-                <Image size={16} className="mr-3" />
-                Image Generation
-              </Button>
-              
-              <Button 
-                variant="ghost" 
-                className="w-full justify-start text-gray-400 hover:text-white hover:bg-[#1a1a1a]"
-              >
-                <Search size={16} className="mr-3" />
-                AI Search Engine
-                <span className="ml-auto text-xs bg-blue-600 px-1.5 py-0.5 rounded">BETA</span>
-              </Button>
-            </div>
-          </div>
-
-          {/* Others Section */}
-          <div className="mb-4">
-            <div className="text-xs text-gray-400 mb-2 px-2">Others</div>
-            <div className="space-y-1">
-              <Button 
-                variant="ghost" 
-                className={`w-full justify-start ${
-                  isActive('/support') 
-                    ? 'text-white bg-[#1a1a1a]' 
-                    : 'text-gray-400 hover:text-white hover:bg-[#1a1a1a]'
-                }`}
-                onClick={() => {
-                  navigate('/support');
-                  setIsMobileMenuOpen(false);
-                }}
-              >
-                <HelpCircle size={16} className="mr-3" />
-                Support
-              </Button>
-              
-              <Button 
-                variant="ghost" 
-                className={`w-full justify-start ${
-                  isActive('/pricing') 
-                    ? 'text-white bg-[#1a1a1a]' 
-                    : 'text-gray-400 hover:text-white hover:bg-[#1a1a1a]'
-                }`}
-                onClick={() => {
-                  navigate('/pricing');
-                  setIsMobileMenuOpen(false);
-                }}
-              >
-                <CreditCard size={16} className="mr-3" />
-                Pricing Plans
-              </Button>
-            </div>
-          </div>
-
-          {/* Upgrade Section */}
-          <div className="mb-4">
-            <div className="text-xs text-gray-400 mb-2">Unlock all premium features</div>
-            <div className="text-xs text-gray-500 mb-3">Supercharge your productivity with Chatly Pro</div>
-            <Button 
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-              onClick={onOpenPricing}
-            >
-              👑 Upgrade
-            </Button>
-          </div>
-
-          {/* Profile Section */}
-          <div className="relative">
-            <div 
-              className="flex items-center space-x-2 cursor-pointer p-2 rounded-lg hover:bg-[#1a1a1a]"
-              onClick={() => setIsProfileOpen(!isProfileOpen)}
-            >
-              <div className="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center">
-                <span className="text-xs">WR</span>
-              </div>
-              <div className="flex-1">
-                <div className="text-sm text-white">Waleed Rafi</div>
-              </div>
-              {isProfileOpen ? <ChevronUp size={16} className="text-gray-400" /> : <ChevronDown size={16} className="text-gray-400" />}
-            </div>
-
-            {/* Profile Dropdown */}
-            {isProfileOpen && (
-              <>
-                <div 
-                  className="fixed inset-0 z-40" 
-                  onClick={() => setIsProfileOpen(false)}
-                />
-                <div className="absolute bottom-full left-0 mb-2 w-full bg-[#2a2a2a] rounded-lg shadow-lg z-50 p-2">
-                  <Button
-                    variant="ghost"
-                    className="w-full justify-start text-white hover:bg-[#333] p-3"
-                  >
-                    <Settings size={16} className="mr-3" />
-                    Settings
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    className="w-full justify-start text-white hover:bg-[#333] p-3"
-                  >
-                    <span className="mr-3">↗</span>
-                    Log out
-                  </Button>
+        <>
+          <div 
+            className="fixed inset-0 bg-black/50 z-50 md:hidden" 
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
+          <div className="fixed left-0 top-0 bottom-0 w-80 bg-[#0d0d0d] z-50 md:hidden flex flex-col">
+            {/* Header */}
+            <div className="p-4 flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center">
+                  <span className="text-xs font-bold">C</span>
                 </div>
-              </>
-            )}
+                <span className="text-white font-semibold">Chatly</span>
+              </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-gray-400 hover:text-white"
+              >
+                <X size={20} />
+              </Button>
+            </div>
+
+            {/* Start New Button */}
+            <div className="px-4 mb-4">
+              <Button 
+                className="w-full bg-[#1a1a1a] hover:bg-[#2a2a2a] text-white justify-start"
+                variant="outline"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <Plus size={16} className="mr-2" />
+                Start New
+              </Button>
+            </div>
+
+            {/* Tools Section */}
+            <div className="flex-1 px-4">
+              <div className="text-xs text-gray-400 mb-2 px-2">Tools</div>
+              <div className="space-y-1 mb-6">
+                <Button 
+                  variant="ghost" 
+                  className={`w-full justify-start ${
+                    isActive('/') 
+                      ? 'text-white bg-[#1a1a1a]' 
+                      : 'text-gray-400 hover:text-white hover:bg-[#1a1a1a]'
+                  }`}
+                  onClick={() => {
+                    navigate('/');
+                    setIsMobileMenuOpen(false);
+                  }}
+                >
+                  <MessageSquare size={16} className="mr-3" />
+                  AI Chat
+                </Button>
+                
+                <Button 
+                  variant="ghost" 
+                  className="w-full justify-start text-gray-400 hover:text-white hover:bg-[#1a1a1a]"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <Image size={16} className="mr-3" />
+                  Image Generation
+                </Button>
+                
+                <Button 
+                  variant="ghost" 
+                  className="w-full justify-start text-gray-400 hover:text-white hover:bg-[#1a1a1a]"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <Search size={16} className="mr-3" />
+                  AI Search Engine
+                  <span className="ml-auto text-xs bg-blue-600 px-1.5 py-0.5 rounded">BETA</span>
+                </Button>
+              </div>
+
+              <div className="text-xs text-gray-400 mb-2 px-2">Others</div>
+              <div className="space-y-1">
+                <Button 
+                  variant="ghost" 
+                  className={`w-full justify-start ${
+                    isActive('/support') 
+                      ? 'text-white bg-[#1a1a1a]' 
+                      : 'text-gray-400 hover:text-white hover:bg-[#1a1a1a]'
+                  }`}
+                  onClick={() => {
+                    navigate('/support');
+                    setIsMobileMenuOpen(false);
+                  }}
+                >
+                  <HelpCircle size={16} className="mr-3" />
+                  Support
+                </Button>
+                
+                <Button 
+                  variant="ghost" 
+                  className={`w-full justify-start ${
+                    isActive('/pricing') 
+                      ? 'text-white bg-[#1a1a1a]' 
+                      : 'text-gray-400 hover:text-white hover:bg-[#1a1a1a]'
+                  }`}
+                  onClick={() => {
+                    navigate('/pricing');
+                    setIsMobileMenuOpen(false);
+                  }}
+                >
+                  <CreditCard size={16} className="mr-3" />
+                  Pricing Plans
+                </Button>
+              </div>
+            </div>
+
+            {/* Bottom Section */}
+            <div className="p-4">
+              <div className="mb-4">
+                <div className="text-xs text-gray-400 mb-2">Unlock all premium features</div>
+                <div className="text-xs text-gray-500 mb-3">Supercharge your productivity with Chatly Pro</div>
+                <Button 
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                  onClick={() => {
+                    onOpenPricing();
+                    setIsMobileMenuOpen(false);
+                  }}
+                >
+                  👑 Upgrade
+                </Button>
+              </div>
+              
+              {/* Profile Section */}
+              <div className="relative">
+                <div 
+                  className="flex items-center space-x-2 cursor-pointer p-2 rounded-lg hover:bg-[#1a1a1a]"
+                  onClick={() => setIsProfileOpen(!isProfileOpen)}
+                >
+                  <div className="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center">
+                    <span className="text-xs">WR</span>
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-sm text-white">Waleed Rafi</div>
+                  </div>
+                  {isProfileOpen ? <ChevronUp size={16} className="text-gray-400" /> : <ChevronDown size={16} className="text-gray-400" />}
+                </div>
+
+                {isProfileOpen && (
+                  <>
+                    <div 
+                      className="fixed inset-0 z-40" 
+                      onClick={() => setIsProfileOpen(false)}
+                    />
+                    <div className="absolute bottom-full left-0 mb-2 w-full bg-[#2a2a2a] rounded-lg shadow-lg z-50 p-2">
+                      <Button
+                        variant="ghost"
+                        className="w-full justify-start text-white hover:bg-[#333] p-3"
+                        onClick={() => setIsProfileOpen(false)}
+                      >
+                        <Settings size={16} className="mr-3" />
+                        Settings
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        className="w-full justify-start text-white hover:bg-[#333] p-3"
+                        onClick={() => setIsProfileOpen(false)}
+                      >
+                        <span className="mr-3">↗</span>
+                        Log out
+                      </Button>
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </>
+      )}
 
       {/* Desktop Sidebar */}
       <div className={`bg-[#0d0d0d] transition-all duration-300 ${
@@ -212,7 +223,6 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
           </div>
         </div>
 
-        {/* Start New Button */}
         <div className="p-3">
           <Button 
             className="w-full bg-[#1a1a1a] hover:bg-[#2a2a2a] text-white justify-start"
@@ -223,7 +233,6 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
           </Button>
         </div>
 
-        {/* Tools Section */}
         <div className="flex-1 px-3">
           {!isCollapsed && (
             <div className="text-xs text-gray-400 mb-2 px-2">Tools</div>
@@ -294,7 +303,6 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
           </div>
         </div>
 
-        {/* Bottom Section */}
         <div className="p-3">
           {!isCollapsed && (
             <div className="mb-3">
@@ -357,24 +365,22 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
 
       {/* Mobile Header */}
       <div className="fixed top-0 left-0 right-0 bg-[#1a1a1a] p-4 flex items-center justify-between z-30 md:hidden">
-        <div className="flex items-center space-x-2">
-          <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center">
-            <span className="text-xs font-bold">C</span>
+        <div className="flex items-center space-x-3">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setIsMobileMenuOpen(true)}
+            className="text-gray-400 hover:text-white p-1"
+          >
+            <ChevronRight size={20} />
+          </Button>
+          <div className="flex items-center space-x-2">
+            <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center">
+              <span className="text-xs font-bold">C</span>
+            </div>
+            <span className="text-white font-semibold">Chatly</span>
           </div>
-          <span className="text-white font-semibold">Chatly</span>
         </div>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => setIsMobileMenuOpen(true)}
-          className="text-gray-400 hover:text-white"
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <line x1="3" y1="6" x2="21" y2="6"/>
-            <line x1="3" y1="12" x2="21" y2="12"/>
-            <line x1="3" y1="18" x2="21" y2="18"/>
-          </svg>
-        </Button>
       </div>
     </>
   );
