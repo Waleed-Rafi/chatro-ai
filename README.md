@@ -1,73 +1,38 @@
-# Welcome to your Lovable project
+# Welcome to your Reply project
 
-## Project info
+This is a [Vite](https://vitejs.dev/) + [React](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/) project.
 
-**URL**: https://lovable.dev/projects/62037255-cbed-47ca-8dbf-dfee9ca82cf3
+**URL**: https://reply.dev/projects/62037255-cbed-47ca-8dbf-dfee9ca82cf3
 
-## How can I edit this code?
+## Getting Started
+First, run the development server:
 
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/62037255-cbed-47ca-8dbf-dfee9ca82cf3) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+```bash
 npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-**Edit a file directly in GitHub**
+Open [http://localhost:5173](http://localhost:5173) with your browser to see the result.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+You can start editing the page by modifying `src/App.tsx`. The page auto-updates as you edit the file.
 
-**Use GitHub Codespaces**
+## Learn More
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+To learn more about the technologies used in this project:
 
-## What technologies are used for this project?
+- [Vite](https://vitejs.dev/) - Next Generation Frontend Tooling
+- [React](https://react.dev/) - The library for web and native user interfaces
+- [TypeScript](https://www.typescriptlang.org/) - JavaScript with syntax for types
+- [Tailwind CSS](https://tailwindcss.com/) - A utility-first CSS framework
+- [shadcn/ui](https://ui.shadcn.com/) - Beautifully designed components built with Radix UI and Tailwind CSS
 
-This project is built with:
+## Deploy on Vercel
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+The easiest way to deploy your Vite + React app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=vite&framework=react&utm_source=create-vite&utm_campaign=create-vite-app) from the creators of Next.js.
 
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/62037255-cbed-47ca-8dbf-dfee9ca82cf3) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+Check out the [Vite deployment documentation](https://vitejs.dev/guide/static-deploy.html) for more information.

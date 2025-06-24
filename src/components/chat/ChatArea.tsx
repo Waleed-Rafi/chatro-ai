@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -137,7 +136,7 @@ export const ChatArea = ({
             </div>
             
             <div className="text-xs text-gray-500 text-center mt-4">
-              Chatly can make mistakes. Check important info.
+              Reply can make mistakes. Check important info.
             </div>
           </div>
 

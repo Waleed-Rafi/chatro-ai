@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 
@@ -32,7 +31,7 @@ export const UsagePopover = ({ isOpen, onClose }: UsagePopoverProps) => {
           </div>
           
           <div className="text-gray-300 text-sm mb-4">
-            Create and explore ideas with Chatly
+            Create and explore ideas with Reply
           </div>
           
           <div className="mb-4">
@@ -80,7 +79,7 @@ export const UsagePopover = ({ isOpen, onClose }: UsagePopoverProps) => {
           </div>
           
           <div className="text-gray-300 text-sm mb-4">
-            Create and explore ideas with Chatly
+            Create and explore ideas with Reply
           </div>
           
           <div className="mb-6">

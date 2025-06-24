@@ -1,24 +1,36 @@
 import { useState } from "react";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { Button } from "@/components/ui/button";
-import { Check, Menu, ChevronDown, ChevronUp } from "lucide-react";
+import { Check, Menu, ChevronDown, ChevronUp, X } from "lucide-react";
 
 const Pricing = () => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
 
   const faqs = [
-    { question: "What can I use Chatly for?", answer: "Answer for what you can use Chatly for..." },
-    { question: "What platforms is Chatly available on?", answer: "Answer about platform availability..." },
+    { question: "What can I use Reply for?", answer: "Answer for what you can use Reply for..." },
+    { question: "What platforms is Reply available on?", answer: "Answer about platform availability..." },
     { question: "What subscription plans are available?", answer: "Answer about subscription plans..." },
     { question: "Can I switch between AI models?", answer: "Answer about switching AI models..." },
     { question: "What's new in Image Generation?", answer: "Answer about image generation updates..." },
     { question: "What file types are supported for upload?", answer: "Answer about supported file types..." },
-    { question: "Is my personal data safe and secure when using Chatly?", answer: "Answer about data security..." },
+    { question: "Is my personal data safe and secure when using Reply?", answer: "Answer about data security..." },
     { question: "Can I share my account with others?", answer: "Answer about account sharing..." },
     { question: "Who do I contact if I have questions or need support?", answer: "Answer about contacting support..." },
     { question: "How can I report a bug to the developer?", answer: "Answer about reporting bugs..." },
     { question: "How can I cancel my subscription?", answer: "Answer about canceling subscription..." }
+  ];
+
+  const features = [
+    { feature: "Chat with links", reply: "Advanced", openai: "Limited" },
+    { feature: "Chat with documents", reply: "Advanced", openai: "Limited" },
+    { feature: "Analyze data", reply: "Advanced", openai: "Limited" },
+    { feature: "Chat with image", reply: true, openai: false }
+  ];
+
+  const additionalFeatures = [
+    { feature: "Image Generation", reply: "Advanced", openai: "Limited" },
+    { feature: "AI Search Engine", reply: "Advanced", openai: "Limited" }
   ];
 
   return (
@@ -56,7 +68,7 @@ const Pricing = () => {
             {/* Pricing Header */}
             <div className="text-center mb-6">
               <h2 className="text-xl font-medium text-white mb-2">Pricing Plans</h2>
-              <p className="text-gray-400 text-sm">Want to get more out of Chatly? Subscribe to one of our professional plans.</p>
+              <p className="text-gray-400 text-sm">Want to get more out of Reply? Subscribe to one of our professional plans.</p>
             </div>
 
             {/* Pricing Cards */}
@@ -120,7 +132,7 @@ const Pricing = () => {
 
             {/* Why go Pro section */}
             <div className="mb-8">
-              <h3 className="text-lg font-medium text-white text-center mb-4">Why go Pro with Chatly?</h3>
+              <h3 className="text-lg font-medium text-white text-center mb-4">Why go Pro with Reply?</h3>
               <p className="text-gray-400 text-center mb-6 text-sm">Multiple productivity needs, one solution</p>
               
               {/* Feature comparison */}
@@ -130,7 +142,7 @@ const Pricing = () => {
                     <h4 className="text-white font-medium text-sm">Features</h4>
                   </div>
                   <div>
-                    <h4 className="text-white font-medium text-sm">Chatly</h4>
+                    <h4 className="text-white font-medium text-sm">Reply</h4>
                   </div>
                   <div>
                     <h4 className="text-white font-medium text-sm">OpenAI ChatGPT</h4>
@@ -167,20 +179,15 @@ const Pricing = () => {
                 <div className="mb-4">
                   <h5 className="text-white font-medium mb-3 text-sm">AI Chat</h5>
                   <div className="space-y-2">
-                    {[
-                      { feature: "Chat with links", chatly: "Advanced", openai: "Limited" },
-                      { feature: "Chat with documents", chatly: "Advanced", openai: "Limited" },
-                      { feature: "Analyze data", chatly: "Advanced", openai: "Limited" },
-                      { feature: "Chat with image", chatly: true, openai: false }
-                    ].map((item, index) => (
+                    {features.map((item, index) => (
                       <div key={index} className="grid grid-cols-3 gap-4 items-center text-xs">
                         <span className="text-gray-300">{item.feature}</span>
                         <div className="text-center">
-                          {typeof item.chatly === 'boolean' ? (
-                            item.chatly ? <Check className="text-blue-500 mx-auto" size={16} /> : 
-                            <div className="w-4 h-4 border-2 border-gray-500 rounded-full mx-auto"></div>
+                          {typeof item.reply === 'boolean' ? (
+                            item.reply ? <Check className="text-blue-500 mx-auto" size={16} /> : 
+                            <X className="text-gray-500 mx-auto" size={16} />
                           ) : (
-                            <span className="text-blue-400 text-xs">{item.chatly}</span>
+                            <span className="text-blue-400 text-xs">{item.reply}</span>
                           )}
                         </div>
                         <div className="text-center">
@@ -200,14 +207,11 @@ const Pricing = () => {
                 <div>
                   <h5 className="text-white font-medium mb-3 text-sm">AI Tools</h5>
                   <div className="space-y-2">
-                    {[
-                      { feature: "Image Generation", chatly: "Advanced", openai: "Limited" },
-                      { feature: "AI Search Engine", chatly: "Advanced", openai: "Limited" }
-                    ].map((item, index) => (
+                    {additionalFeatures.map((item, index) => (
                       <div key={index} className="grid grid-cols-3 gap-4 items-center text-xs">
                         <span className="text-gray-300">{item.feature}</span>
                         <div className="text-center">
-                          <span className="text-blue-400 text-xs">{item.chatly}</span>
+                          <span className="text-blue-400 text-xs">{item.reply}</span>
                         </div>
                         <div className="text-center">
                           <span className="text-gray-400 text-xs">{item.openai}</span>
@@ -257,7 +261,7 @@ const Pricing = () => {
             {/* Pricing Header */}
             <div className="text-center mb-8 md:mb-12">
               <h2 className="text-2xl md:text-3xl font-medium text-white mb-4">Pricing Plans</h2>
-              <p className="text-gray-400">Want to get more out of Chatly? Subscribe to one of our professional plans.</p>
+              <p className="text-gray-400">Want to get more out of Reply? Subscribe to one of our professional plans.</p>
             </div>
 
             {/* Pricing Cards */}
@@ -321,7 +325,7 @@ const Pricing = () => {
 
             {/* Why go Pro section */}
             <div className="max-w-6xl mx-auto mb-8 md:mb-16">
-              <h3 className="text-xl md:text-2xl font-medium text-white text-center mb-8">Why go Pro with Chatly?</h3>
+              <h3 className="text-xl md:text-2xl font-medium text-white text-center mb-8">Why go Pro with Reply?</h3>
               <p className="text-gray-400 text-center mb-8 md:mb-12">Multiple productivity needs, one solution</p>
               
               {/* Feature comparison */}
@@ -332,7 +336,7 @@ const Pricing = () => {
                       <h4 className="text-white font-medium mb-2">Features</h4>
                     </div>
                     <div className="text-center">
-                      <h4 className="text-white font-medium mb-2">Chatly</h4>
+                      <h4 className="text-white font-medium mb-2">Reply</h4>
                     </div>
                     <div className="text-center">
                       <h4 className="text-white font-medium mb-2">OpenAI ChatGPT</h4>
@@ -352,13 +356,13 @@ const Pricing = () => {
                         "Anthropic Claude 4 Sonnet",
                         "Anthropic Claude 3.7 Sonnet"
                       ].map((model, index) => (
-                        <div key={index} className="grid grid-cols-3 gap-4 md:gap-8 items-center">
-                          <span className="text-gray-300 text-sm">{model}</span>
+                        <div key={index} className="grid grid-cols-3 gap-4 items-center text-xs">
+                          <span className="text-gray-300">{model}</span>
                           <div className="text-center">
-                            <Check className="text-blue-500 mx-auto" size={20} />
+                            <Check className="text-blue-500 mx-auto" size={16} />
                           </div>
                           <div className="text-center">
-                            <div className="w-5 h-5 border-2 border-gray-500 rounded-full mx-auto"></div>
+                            <div className="w-4 h-4 border-2 border-gray-500 rounded-full mx-auto"></div>
                           </div>
                         </div>
                       ))}
@@ -370,19 +374,19 @@ const Pricing = () => {
                     <h5 className="text-white font-medium mb-4">AI Chat</h5>
                     <div className="space-y-3">
                       {[
-                        { feature: "Chat with links", chatly: "Advanced", openai: "Limited" },
-                        { feature: "Chat with documents", chatly: "Advanced", openai: "Limited" },
-                        { feature: "Analyze data", chatly: "Advanced", openai: "Limited" },
-                        { feature: "Chat with image", chatly: true, openai: false }
+                        { feature: "Chat with links", reply: "Advanced", openai: "Limited" },
+                        { feature: "Chat with documents", reply: "Advanced", openai: "Limited" },
+                        { feature: "Analyze data", reply: "Advanced", openai: "Limited" },
+                        { feature: "Chat with image", reply: true, openai: false }
                       ].map((item, index) => (
                         <div key={index} className="grid grid-cols-3 gap-4 md:gap-8 items-center">
                           <span className="text-gray-300 text-sm">{item.feature}</span>
                           <div className="text-center">
-                            {typeof item.chatly === 'boolean' ? (
-                              item.chatly ? <Check className="text-blue-500 mx-auto" size={20} /> : 
+                            {typeof item.reply === 'boolean' ? (
+                              item.reply ? <Check className="text-blue-500 mx-auto" size={20} /> : 
                               <div className="w-5 h-5 border-2 border-gray-500 rounded-full mx-auto"></div>
                             ) : (
-                              <span className="text-blue-400 text-sm">{item.chatly}</span>
+                              <span className="text-blue-400 text-sm">{item.reply}</span>
                             )}
                           </div>
                           <div className="text-center">
@@ -403,13 +407,13 @@ const Pricing = () => {
                     <h5 className="text-white font-medium mb-4">AI Tools</h5>
                     <div className="space-y-3">
                       {[
-                        { feature: "Image Generation", chatly: "Advanced", openai: "Limited" },
-                        { feature: "AI Search Engine", chatly: "Advanced", openai: "Limited" }
+                        { feature: "Image Generation", reply: "Advanced", openai: "Limited" },
+                        { feature: "AI Search Engine", reply: "Advanced", openai: "Limited" }
                       ].map((item, index) => (
                         <div key={index} className="grid grid-cols-3 gap-4 md:gap-8 items-center">
                           <span className="text-gray-300 text-sm">{item.feature}</span>
                           <div className="text-center">
-                            <span className="text-blue-400 text-sm">{item.chatly}</span>
+                            <span className="text-blue-400 text-sm">{item.reply}</span>
                           </div>
                           <div className="text-center">
                             <span className="text-gray-400 text-sm">{item.openai}</span>

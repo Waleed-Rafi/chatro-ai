@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Plus, MessageSquare, Image, Search, HelpCircle, BarChart, Settings, CreditCard, ChevronLeft, ChevronRight, ChevronDown, ChevronUp, X } from "lucide-react";
@@ -34,7 +33,7 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
                 <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center">
                   <span className="text-xs font-bold">C</span>
                 </div>
-                <span className="text-white font-semibold">Chatly</span>
+                <span className="text-white font-semibold">Reply</span>
               </div>
               <Button
                 variant="ghost"
@@ -138,7 +137,7 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
             <div className="p-4">
               <div className="mb-4">
                 <div className="text-xs text-gray-400 mb-2">Unlock all premium features</div>
-                <div className="text-xs text-gray-500 mb-3">Supercharge your productivity with Chatly Pro</div>
+                <div className="text-xs text-gray-500 mb-3">Supercharge your productivity with Reply Pro</div>
                 <Button 
                   className="w-full bg-blue-600 hover:bg-blue-700 text-white"
                   onClick={() => {
@@ -209,7 +208,7 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
                 <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center">
                   <span className="text-xs font-bold">C</span>
                 </div>
-                <span className="text-white font-semibold">Chatly</span>
+                <span className="text-white font-semibold">Reply</span>
               </div>
             )}
             <Button
@@ -307,7 +306,7 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
           {!isCollapsed && (
             <div className="mb-3">
               <div className="text-xs text-gray-400 mb-2">Unlock all premium features</div>
-              <div className="text-xs text-gray-500 mb-3">Supercharge your productivity with Chatly Pro</div>
+              <div className="text-xs text-gray-500 mb-3">Supercharge your productivity with Reply Pro</div>
               <Button 
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white"
                 onClick={onOpenPricing}
@@ -378,7 +377,7 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
             <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center">
               <span className="text-xs font-bold">C</span>
             </div>
-            <span className="text-white font-semibold">Chatly</span>
+            <span className="text-white font-semibold">Reply</span>
           </div>
         </div>
       </div>
