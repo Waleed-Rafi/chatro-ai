@@ -84,7 +84,7 @@ export const ModelSelector = ({ isOpen, onClose }: ModelSelectorProps) => {
         className="fixed inset-0 z-40" 
         onClick={onClose}
       />
-      <div className="absolute top-16 left-4 z-50 w-80 bg-[#1a1a1a] rounded-lg shadow-lg">
+      <div className="absolute top-16 left-8 z-50 w-80 bg-[#1a1a1a] rounded-lg shadow-lg">
         {/* Search */}
         <div className="p-4">
           <div className="relative">

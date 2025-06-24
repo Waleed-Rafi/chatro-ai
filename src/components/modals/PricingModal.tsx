@@ -50,10 +50,10 @@ export const PricingModal = ({ isOpen, onClose }: PricingModalProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-5xl bg-[#1a1a1a] border-[#333] text-white p-0">
-        <div className="flex">
+      <DialogContent className="max-w-xs sm:max-w-lg md:max-w-3xl lg:max-w-5xl bg-[#1a1a1a] border-[#333] text-white p-0 max-h-[90vh] overflow-y-auto">
+        <div className="flex flex-col lg:flex-row">
           {/* Left side - Features */}
-          <div className="flex-1 p-8">
+          <div className="flex-1 p-4 sm:p-6 lg:p-8">
             <DialogHeader className="mb-6">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
@@ -66,18 +66,18 @@ export const PricingModal = ({ isOpen, onClose }: PricingModalProps) => {
                   <X size={16} />
                 </Button>
               </div>
-              <h2 className="text-2xl font-bold text-left">Combined Access to All Features</h2>
+              <h2 className="text-xl sm:text-2xl font-bold text-left">Combined Access to All Features</h2>
             </DialogHeader>
 
             <div className="space-y-4">
-              <div className="grid grid-cols-3 gap-4 text-center mb-6">
+              <div className="hidden sm:grid grid-cols-3 gap-4 text-center mb-6">
                 <div></div>
                 <div className="text-gray-400 font-medium">Free</div>
                 <div className="text-gray-400 font-medium">Pro</div>
               </div>
 
               {features.map((feature, index) => (
-                <div key={index} className="grid grid-cols-3 gap-4 items-center py-3 border-b border-[#333]">
+                <div key={index} className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center py-3 border-b border-[#333]">
                   <div>
                     <div className="flex items-center space-x-3">
                       <div className="w-8 h-8 bg-[#333] rounded-lg flex items-center justify-center">
@@ -94,14 +94,14 @@ export const PricingModal = ({ isOpen, onClose }: PricingModalProps) => {
                       </div>
                     </div>
                   </div>
-                  <div className="text-center">
+                  <div className="text-center hidden sm:block">
                     {feature.free ? (
                       <Check size={16} className="text-green-500 mx-auto" />
                     ) : (
                       <div className="w-4 h-4 bg-gray-600 rounded-full mx-auto"></div>
                     )}
                   </div>
-                  <div className="text-center">
+                  <div className="text-center hidden sm:block">
                     <Check size={16} className="text-green-500 mx-auto" />
                   </div>
                 </div>
@@ -116,9 +116,9 @@ export const PricingModal = ({ isOpen, onClose }: PricingModalProps) => {
           </div>
 
           {/* Right side - Pricing */}
-          <div className="w-96 bg-[#0d0d0d] p-8">
+          <div className="w-full lg:w-96 bg-[#0d0d0d] p-4 sm:p-6 lg:p-8">
             <div className="text-center mb-6">
-              <h3 className="text-2xl font-bold mb-2">Upgrade your plan ✨</h3>
+              <h3 className="text-xl sm:text-2xl font-bold mb-2">Upgrade your plan ✨</h3>
             </div>
 
             <div className="space-y-4">
@@ -156,7 +156,7 @@ export const PricingModal = ({ isOpen, onClose }: PricingModalProps) => {
 
             <div className="text-center mt-4">
               <div className="text-gray-400 text-sm mb-2">🔒 Pay Safe and Secure with</div>
-              <div className="flex justify-center space-x-2">
+              <div className="flex justify-center space-x-2 flex-wrap">
                 <div className="w-8 h-5 bg-blue-600 rounded text-xs flex items-center justify-center text-white">PP</div>
                 <div className="w-8 h-5 bg-blue-800 rounded text-xs flex items-center justify-center text-white">V</div>
                 <div className="w-8 h-5 bg-red-600 rounded text-xs flex items-center justify-center text-white">MC</div>
