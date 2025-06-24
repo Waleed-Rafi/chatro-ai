@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Plus, MessageSquare, Image, Search, HelpCircle, BarChart, Settings, CreditCard, ChevronLeft, ChevronRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface SidebarProps {
   isCollapsed: boolean;
@@ -10,12 +11,14 @@ interface SidebarProps {
 }
 
 export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: SidebarProps) => {
+  const navigate = useNavigate();
+
   return (
-    <div className={`bg-[#0d0d0d] border-r border-[#333] transition-all duration-300 ${
+    <div className={`bg-[#0d0d0d] transition-all duration-300 ${
       isCollapsed ? 'w-16' : 'w-64'
     } flex flex-col`}>
       {/* Header */}
-      <div className="p-3 border-b border-[#333]">
+      <div className="p-3">
         <div className="flex items-center justify-between">
           {!isCollapsed && (
             <div className="flex items-center space-x-2">
@@ -39,7 +42,7 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
       {/* Start New Button */}
       <div className="p-3">
         <Button 
-          className="w-full bg-[#1a1a1a] hover:bg-[#2a2a2a] border border-[#333] text-white justify-start"
+          className="w-full bg-[#1a1a1a] hover:bg-[#2a2a2a] text-white justify-start"
           variant="outline"
         >
           <Plus size={16} className="mr-2" />
@@ -57,6 +60,7 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
           <Button 
             variant="ghost" 
             className="w-full justify-start text-white bg-[#1a1a1a] hover:bg-[#2a2a2a]"
+            onClick={() => navigate('/')}
           >
             <MessageSquare size={16} className="mr-3" />
             {!isCollapsed && "AI Chat"}
@@ -88,6 +92,7 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
           <Button 
             variant="ghost" 
             className="w-full justify-start text-gray-400 hover:text-white hover:bg-[#1a1a1a]"
+            onClick={() => navigate('/support')}
           >
             <HelpCircle size={16} className="mr-3" />
             {!isCollapsed && "Support"}
@@ -96,7 +101,7 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
           <Button 
             variant="ghost" 
             className="w-full justify-start text-gray-400 hover:text-white hover:bg-[#1a1a1a]"
-            onClick={onOpenPricing}
+            onClick={() => navigate('/pricing')}
           >
             <CreditCard size={16} className="mr-3" />
             {!isCollapsed && "Pricing Plans"}
@@ -105,7 +110,7 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
       </div>
 
       {/* Bottom Section */}
-      <div className="p-3 border-t border-[#333]">
+      <div className="p-3">
         {!isCollapsed && (
           <div className="mb-3">
             <div className="text-xs text-gray-400 mb-2">Unlock all premium features</div>

@@ -4,10 +4,14 @@ import { Sidebar } from "@/components/layout/Sidebar";
 import { ChatArea } from "@/components/chat/ChatArea";
 import { PricingModal } from "@/components/modals/PricingModal";
 import { ModelSelector } from "@/components/chat/ModelSelector";
+import { UsagePopover } from "@/components/chat/UsagePopover";
+import { HistoryPopover } from "@/components/chat/HistoryPopover";
 
 const Index = () => {
   const [isPricingOpen, setIsPricingOpen] = useState(false);
   const [isModelSelectorOpen, setIsModelSelectorOpen] = useState(false);
+  const [isUsageOpen, setIsUsageOpen] = useState(false);
+  const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
   return (
@@ -21,6 +25,8 @@ const Index = () => {
       <div className="flex-1 flex flex-col">
         <ChatArea 
           onOpenModelSelector={() => setIsModelSelectorOpen(true)}
+          onOpenUsage={() => setIsUsageOpen(true)}
+          onOpenHistory={() => setIsHistoryOpen(true)}
           isSidebarCollapsed={isSidebarCollapsed}
           onToggleSidebar={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
         />
@@ -34,6 +40,16 @@ const Index = () => {
       <ModelSelector 
         isOpen={isModelSelectorOpen}
         onClose={() => setIsModelSelectorOpen(false)}
+      />
+
+      <UsagePopover 
+        isOpen={isUsageOpen}
+        onClose={() => setIsUsageOpen(false)}
+      />
+
+      <HistoryPopover 
+        isOpen={isHistoryOpen}
+        onClose={() => setIsHistoryOpen(false)}
       />
     </div>
   );

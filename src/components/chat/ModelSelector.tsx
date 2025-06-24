@@ -1,8 +1,7 @@
 
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Search, Crown } from "lucide-react";
+import { Search } from "lucide-react";
 
 interface ModelSelectorProps {
   isOpen: boolean;
@@ -10,6 +9,8 @@ interface ModelSelectorProps {
 }
 
 export const ModelSelector = ({ isOpen, onClose }: ModelSelectorProps) => {
+  if (!isOpen) return null;
+
   const models = [
     {
       name: "OpenAI GPT-4o-mini",
@@ -78,27 +79,34 @@ export const ModelSelector = ({ isOpen, onClose }: ModelSelectorProps) => {
   ];
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-md bg-[#1a1a1a] border-[#333] text-white">
+    <>
+      <div 
+        className="fixed inset-0 z-40" 
+        onClick={onClose}
+      />
+      <div className="absolute top-16 left-4 z-50 w-80 bg-[#1a1a1a] rounded-lg shadow-lg">
         {/* Search */}
-        <div className="relative mb-4">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-          <Input
-            placeholder="Search..."
-            className="bg-[#0d0d0d] border-[#333] text-white placeholder-gray-500 pl-10"
-          />
+        <div className="p-4">
+          <div className="relative">
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+            <Input
+              placeholder="Search..."
+              className="bg-[#0d0d0d] text-white placeholder-gray-500 pl-10"
+            />
+          </div>
         </div>
 
         {/* Models List */}
-        <div className="space-y-1 max-h-96 overflow-y-auto">
+        <div className="space-y-1 max-h-96 overflow-y-auto p-4 pt-0">
           {models.map((model, index) => (
             <div
               key={index}
               className={`flex items-center space-x-3 p-3 rounded-lg cursor-pointer transition-colors ${
                 model.isSelected 
-                  ? 'bg-[#333] border border-[#555]' 
-                  : 'hover:bg-[#333] border border-transparent'
+                  ? 'bg-[#333]' 
+                  : 'hover:bg-[#333]'
               }`}
+              onClick={onClose}
             >
               <div className="w-8 h-8 bg-[#333] rounded-full flex items-center justify-center">
                 <span className="text-xs">🤖</span>
@@ -126,7 +134,7 @@ export const ModelSelector = ({ isOpen, onClose }: ModelSelectorProps) => {
             </div>
           ))}
         </div>
-      </DialogContent>
-    </Dialog>
+      </div>
+    </>
   );
 };
