@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Plus, MessageSquare, Image, Search, HelpCircle, BarChart, Settings, CreditCard, ChevronLeft, ChevronRight, ChevronDown, ChevronUp, X } from "lucide-react";
@@ -33,7 +34,7 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
                 <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center">
                   <span className="text-xs font-bold">C</span>
                 </div>
-                <span className="text-white font-semibold">Reply</span>
+                <span className="text-white font-semibold">Chatly</span>
               </div>
               <Button
                 variant="ghost"
@@ -50,7 +51,10 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
               <Button 
                 className="w-full bg-[#1a1a1a] hover:bg-[#2a2a2a] text-white justify-start"
                 variant="outline"
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={() => {
+                  navigate('/');
+                  setIsMobileMenuOpen(false);
+                }}
               >
                 <Plus size={16} className="mr-2" />
                 Start New
@@ -79,8 +83,15 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
                 
                 <Button 
                   variant="ghost" 
-                  className="w-full justify-start text-gray-400 hover:text-white hover:bg-[#1a1a1a]"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`w-full justify-start ${
+                    isActive('/image-generation') 
+                      ? 'text-white bg-[#1a1a1a]' 
+                      : 'text-gray-400 hover:text-white hover:bg-[#1a1a1a]'
+                  }`}
+                  onClick={() => {
+                    navigate('/image-generation');
+                    setIsMobileMenuOpen(false);
+                  }}
                 >
                   <Image size={16} className="mr-3" />
                   Image Generation
@@ -137,7 +148,7 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
             <div className="p-4">
               <div className="mb-4">
                 <div className="text-xs text-gray-400 mb-2">Unlock all premium features</div>
-                <div className="text-xs text-gray-500 mb-3">Supercharge your productivity with Reply Pro</div>
+                <div className="text-xs text-gray-500 mb-3">Supercharge your productivity with Chatly Pro</div>
                 <Button 
                   className="w-full bg-blue-600 hover:bg-blue-700 text-white"
                   onClick={() => {
@@ -208,7 +219,7 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
                 <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center">
                   <span className="text-xs font-bold">C</span>
                 </div>
-                <span className="text-white font-semibold">Reply</span>
+                <span className="text-white font-semibold">Chatly</span>
               </div>
             )}
             <Button
@@ -226,6 +237,7 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
           <Button 
             className="w-full bg-[#1a1a1a] hover:bg-[#2a2a2a] text-white justify-start"
             variant="outline"
+            onClick={() => navigate('/')}
           >
             <Plus size={16} className="mr-2" />
             {!isCollapsed && "Start New"}
@@ -253,7 +265,12 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
             
             <Button 
               variant="ghost" 
-              className="w-full justify-start text-gray-400 hover:text-white hover:bg-[#1a1a1a]"
+              className={`w-full justify-start ${
+                isActive('/image-generation') 
+                  ? 'text-white bg-[#1a1a1a]' 
+                  : 'text-gray-400 hover:text-white hover:bg-[#1a1a1a]'
+              }`}
+              onClick={() => navigate('/image-generation')}
             >
               <Image size={16} className="mr-3" />
               {!isCollapsed && "Image Generation"}
@@ -306,7 +323,7 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
           {!isCollapsed && (
             <div className="mb-3">
               <div className="text-xs text-gray-400 mb-2">Unlock all premium features</div>
-              <div className="text-xs text-gray-500 mb-3">Supercharge your productivity with Reply Pro</div>
+              <div className="text-xs text-gray-500 mb-3">Supercharge your productivity with Chatly Pro</div>
               <Button 
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white"
                 onClick={onOpenPricing}
@@ -377,7 +394,7 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
             <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center">
               <span className="text-xs font-bold">C</span>
             </div>
-            <span className="text-white font-semibold">Reply</span>
+            <span className="text-white font-semibold">Chatly</span>
           </div>
         </div>
       </div>

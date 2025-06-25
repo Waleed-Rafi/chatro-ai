@@ -1,7 +1,9 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ChevronDown, Send, Paperclip, Menu, ArrowUp } from "lucide-react";
+import { ChatConversation } from "./ChatConversation";
 
 interface ChatAreaProps {
   onOpenModelSelector: () => void;
@@ -19,7 +21,117 @@ export const ChatArea = ({
   onToggleSidebar 
 }: ChatAreaProps) => {
   const [message, setMessage] = useState("");
+  const [isConversationStarted, setIsConversationStarted] = useState(false);
+  const [initialMessage, setInitialMessage] = useState("");
 
+  const handleSendMessage = () => {
+    if (!message.trim()) return;
+    
+    setInitialMessage(message);
+    setIsConversationStarted(true);
+    setMessage("");
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSendMessage();
+    }
+  };
+
+  // If conversation has started, show the conversation component
+  if (isConversationStarted) {
+    return (
+      <div className={`flex-1 flex flex-col transition-all duration-300 ${
+        isSidebarCollapsed ? 'md:ml-16' : 'md:ml-64'
+      } pt-16 md:pt-0 h-screen`}>
+        {/* Desktop Header */}
+        <div className="hidden md:flex items-center justify-between p-4 border-b border-[#2a2a2a]">
+          <div className="flex items-center space-x-3">
+            {isSidebarCollapsed && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={onToggleSidebar}
+                className="text-gray-400 hover:text-white"
+              >
+                <Menu size={16} />
+              </Button>
+            )}
+            
+            <Button
+              variant="ghost"
+              onClick={onOpenModelSelector}
+              className="text-white hover:bg-[#1a1a1a] flex items-center space-x-2"
+            >
+              <span>OpenAI GPT-4o-mini</span>
+              <ChevronDown size={16} />
+            </Button>
+          </div>
+
+          <div className="flex items-center space-x-2">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="text-gray-400 hover:text-white"
+              onClick={onOpenUsage}
+            >
+              <span className="mr-1">⚡</span>
+              Usage
+            </Button>
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="text-gray-400 hover:text-white"
+              onClick={onOpenHistory}
+            >
+              <span className="mr-1">🕒</span>
+              History
+            </Button>
+          </div>
+        </div>
+
+        {/* Mobile Header */}
+        <div className="md:hidden fixed top-0 left-0 right-0 bg-[#1a1a1a] p-4 z-30 border-b border-[#2a2a2a]">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2 flex-1 min-w-0">
+              <Button
+                variant="ghost"
+                onClick={onOpenModelSelector}
+                className="text-white hover:bg-[#2a2a2a] flex items-center space-x-2 min-w-0 flex-1 justify-start px-3 py-2"
+              >
+                <span className="truncate text-sm">OpenAI GPT-4o-mini</span>
+                <ChevronDown size={14} className="flex-shrink-0" />
+              </Button>
+            </div>
+
+            <div className="flex items-center space-x-1 flex-shrink-0">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="text-gray-400 hover:text-white p-2"
+                onClick={onOpenUsage}
+              >
+                <span className="text-lg">⚡</span>
+              </Button>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="text-gray-400 hover:text-white p-2"
+                onClick={onOpenHistory}
+              >
+                <span className="text-lg">🕒</span>
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        <ChatConversation initialMessage={initialMessage} />
+      </div>
+    );
+  }
+
+  // Default empty state
   return (
     <div className={`flex-1 flex flex-col transition-all duration-300 ${
       isSidebarCollapsed ? 'md:ml-16' : 'md:ml-64'
@@ -73,7 +185,6 @@ export const ChatArea = ({
       {/* Mobile Header - Single Row */}
       <div className="md:hidden fixed top-0 left-0 right-0 bg-[#1a1a1a] p-4 z-30">
         <div className="flex items-center justify-between">
-          {/* Left: Model selector with truncated text */}
           <div className="flex items-center space-x-2 flex-1 min-w-0">
             <Button
               variant="ghost"
@@ -85,7 +196,6 @@ export const ChatArea = ({
             </Button>
           </div>
 
-          {/* Right: Usage and History buttons */}
           <div className="flex items-center space-x-1 flex-shrink-0">
             <Button 
               variant="ghost" 
@@ -123,12 +233,14 @@ export const ChatArea = ({
                   placeholder="Type your message..."
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
+                  onKeyPress={handleKeyPress}
                   className="flex-1 bg-transparent border-0 text-white placeholder-gray-500 focus:ring-0 focus:outline-none"
                 />
                 <Button 
                   size="sm" 
                   className="bg-[#555] hover:bg-[#666] text-white p-2 rounded-full ml-3"
                   disabled={!message.trim()}
+                  onClick={handleSendMessage}
                 >
                   <ArrowUp size={16} />
                 </Button>
