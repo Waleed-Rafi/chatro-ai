@@ -31,29 +31,29 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
             className="fixed inset-0 bg-black/50 z-50 md:hidden animate-fade-in" 
             onClick={() => setIsMobileMenuOpen(false)}
           />
-          <div className="fixed left-0 top-0 bottom-0 w-80 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 z-50 md:hidden flex flex-col animate-slide-in border-r border-gray-200 dark:border-gray-700">
+          <div className="fixed left-0 top-0 bottom-0 w-80 bg-sidebar z-50 md:hidden flex flex-col animate-slide-in">
             {/* Header */}
-            <div className="p-4 flex items-center justify-between border-b border-gray-200 dark:border-gray-700">
+            <div className="p-4 flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center">
-                  <span className="text-xs font-bold text-white">C</span>
+                  <span className="text-xs font-bold">C</span>
                 </div>
-                <span className="text-gray-900 dark:text-white font-semibold">Chatly</span>
+                <span className="text-white font-semibold">Chatly</span>
               </div>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                className="text-gray-400 hover:text-white"
               >
                 <X size={20} />
               </Button>
             </div>
 
             {/* Start New Button */}
-            <div className="px-4 pt-4 mb-4">
+            <div className="px-4 mb-4">
               <Button 
-                className="w-full bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-900 dark:text-white justify-start border border-gray-200 dark:border-gray-700"
+                className="w-full bg-[#1a1a1a] hover:bg-[#2a2a2a] text-white justify-start"
                 variant="outline"
                 onClick={() => {
                   navigate('/');
@@ -67,14 +67,14 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
 
             {/* Tools Section */}
             <div className="flex-1 px-4">
-              <div className="text-xs text-gray-500 dark:text-gray-400 mb-3 px-2 font-medium">Tools</div>
+              <div className="text-xs text-gray-400 mb-2 px-2">Tools</div>
               <div className="space-y-1 mb-6">
                 <Button 
                   variant="ghost" 
                   className={`w-full justify-start ${
                     isActive('/') 
-                      ? 'text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-800' 
-                      : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800'
+                      ? 'text-white bg-[#1a1a1a]' 
+                      : 'text-gray-400 hover:text-white hover:bg-[#1a1a1a]'
                   }`}
                   onClick={() => {
                     navigate('/');
@@ -89,8 +89,8 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
                   variant="ghost" 
                   className={`w-full justify-start ${
                     isActive('/image-generation') 
-                      ? 'text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-800' 
-                      : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800'
+                      ? 'text-white bg-[#1a1a1a]' 
+                      : 'text-gray-400 hover:text-white hover:bg-[#1a1a1a]'
                   }`}
                   onClick={() => {
                     navigate('/image-generation');
@@ -103,23 +103,23 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
                 
                 <Button 
                   variant="ghost" 
-                  className="w-full justify-start text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800"
+                  className="w-full justify-start text-gray-400 hover:text-white hover:bg-[#1a1a1a]"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   <Search size={16} className="mr-3" />
                   AI Search Engine
-                  <span className="ml-auto text-xs bg-blue-600 px-1.5 py-0.5 rounded text-white">BETA</span>
+                  <span className="ml-auto text-xs bg-blue-600 px-1.5 py-0.5 rounded">BETA</span>
                 </Button>
               </div>
 
-              <div className="text-xs text-gray-500 dark:text-gray-400 mb-3 px-2 font-medium">Others</div>
+              <div className="text-xs text-gray-400 mb-2 px-2">Others</div>
               <div className="space-y-1">
                 <Button 
                   variant="ghost" 
                   className={`w-full justify-start ${
                     isActive('/support') 
-                      ? 'text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-800' 
-                      : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800'
+                      ? 'text-white bg-[#1a1a1a]' 
+                      : 'text-gray-400 hover:text-white hover:bg-[#1a1a1a]'
                   }`}
                   onClick={() => {
                     navigate('/support');
@@ -134,8 +134,8 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
                   variant="ghost" 
                   className={`w-full justify-start ${
                     isActive('/pricing') 
-                      ? 'text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-800' 
-                      : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800'
+                      ? 'text-white bg-[#1a1a1a]' 
+                      : 'text-gray-400 hover:text-white hover:bg-[#1a1a1a]'
                   }`}
                   onClick={() => {
                     navigate('/pricing');
@@ -149,11 +149,11 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
             </div>
 
             {/* Bottom Section */}
-            <div className="p-4 border-t border-gray-200 dark:border-gray-700">
+            <div className="p-4">
               {isLoggedIn && (
                 <div className="mb-4">
-                  <div className="text-xs text-gray-600 dark:text-gray-400 mb-2 font-medium">Unlock all premium features</div>
-                  <div className="text-xs text-gray-500 dark:text-gray-500 mb-3">Supercharge your productivity with Chatly Pro</div>
+                  <div className="text-xs text-gray-400 mb-2">Unlock all premium features</div>
+                  <div className="text-xs text-gray-500 mb-3">Supercharge your productivity with Chatly Pro</div>
                   <Button 
                     className="w-full bg-blue-600 hover:bg-blue-700 text-white"
                     onClick={() => {
@@ -170,14 +170,14 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
               {isLoggedIn && (
                 <div className="relative">
                   <div 
-                    className="flex items-center space-x-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800"
+                    className="flex items-center space-x-2 cursor-pointer p-2 rounded-lg hover:bg-[#1a1a1a]"
                     onClick={() => setIsProfileOpen(!isProfileOpen)}
                   >
-                    <div className="w-8 h-8 bg-gray-400 dark:bg-gray-600 rounded-full flex items-center justify-center">
-                      <span className="text-xs text-white">WR</span>
+                    <div className="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center">
+                      <span className="text-xs">WR</span>
                     </div>
                     <div className="flex-1">
-                      <div className="text-sm text-gray-900 dark:text-white">Waleed Rafi</div>
+                      <div className="text-sm text-white">Waleed Rafi</div>
                     </div>
                     {isProfileOpen ? <ChevronUp size={16} className="text-gray-400" /> : <ChevronDown size={16} className="text-gray-400" />}
                   </div>
@@ -188,10 +188,10 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
                         className="fixed inset-0 z-40" 
                         onClick={() => setIsProfileOpen(false)}
                       />
-                      <div className="absolute bottom-full left-0 mb-2 w-full bg-white dark:bg-gray-800 rounded-lg shadow-lg z-50 p-2 border border-gray-200 dark:border-gray-700">
+                      <div className="absolute bottom-full left-0 mb-2 w-full bg-[#2a2a2a] rounded-lg shadow-lg z-50 p-2">
                         <Button
                           variant="ghost"
-                          className="w-full justify-start text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700 p-3"
+                          className="w-full justify-start text-white hover:bg-[#333] p-3"
                           onClick={() => setIsProfileOpen(false)}
                         >
                           <Settings size={16} className="mr-3" />
@@ -199,7 +199,7 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
                         </Button>
                         <Button
                           variant="ghost"
-                          className="w-full justify-start text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700 p-3"
+                          className="w-full justify-start text-white hover:bg-[#333] p-3"
                           onClick={() => setIsProfileOpen(false)}
                         >
                           <span className="mr-3">↗</span>
@@ -216,25 +216,25 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
       )}
 
       {/* Desktop Sidebar */}
-      <div className={`bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 transition-all duration-300 ${
+      <div className={`bg-sidebar transition-all duration-300 ${
         isCollapsed ? 'w-16' : 'w-64'
-      } flex flex-col fixed h-full z-40 hidden md:flex border-r border-gray-200 dark:border-gray-700`}>
+      } flex flex-col fixed h-full z-40 hidden md:flex border-r border-sidebar-border`}>
         {/* Header */}
-        <div className="p-3 border-b border-gray-200 dark:border-gray-700">
+        <div className="p-3">
           <div className="flex items-center justify-between">
             {!isCollapsed && (
               <div className="flex items-center space-x-2">
                 <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center">
-                  <span className="text-xs font-bold text-white">C</span>
+                  <span className="text-xs font-bold">C</span>
                 </div>
-                <span className="text-gray-900 dark:text-white font-semibold">Chatly</span>
+                <span className="text-sidebar-foreground font-semibold">Chatly</span>
               </div>
             )}
             <Button
               variant="ghost"
               size="sm"
               onClick={onToggleCollapse}
-              className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white p-1"
+              className="text-sidebar-foreground/60 hover:text-sidebar-foreground p-1"
             >
               {isCollapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
             </Button>
@@ -243,7 +243,7 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
 
         <div className="p-3">
           <Button 
-            className="w-full bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-900 dark:text-white justify-start border border-gray-200 dark:border-gray-700"
+            className="w-full bg-sidebar-accent hover:bg-sidebar-accent/80 text-sidebar-foreground justify-start"
             variant="outline"
             onClick={() => navigate('/')}
           >
@@ -254,7 +254,7 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
 
         <div className="flex-1 px-3">
           {!isCollapsed && (
-            <div className="text-xs text-gray-500 dark:text-gray-400 mb-3 px-2 font-medium">Tools</div>
+            <div className="text-xs text-sidebar-foreground/60 mb-2 px-2">Tools</div>
           )}
           
           <div className="space-y-1">
@@ -262,8 +262,8 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
               variant="ghost" 
               className={`w-full justify-start ${
                 isActive('/') 
-                  ? 'text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-800' 
-                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800'
+                  ? 'text-sidebar-foreground bg-sidebar-accent' 
+                  : 'text-sidebar-foreground/60 hover:text-sidebar-foreground hover:bg-sidebar-accent'
               }`}
               onClick={() => navigate('/')}
             >
@@ -275,8 +275,8 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
               variant="ghost" 
               className={`w-full justify-start ${
                 isActive('/image-generation') 
-                  ? 'text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-800' 
-                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800'
+                  ? 'text-sidebar-foreground bg-sidebar-accent' 
+                  : 'text-sidebar-foreground/60 hover:text-sidebar-foreground hover:bg-sidebar-accent'
               }`}
               onClick={() => navigate('/image-generation')}
             >
@@ -286,16 +286,16 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
             
             <Button 
               variant="ghost" 
-              className="w-full justify-start text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800"
+              className="w-full justify-start text-sidebar-foreground/60 hover:text-sidebar-foreground hover:bg-sidebar-accent"
             >
               <Search size={16} className="mr-3" />
               {!isCollapsed && "AI Search Engine"}
-              {!isCollapsed && <span className="ml-auto text-xs bg-blue-600 px-1.5 py-0.5 rounded text-white">BETA</span>}
+              {!isCollapsed && <span className="ml-auto text-xs bg-blue-600 px-1.5 py-0.5 rounded">BETA</span>}
             </Button>
           </div>
 
           {!isCollapsed && (
-            <div className="text-xs text-gray-500 dark:text-gray-400 mb-3 px-2 mt-6 font-medium">Others</div>
+            <div className="text-xs text-sidebar-foreground/60 mb-2 px-2 mt-6">Others</div>
           )}
           
           <div className="space-y-1">
@@ -303,8 +303,8 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
               variant="ghost" 
               className={`w-full justify-start ${
                 isActive('/support') 
-                  ? 'text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-800' 
-                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800'
+                  ? 'text-sidebar-foreground bg-sidebar-accent' 
+                  : 'text-sidebar-foreground/60 hover:text-sidebar-foreground hover:bg-sidebar-accent'
               }`}
               onClick={() => navigate('/support')}
             >
@@ -316,8 +316,8 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
               variant="ghost" 
               className={`w-full justify-start ${
                 isActive('/pricing') 
-                  ? 'text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-800' 
-                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800'
+                  ? 'text-sidebar-foreground bg-sidebar-accent' 
+                  : 'text-sidebar-foreground/60 hover:text-sidebar-foreground hover:bg-sidebar-accent'
               }`}
               onClick={() => navigate('/pricing')}
             >
@@ -327,11 +327,11 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
           </div>
         </div>
 
-        <div className="p-3 border-t border-gray-200 dark:border-gray-700">
+        <div className="p-3">
           {isLoggedIn && !isCollapsed && (
             <div className="mb-3">
-              <div className="text-xs text-gray-600 dark:text-gray-400 mb-2 font-medium">Unlock all premium features</div>
-              <div className="text-xs text-gray-500 dark:text-gray-500 mb-3">Supercharge your productivity with Chatly Pro</div>
+              <div className="text-xs text-sidebar-foreground/60 mb-2">Unlock all premium features</div>
+              <div className="text-xs text-sidebar-foreground/50 mb-3">Supercharge your productivity with Chatly Pro</div>
               <Button 
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white"
                 onClick={onOpenPricing}
@@ -344,18 +344,18 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
           {isLoggedIn && (
             <div className="relative">
               <div 
-                className="flex items-center space-x-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800"
+                className="flex items-center space-x-2 cursor-pointer p-2 rounded-lg hover:bg-sidebar-accent"
                 onClick={() => setIsProfileOpen(!isProfileOpen)}
               >
-                <div className="w-8 h-8 bg-gray-400 dark:bg-gray-600 rounded-full flex items-center justify-center">
-                  <span className="text-xs text-white">WR</span>
+                <div className="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center">
+                  <span className="text-xs">WR</span>
                 </div>
                 {!isCollapsed && (
                   <>
                     <div className="flex-1">
-                      <div className="text-sm text-gray-900 dark:text-white">Waleed Rafi</div>
+                      <div className="text-sm text-sidebar-foreground">Waleed Rafi</div>
                     </div>
-                    {isProfileOpen ? <ChevronUp size={16} className="text-gray-400" /> : <ChevronDown size={16} className="text-gray-400" />}
+                    {isProfileOpen ? <ChevronUp size={16} className="text-sidebar-foreground/60" /> : <ChevronDown size={16} className="text-sidebar-foreground/60" />}
                   </>
                 )}
               </div>
@@ -366,10 +366,10 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
                     className="fixed inset-0 z-40" 
                     onClick={() => setIsProfileOpen(false)}
                   />
-                  <div className="absolute bottom-full left-0 mb-2 w-full bg-white dark:bg-gray-800 rounded-lg shadow-lg z-50 p-2 animate-fade-in border border-gray-200 dark:border-gray-700">
+                  <div className="absolute bottom-full left-0 mb-2 w-full bg-sidebar-accent rounded-lg shadow-lg z-50 p-2 animate-fade-in">
                     <Button
                       variant="ghost"
-                      className="w-full justify-start text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700 p-3"
+                      className="w-full justify-start text-sidebar-foreground hover:bg-sidebar-accent/80 p-3"
                       onClick={() => {
                         setIsSettingsOpen(true);
                         setIsProfileOpen(false);
@@ -399,7 +399,7 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: Sideba
           </Button>
           <div className="flex items-center space-x-2">
             <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center">
-              <span className="text-xs font-bold text-white">C</span>
+              <span className="text-xs font-bold">C</span>
             </div>
             <span className="text-foreground font-semibold">Chatly</span>
           </div>
