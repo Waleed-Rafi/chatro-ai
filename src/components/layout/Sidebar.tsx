@@ -1,6 +1,7 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Plus, MessageSquare, Image, Search, HelpCircle, BarChart, Settings, CreditCard, ChevronLeft, ChevronRight, ChevronDown, ChevronUp, X, LogIn } from "lucide-react";
+import { Plus, MessageSquare, Image, Search, HelpCircle, BarChart, Settings, CreditCard, ChevronLeft, ChevronRight, ChevronDown, ChevronUp, X } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { SettingsModal } from "@/components/modals/SettingsModal";
@@ -9,10 +10,9 @@ interface SidebarProps {
   isCollapsed: boolean;
   onToggleCollapse: () => void;
   onOpenPricing: () => void;
-  onLogin?: () => void;
 }
 
-export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing, onLogin }: SidebarProps) => {
+export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing }: SidebarProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { isLoggedIn } = useAuth();
@@ -150,62 +150,66 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing, onLogin 
 
             {/* Bottom Section */}
             <div className="p-4">
-              <div className="mb-4">
-                <div className="text-xs text-gray-400 mb-2">Unlock all premium features</div>
-                <div className="text-xs text-gray-500 mb-3">Supercharge your productivity with Chatly Pro</div>
-                <Button 
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-                  onClick={() => {
-                    onOpenPricing();
-                    setIsMobileMenuOpen(false);
-                  }}
-                >
-                  👑 Upgrade
-                </Button>
-              </div>
+              {isLoggedIn && (
+                <div className="mb-4">
+                  <div className="text-xs text-gray-400 mb-2">Unlock all premium features</div>
+                  <div className="text-xs text-gray-500 mb-3">Supercharge your productivity with Chatly Pro</div>
+                  <Button 
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                    onClick={() => {
+                      onOpenPricing();
+                      setIsMobileMenuOpen(false);
+                    }}
+                  >
+                    👑 Upgrade
+                  </Button>
+                </div>
+              )}
               
               {/* Profile Section */}
-              <div className="relative">
-                <div 
-                  className="flex items-center space-x-2 cursor-pointer p-2 rounded-lg hover:bg-[#1a1a1a]"
-                  onClick={() => setIsProfileOpen(!isProfileOpen)}
-                >
-                  <div className="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center">
-                    <span className="text-xs">WR</span>
-                  </div>
-                  <div className="flex-1">
-                    <div className="text-sm text-white">Waleed Rafi</div>
-                  </div>
-                  {isProfileOpen ? <ChevronUp size={16} className="text-gray-400" /> : <ChevronDown size={16} className="text-gray-400" />}
-                </div>
-
-                {isProfileOpen && (
-                  <>
-                    <div 
-                      className="fixed inset-0 z-40" 
-                      onClick={() => setIsProfileOpen(false)}
-                    />
-                    <div className="absolute bottom-full left-0 mb-2 w-full bg-[#2a2a2a] rounded-lg shadow-lg z-50 p-2">
-                      <Button
-                        variant="ghost"
-                        className="w-full justify-start text-white hover:bg-[#333] p-3"
-                        onClick={() => setIsProfileOpen(false)}
-                      >
-                        <Settings size={16} className="mr-3" />
-                        Settings
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        className="w-full justify-start text-white hover:bg-[#333] p-3"
-                        onClick={() => setIsProfileOpen(false)}
-                      >
-                        <span className="mr-3">↗</span>
-                        Log out
-                      </Button>
+              {isLoggedIn && (
+                <div className="relative">
+                  <div 
+                    className="flex items-center space-x-2 cursor-pointer p-2 rounded-lg hover:bg-[#1a1a1a]"
+                    onClick={() => setIsProfileOpen(!isProfileOpen)}
+                  >
+                    <div className="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center">
+                      <span className="text-xs">WR</span>
                     </div>
-                  </>
-                )}
-              </div>
+                    <div className="flex-1">
+                      <div className="text-sm text-white">Waleed Rafi</div>
+                    </div>
+                    {isProfileOpen ? <ChevronUp size={16} className="text-gray-400" /> : <ChevronDown size={16} className="text-gray-400" />}
+                  </div>
+
+                  {isProfileOpen && (
+                    <>
+                      <div 
+                        className="fixed inset-0 z-40" 
+                        onClick={() => setIsProfileOpen(false)}
+                      />
+                      <div className="absolute bottom-full left-0 mb-2 w-full bg-[#2a2a2a] rounded-lg shadow-lg z-50 p-2">
+                        <Button
+                          variant="ghost"
+                          className="w-full justify-start text-white hover:bg-[#333] p-3"
+                          onClick={() => setIsProfileOpen(false)}
+                        >
+                          <Settings size={16} className="mr-3" />
+                          Settings
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          className="w-full justify-start text-white hover:bg-[#333] p-3"
+                          onClick={() => setIsProfileOpen(false)}
+                        >
+                          <span className="mr-3">↗</span>
+                          Log out
+                        </Button>
+                      </div>
+                    </>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </>
@@ -324,18 +328,6 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing, onLogin 
         </div>
 
         <div className="p-3">
-          {!isLoggedIn && !isCollapsed && (
-            <div className="mb-3">
-              <Button 
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-                onClick={onLogin}
-              >
-                <LogIn size={16} className="mr-2" />
-                Login
-              </Button>
-            </div>
-          )}
-
           {isLoggedIn && !isCollapsed && (
             <div className="mb-3">
               <div className="text-xs text-sidebar-foreground/60 mb-2">Unlock all premium features</div>
@@ -412,16 +404,6 @@ export const Sidebar = ({ isCollapsed, onToggleCollapse, onOpenPricing, onLogin 
             <span className="text-foreground font-semibold">Chatly</span>
           </div>
         </div>
-        
-        {!isLoggedIn && (
-          <Button
-            size="sm"
-            className="bg-blue-600 hover:bg-blue-700 text-white"
-            onClick={onLogin}
-          >
-            Login
-          </Button>
-        )}
       </div>
 
       <SettingsModal 
