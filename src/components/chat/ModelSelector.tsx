@@ -97,14 +97,14 @@ export const ModelSelector = ({ isOpen, onClose }: ModelSelectorProps) => {
           className="fixed inset-0 z-40" 
           onClick={onClose}
         />
-        <div className="absolute top-16 left-8 z-50 w-80 bg-[#1a1a1a] rounded-lg shadow-lg">
+        <div className="absolute top-12 left-8 z-50 w-80 bg-[#1a1a1a] rounded-lg shadow-lg border border-[#333]">
           {/* Search */}
           <div className="p-4">
             <div className="relative">
               <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
               <Input
                 placeholder="Search..."
-                className="bg-[#0d0d0d] text-white placeholder-gray-500 pl-10"
+                className="bg-[#0d0d0d] text-white placeholder-gray-500 pl-10 border-[#333]"
               />
             </div>
           </div>
@@ -171,7 +171,7 @@ export const ModelSelector = ({ isOpen, onClose }: ModelSelectorProps) => {
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
             <Input
               placeholder="Search..."
-              className="bg-[#0d0d0d] text-white placeholder-gray-500 pl-10"
+              className="bg-[#0d0d0d] text-white placeholder-gray-500 pl-10 border-[#333]"
             />
           </div>
         </div>

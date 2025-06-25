@@ -84,7 +84,7 @@ export const ChatConversation = ({ initialMessage }: ChatConversationProps) => {
 
   return (
     <div className="flex-1 flex flex-col h-full">
-      {/* Messages Area */}
+      {/* Scrollable Messages Area */}
       <div className="flex-1 overflow-y-auto p-4 md:p-8 space-y-6">
         <div className="max-w-4xl mx-auto">
           {messages.map((msg) => (
@@ -95,7 +95,11 @@ export const ChatConversation = ({ initialMessage }: ChatConversationProps) => {
                 </div>
               )}
               
-              <div className={`max-w-xs md:max-w-2xl ${msg.type === 'user' ? 'bg-[#007AFF] text-white' : 'bg-transparent'} rounded-2xl p-4`}>
+              <div className={`max-w-xs md:max-w-2xl ${
+                msg.type === 'user' 
+                  ? 'bg-[#2a2a2a] text-white' 
+                  : 'bg-transparent'
+              } rounded-2xl p-4`}>
                 <p className="text-white">{msg.content}</p>
                 
                 {msg.type === 'assistant' && (
@@ -150,8 +154,8 @@ export const ChatConversation = ({ initialMessage }: ChatConversationProps) => {
         </div>
       </div>
 
-      {/* Input Area - Fixed at bottom */}
-      <div className="border-t border-[#2a2a2a] p-4">
+      {/* Fixed Input Area at Bottom */}
+      <div className="border-t border-[#2a2a2a] p-4 bg-[#1a1a1a]">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center bg-[#2a2a2a] rounded-full px-4 py-3">
             <Paperclip size={20} className="text-gray-400 mr-3 cursor-pointer hover:text-white" />
