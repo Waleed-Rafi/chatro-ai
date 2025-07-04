@@ -1,9 +1,7 @@
 
-import { useState, useEffect, useRef } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { ArrowUp, Paperclip, Copy, ThumbsUp, ThumbsDown, RefreshCw } from "lucide-react";
 
 interface Message {
@@ -19,8 +17,6 @@ interface ChatConversationProps {
 }
 
 export const ChatConversation = ({ initialMessage }: ChatConversationProps) => {
-  const navigate = useNavigate();
-  const { chatId } = useParams();
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<Message[]>(() => {
     if (initialMessage) {
@@ -43,27 +39,6 @@ export const ChatConversation = ({ initialMessage }: ChatConversationProps) => {
     return [];
   });
   const [isTyping, setIsTyping] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
-
-  // Auto-scroll to bottom when new messages are added
-  const scrollToBottom = () => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages, isTyping]);
-
-  // Generate unique chat ID and navigate to new URL when first message is sent
-  useEffect(() => {
-    if (messages.length > 0 && !chatId) {
-      const newChatId = `chat-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-      navigate(`/chat/${newChatId}`, { replace: true });
-    }
-  }, [messages.length, chatId, navigate]);
 
   const handleSendMessage = async () => {
     if (!message.trim()) return;
@@ -110,8 +85,8 @@ export const ChatConversation = ({ initialMessage }: ChatConversationProps) => {
   return (
     <div className="flex-1 flex flex-col h-full">
       {/* Scrollable Messages Area */}
-      <ScrollArea className="flex-1 p-4 md:p-8" ref={scrollAreaRef}>
-        <div className="max-w-4xl mx-auto space-y-6">
+      <div className="flex-1 overflow-y-auto p-4 md:p-8 space-y-6">
+        <div className="max-w-4xl mx-auto">
           {messages.map((msg) => (
             <div key={msg.id} className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'} mb-6`}>
               {msg.type === 'assistant' && (
@@ -176,14 +151,11 @@ export const ChatConversation = ({ initialMessage }: ChatConversationProps) => {
               </div>
             </div>
           )}
-          
-          {/* Invisible div to scroll to */}
-          <div ref={messagesEndRef} />
         </div>
-      </ScrollArea>
+      </div>
 
       {/* Fixed Input Area at Bottom */}
-      <div className="border-t border-[#2a2a2a] p-4 bg-[#1a1a1a] flex-shrink-0">
+      <div className="border-t border-[#2a2a2a] p-4 bg-[#1a1a1a]">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center bg-[#2a2a2a] rounded-full px-4 py-3">
             <Paperclip size={20} className="text-gray-400 mr-3 cursor-pointer hover:text-white" />

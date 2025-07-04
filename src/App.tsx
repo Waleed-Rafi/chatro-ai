@@ -24,7 +24,6 @@ const App = () => (
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
-              <Route path="/chat/:chatId" element={<Index />} />
               <Route path="/image-generation" element={<ImageGenerationLayout />} />
               <Route path="/support" element={<Support />} />
               <Route path="/pricing" element={<Pricing />} />
