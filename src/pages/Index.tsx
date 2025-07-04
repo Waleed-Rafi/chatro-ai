@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { ChatArea } from "@/components/chat/ChatArea";
@@ -9,6 +9,7 @@ import { ModelSelector } from "@/components/chat/ModelSelector";
 import { UsagePopover } from "@/components/chat/UsagePopover";
 import { HistoryPopover } from "@/components/chat/HistoryPopover";
 import { LoginModal } from "@/components/modals/LoginModal";
+import { DesktopLoginModal } from "@/components/modals/DesktopLoginModal";
 import { Button } from "@/components/ui/button";
 import { LogIn } from "lucide-react";
 
@@ -20,6 +21,17 @@ const Index = () => {
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsDesktop(window.innerWidth >= 768);
+    };
+
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
 
   const handleLoginClick = () => {
     setIsLoginOpen(true);
@@ -35,20 +47,10 @@ const Index = () => {
         />
         
         {/* Header for logged out users */}
-        <div className="flex-1 flex flex-col">
-          <div className="h-12 md:h-16 border-b border-border flex items-center justify-between px-4 md:px-6 bg-background">
-            <div className="flex items-center space-x-3">
-              <div className="hidden md:flex items-center space-x-2">
-                <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center">
-                  <span className="text-xs font-bold text-white">C</span>
-                </div>
-                <span className="text-foreground font-semibold">Chatly</span>
-              </div>
-              <div className="text-sm text-muted-foreground hidden md:block">
-                OpenAI GPT-4o-mini
-              </div>
-            </div>
-            
+        <div className={`flex-1 flex flex-col transition-all duration-300 ${
+          isSidebarCollapsed ? 'md:ml-16' : 'md:ml-64'
+        }`}>
+          <div className="hidden md:flex h-16 border-b border-border items-center justify-end px-6 bg-background">
             <Button
               className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg"
               onClick={handleLoginClick}
@@ -61,10 +63,18 @@ const Index = () => {
           <OnboardingHome onLogin={handleLoginClick} />
         </div>
 
-        <LoginModal 
-          isOpen={isLoginOpen}
-          onClose={() => setIsLoginOpen(false)}
-        />
+        {/* Use different modals based on screen size */}
+        {isDesktop ? (
+          <DesktopLoginModal 
+            isOpen={isLoginOpen}
+            onClose={() => setIsLoginOpen(false)}
+          />
+        ) : (
+          <LoginModal 
+            isOpen={isLoginOpen}
+            onClose={() => setIsLoginOpen(false)}
+          />
+        )}
 
         <PricingModal 
           isOpen={isPricingOpen}
