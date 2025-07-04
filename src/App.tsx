@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
+import Auth from "./pages/Auth";
 import ImageGenerationLayout from "./components/layout/ImageGenerationLayout";
 import Support from "./pages/Support";
 import Pricing from "./pages/Pricing";
@@ -24,6 +25,7 @@ const App = () => (
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/auth" element={<Auth />} />
               <Route path="/image-generation" element={<ImageGenerationLayout />} />
               <Route path="/support" element={<Support />} />
               <Route path="/pricing" element={<Pricing />} />

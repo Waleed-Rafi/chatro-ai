@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { ChatArea } from "@/components/chat/ChatArea";
 import { OnboardingHome } from "@/components/onboarding/OnboardingHome";
@@ -8,33 +9,39 @@ import { PricingModal } from "@/components/modals/PricingModal";
 import { ModelSelector } from "@/components/chat/ModelSelector";
 import { UsagePopover } from "@/components/chat/UsagePopover";
 import { HistoryPopover } from "@/components/chat/HistoryPopover";
-import { LoginModal } from "@/components/modals/LoginModal";
-import { DesktopLoginModal } from "@/components/modals/DesktopLoginModal";
+import { DailyPopup } from "@/components/modals/DailyPopup";
 import { Button } from "@/components/ui/button";
 import { LogIn } from "lucide-react";
 
 const Index = () => {
   const { isLoggedIn } = useAuth();
+  const navigate = useNavigate();
   const [isPricingOpen, setIsPricingOpen] = useState(false);
   const [isModelSelectorOpen, setIsModelSelectorOpen] = useState(false);
   const [isUsageOpen, setIsUsageOpen] = useState(false);
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isDailyPopupOpen, setIsDailyPopupOpen] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(false);
 
+  // Check if daily popup should be shown
   useEffect(() => {
-    const checkScreenSize = () => {
-      setIsDesktop(window.innerWidth >= 768);
-    };
-
-    checkScreenSize();
-    window.addEventListener('resize', checkScreenSize);
-    return () => window.removeEventListener('resize', checkScreenSize);
-  }, []);
+    if (!isLoggedIn) {
+      const hidePopupUntil = localStorage.getItem('hidePopupUntil');
+      const now = new Date().getTime();
+      
+      if (!hidePopupUntil || now > parseInt(hidePopupUntil)) {
+        // Show popup after a short delay
+        const timer = setTimeout(() => {
+          setIsDailyPopupOpen(true);
+        }, 2000);
+        
+        return () => clearTimeout(timer);
+      }
+    }
+  }, [isLoggedIn]);
 
   const handleLoginClick = () => {
-    setIsLoginOpen(true);
+    navigate('/auth?mode=login');
   };
 
   if (!isLoggedIn) {
@@ -63,18 +70,11 @@ const Index = () => {
           <OnboardingHome onLogin={handleLoginClick} />
         </div>
 
-        {/* Use different modals based on screen size */}
-        {isDesktop ? (
-          <DesktopLoginModal 
-            isOpen={isLoginOpen}
-            onClose={() => setIsLoginOpen(false)}
-          />
-        ) : (
-          <LoginModal 
-            isOpen={isLoginOpen}
-            onClose={() => setIsLoginOpen(false)}
-          />
-        )}
+        {/* Daily Popup */}
+        <DailyPopup 
+          isOpen={isDailyPopupOpen}
+          onClose={() => setIsDailyPopupOpen(false)}
+        />
 
         <PricingModal 
           isOpen={isPricingOpen}
