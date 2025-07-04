@@ -46,7 +46,7 @@ export const ChatHeader = ({
           <Button
             variant='ghost'
             onClick={onOpenModelSelector}
-            className='text-white hover:bg-[#1a1a1a] flex items-center space-x-2'
+            className='text-white bg-[#1a1a1a] hover:bg-[#1a1a1aaa] rounded-full flex items-center space-x-2'
           >
             <span>OpenAI GPT-4o-mini</span>
             <ChevronDown size={16} />

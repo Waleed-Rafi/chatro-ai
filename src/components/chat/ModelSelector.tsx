@@ -94,7 +94,7 @@ export const ModelSelector = ({ isOpen, onClose }: ModelSelectorProps) => {
       {/* Desktop Modal */}
       <div className='hidden md:block'>
         <div className='fixed inset-0 z-40' onClick={onClose} />
-        <div className='absolute top-12 left-8 z-50 w-80 bg-[#1a1a1a] rounded-lg shadow-lg border border-[#333]'>
+        <div className='absolute top-16 left-16 z-50 w-90 bg-[#1a1a1a] rounded-lg shadow-lg border border-[#333]'>
           {/* Search */}
           <div className='p-4'>
             <div className='relative'>

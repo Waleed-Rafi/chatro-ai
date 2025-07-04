@@ -16,8 +16,8 @@ const quickActions: QuickAction[] = [
   { icon: '👁️', label: 'Analyze image', isPro: true },
   { icon: '🔗', label: 'Summarize link', isPro: true },
   { icon: '❓', label: 'Get advice' },
-  { icon: '📄', label: 'Process doc', isPro: true },
-  { icon: '📊', label: 'Analyze data', isPro: true },
+  // { icon: '📄', label: 'Process doc', isPro: true },
+  // { icon: '📊', label: 'Analyze data', isPro: true },
   { icon: '∞', label: 'Brainstorm' },
   { icon: '🌐', label: 'Web search' },
 ];
@@ -29,9 +29,8 @@ export const QuickActions = ({ onActionClick }: QuickActionsProps) => {
 
   return (
     <>
-      {/* First Row - Always visible */}
-      <div className='grid grid-cols-3 md:grid-cols-5 gap-4 md:gap-6 mb-6 md:mb-8'>
-        {quickActions.slice(0, 5).map((action, index) => (
+      <div className='grid grid-cols-3 md:grid-cols-4 mb-6 justify-center items-center'>
+        {quickActions.slice(0, 4).map((action, index) => (
           <div
             key={index}
             className='flex flex-col items-center space-y-2 md:space-y-3'
@@ -55,8 +54,8 @@ export const QuickActions = ({ onActionClick }: QuickActionsProps) => {
       </div>
 
       {/* Second Row - Hidden on smallest screens */}
-      <div className='hidden sm:grid grid-cols-3 md:grid-cols-5 gap-4 md:gap-6'>
-        {quickActions.slice(5).map((action, index) => (
+      <div className='hidden sm:grid grid-cols-3 md:grid-cols-4'>
+        {quickActions.slice(4).map((action, index) => (
           <div
             key={index + 5}
             className='flex flex-col items-center space-y-2 md:space-y-3'
