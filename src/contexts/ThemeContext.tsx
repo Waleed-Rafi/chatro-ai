@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
 type Theme = 'light' | 'dark' | 'system';
@@ -26,7 +25,9 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     let resolvedTheme: 'light' | 'dark';
 
     if (theme === 'system') {
-      resolvedTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      resolvedTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light';
     } else {
       resolvedTheme = theme;
     }
