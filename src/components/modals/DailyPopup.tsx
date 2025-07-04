@@ -40,9 +40,7 @@ export const DailyPopup = ({ isOpen, onClose }: DailyPopupProps) => {
           <p className='text-muted-foreground text-sm mb-8 leading-relaxed'>
             Log in or sign up to get smarter
             <br />
-            responses, upload files and images,
-            <br />
-            and more.
+            responses, upload files and images, and more.
           </p>
 
           <div className='space-y-3'>
@@ -56,17 +54,18 @@ export const DailyPopup = ({ isOpen, onClose }: DailyPopupProps) => {
             <Button
               onClick={handleSignup}
               variant='outline'
-              className='w-full h-12 rounded-full border-border hover:bg-accent text-foreground'
+              className='w-full h-12 rounded-full border-border hover:bg-accent text-foreground mb-2'
             >
               Sign up for free
             </Button>
 
-            <button
+            <Button
               onClick={handleStayLoggedOut}
-              className='w-full text-muted-foreground text-sm hover:text-foreground underline mt-4'
+              variant='link'
+              className='w-full text-muted-foreground text-sm hover:text-foreground underline'
             >
               Stay logged out
-            </button>
+            </Button>
           </div>
         </div>
       </DialogContent>

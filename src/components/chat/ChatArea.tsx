@@ -1,10 +1,12 @@
-import { ArrowUp, ChevronDown, Menu, Paperclip } from 'lucide-react';
+import { ArrowUp, Paperclip } from 'lucide-react';
 import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
 import { ChatConversation } from './ChatConversation';
+import { ChatHeader } from './ChatHeader';
+import { QuickActions } from './QuickActions';
 
 interface ChatAreaProps {
   onOpenModelSelector: () => void;
@@ -12,6 +14,8 @@ interface ChatAreaProps {
   onOpenHistory: () => void;
   isSidebarCollapsed: boolean;
   onToggleSidebar: () => void;
+  onLogin: () => void;
+  isLoggedIn: boolean;
 }
 
 export const ChatArea = ({
@@ -20,6 +24,8 @@ export const ChatArea = ({
   onOpenHistory,
   isSidebarCollapsed,
   onToggleSidebar,
+  onLogin,
+  isLoggedIn,
 }: ChatAreaProps) => {
   const [message, setMessage] = useState('');
   const [isConversationStarted, setIsConversationStarted] = useState(false);
@@ -48,86 +54,16 @@ export const ChatArea = ({
           isSidebarCollapsed ? 'md:ml-16' : 'md:ml-64'
         } pt-16 md:pt-0 h-screen`}
       >
-        {/* Desktop Header */}
-        <div className='hidden md:flex items-center justify-between p-4 border-b border-[#2a2a2a]'>
-          <div className='flex items-center space-x-3'>
-            {isSidebarCollapsed && (
-              <Button
-                variant='ghost'
-                size='sm'
-                onClick={onToggleSidebar}
-                className='text-gray-400 hover:text-white'
-              >
-                <Menu size={16} />
-              </Button>
-            )}
-
-            <Button
-              variant='ghost'
-              onClick={onOpenModelSelector}
-              className='text-white hover:bg-[#1a1a1a] flex items-center space-x-2'
-            >
-              <span>OpenAI GPT-4o-mini</span>
-              <ChevronDown size={16} />
-            </Button>
-          </div>
-
-          <div className='flex items-center space-x-2'>
-            <Button
-              variant='ghost'
-              size='sm'
-              className='text-gray-400 hover:text-white'
-              onClick={onOpenUsage}
-            >
-              <span className='mr-1'>⚡</span>
-              Usage
-            </Button>
-            <Button
-              variant='ghost'
-              size='sm'
-              className='text-gray-400 hover:text-white'
-              onClick={onOpenHistory}
-            >
-              <span className='mr-1'>🕒</span>
-              History
-            </Button>
-          </div>
-        </div>
-
-        {/* Mobile Header */}
-        <div className='md:hidden fixed top-0 left-0 right-0 bg-[#1a1a1a] p-4 z-30 border-b border-[#2a2a2a]'>
-          <div className='flex items-center justify-between'>
-            <div className='flex items-center space-x-2 flex-1 min-w-0'>
-              <Button
-                variant='ghost'
-                onClick={onOpenModelSelector}
-                className='text-white hover:bg-[#2a2a2a] flex items-center space-x-2 min-w-0 flex-1 justify-start px-3 py-2'
-              >
-                <span className='truncate text-sm'>OpenAI GPT-4o-mini</span>
-                <ChevronDown size={14} className='flex-shrink-0' />
-              </Button>
-            </div>
-
-            <div className='flex items-center space-x-1 flex-shrink-0'>
-              <Button
-                variant='ghost'
-                size='sm'
-                className='text-gray-400 hover:text-white p-2'
-                onClick={onOpenUsage}
-              >
-                <span className='text-lg'>⚡</span>
-              </Button>
-              <Button
-                variant='ghost'
-                size='sm'
-                className='text-gray-400 hover:text-white p-2'
-                onClick={onOpenHistory}
-              >
-                <span className='text-lg'>🕒</span>
-              </Button>
-            </div>
-          </div>
-        </div>
+        <ChatHeader
+          onOpenModelSelector={onOpenModelSelector}
+          onOpenUsage={onOpenUsage}
+          onOpenHistory={onOpenHistory}
+          isSidebarCollapsed={isSidebarCollapsed}
+          onToggleSidebar={onToggleSidebar}
+          onLogin={onLogin}
+          isLoggedIn={isLoggedIn}
+          showBorder={true}
+        />
 
         <ChatConversation initialMessage={initialMessage} />
       </div>
@@ -141,86 +77,16 @@ export const ChatArea = ({
         isSidebarCollapsed ? 'md:ml-16' : 'md:ml-64'
       } pt-16 md:pt-0`}
     >
-      {/* Desktop Header */}
-      <div className='hidden md:flex items-center justify-between p-4'>
-        <div className='flex items-center space-x-3'>
-          {isSidebarCollapsed && (
-            <Button
-              variant='ghost'
-              size='sm'
-              onClick={onToggleSidebar}
-              className='text-gray-400 hover:text-white'
-            >
-              <Menu size={16} />
-            </Button>
-          )}
-
-          <Button
-            variant='ghost'
-            onClick={onOpenModelSelector}
-            className='text-white hover:bg-[#1a1a1a] flex items-center space-x-2'
-          >
-            <span>OpenAI GPT-4o-mini</span>
-            <ChevronDown size={16} />
-          </Button>
-        </div>
-
-        <div className='flex items-center space-x-2'>
-          <Button
-            variant='ghost'
-            size='sm'
-            className='text-gray-400 hover:text-white'
-            onClick={onOpenUsage}
-          >
-            <span className='mr-1'>⚡</span>
-            Usage
-          </Button>
-          <Button
-            variant='ghost'
-            size='sm'
-            className='text-gray-400 hover:text-white'
-            onClick={onOpenHistory}
-          >
-            <span className='mr-1'>🕒</span>
-            History
-          </Button>
-        </div>
-      </div>
-
-      {/* Mobile Header - Single Row */}
-      <div className='md:hidden fixed top-0 left-0 right-0 bg-[#1a1a1a] p-4 z-30'>
-        <div className='flex items-center justify-between'>
-          <div className='flex items-center space-x-2 flex-1 min-w-0'>
-            <Button
-              variant='ghost'
-              onClick={onOpenModelSelector}
-              className='text-white hover:bg-[#2a2a2a] flex items-center space-x-2 min-w-0 flex-1 justify-start px-3 py-2'
-            >
-              <span className='truncate text-sm'>OpenAI GPT-4o-mini</span>
-              <ChevronDown size={14} className='flex-shrink-0' />
-            </Button>
-          </div>
-
-          <div className='flex items-center space-x-1 flex-shrink-0'>
-            <Button
-              variant='ghost'
-              size='sm'
-              className='text-gray-400 hover:text-white p-2'
-              onClick={onOpenUsage}
-            >
-              <span className='text-lg'>⚡</span>
-            </Button>
-            <Button
-              variant='ghost'
-              size='sm'
-              className='text-gray-400 hover:text-white p-2'
-              onClick={onOpenHistory}
-            >
-              <span className='text-lg'>🕒</span>
-            </Button>
-          </div>
-        </div>
-      </div>
+      <ChatHeader
+        onOpenModelSelector={onOpenModelSelector}
+        onOpenUsage={onOpenUsage}
+        onOpenHistory={onOpenHistory}
+        isSidebarCollapsed={isSidebarCollapsed}
+        onToggleSidebar={onToggleSidebar}
+        onLogin={onLogin}
+        isLoggedIn={isLoggedIn}
+        showBorder={false}
+      />
 
       {/* Main Content */}
       <div className='flex-1 flex flex-col items-center justify-center p-4 md:p-8'>
@@ -260,116 +126,13 @@ export const ChatArea = ({
             </div>
           </div>
 
-          {/* Quick Action Buttons - Mobile optimized grid */}
-          <div className='grid grid-cols-3 md:grid-cols-5 gap-4 md:gap-6 mb-6 md:mb-8'>
-            <div className='flex flex-col items-center space-y-2 md:space-y-3'>
-              <div className='w-12 h-12 md:w-16 md:h-16 bg-[#2a2a2a] rounded-2xl flex items-center justify-center relative group hover:bg-[#333] transition-colors cursor-pointer'>
-                <span className='text-lg md:text-2xl'>✏️</span>
-              </div>
-              <span className='text-xs md:text-sm text-gray-400 text-center'>
-                Help me write
-              </span>
-            </div>
-
-            <div className='flex flex-col items-center space-y-2 md:space-y-3'>
-              <div className='w-12 h-12 md:w-16 md:h-16 bg-[#2a2a2a] rounded-2xl flex items-center justify-center relative group hover:bg-[#333] transition-colors cursor-pointer'>
-                <span className='text-lg md:text-2xl'>🎨</span>
-                <span className='absolute -top-1 -right-1 text-xs bg-purple-600 px-1 py-0.5 rounded text-white'>
-                  Pro
-                </span>
-              </div>
-              <span className='text-xs md:text-sm text-gray-400 text-center'>
-                Create images
-              </span>
-            </div>
-
-            <div className='flex flex-col items-center space-y-2 md:space-y-3'>
-              <div className='w-12 h-12 md:w-16 md:h-16 bg-[#2a2a2a] rounded-2xl flex items-center justify-center relative group hover:bg-[#333] transition-colors cursor-pointer'>
-                <span className='text-lg md:text-2xl'>💻</span>
-              </div>
-              <span className='text-xs md:text-sm text-gray-400 text-center'>
-                Code
-              </span>
-            </div>
-
-            <div className='flex flex-col items-center space-y-2 md:space-y-3'>
-              <div className='w-12 h-12 md:w-16 md:h-16 bg-[#2a2a2a] rounded-2xl flex items-center justify-center relative group hover:bg-[#333] transition-colors cursor-pointer'>
-                <span className='text-lg md:text-2xl'>👁️</span>
-                <span className='absolute -top-1 -right-1 text-xs bg-purple-600 px-1 py-0.5 rounded text-white'>
-                  Pro
-                </span>
-              </div>
-              <span className='text-xs md:text-sm text-gray-400 text-center'>
-                Analyze image
-              </span>
-            </div>
-
-            <div className='flex flex-col items-center space-y-2 md:space-y-3'>
-              <div className='w-12 h-12 md:w-16 md:h-16 bg-[#2a2a2a] rounded-2xl flex items-center justify-center relative group hover:bg-[#333] transition-colors cursor-pointer'>
-                <span className='text-lg md:text-2xl'>🔗</span>
-                <span className='absolute -top-1 -right-1 text-xs bg-purple-600 px-1 py-0.5 rounded text-white'>
-                  Pro
-                </span>
-              </div>
-              <span className='text-xs md:text-sm text-gray-400 text-center'>
-                Summarize link
-              </span>
-            </div>
-          </div>
-
-          {/* Second Row of Quick Actions - Hidden on smallest screens */}
-          <div className='hidden sm:grid grid-cols-3 md:grid-cols-5 gap-4 md:gap-6'>
-            <div className='flex flex-col items-center space-y-2 md:space-y-3'>
-              <div className='w-12 h-12 md:w-16 md:h-16 bg-[#2a2a2a] rounded-2xl flex items-center justify-center relative group hover:bg-[#333] transition-colors cursor-pointer'>
-                <span className='text-lg md:text-2xl'>❓</span>
-              </div>
-              <span className='text-xs md:text-sm text-gray-400 text-center'>
-                Get advice
-              </span>
-            </div>
-
-            <div className='flex flex-col items-center space-y-2 md:space-y-3'>
-              <div className='w-12 h-12 md:w-16 md:h-16 bg-[#2a2a2a] rounded-2xl flex items-center justify-center relative group hover:bg-[#333] transition-colors cursor-pointer'>
-                <span className='text-lg md:text-2xl'>📄</span>
-                <span className='absolute -top-1 -right-1 text-xs bg-purple-600 px-1 py-0.5 rounded text-white'>
-                  Pro
-                </span>
-              </div>
-              <span className='text-xs md:text-sm text-gray-400 text-center'>
-                Process doc
-              </span>
-            </div>
-
-            <div className='flex flex-col items-center space-y-2 md:space-y-3'>
-              <div className='w-12 h-12 md:w-16 md:h-16 bg-[#2a2a2a] rounded-2xl flex items-center justify-center relative group hover:bg-[#333] transition-colors cursor-pointer'>
-                <span className='text-lg md:text-2xl'>📊</span>
-                <span className='absolute -top-1 -right-1 text-xs bg-purple-600 px-1 py-0.5 rounded text-white'>
-                  Pro
-                </span>
-              </div>
-              <span className='text-xs md:text-sm text-gray-400 text-center'>
-                Analyze data
-              </span>
-            </div>
-
-            <div className='flex flex-col items-center space-y-2 md:space-y-3'>
-              <div className='w-12 h-12 md:w-16 md:h-16 bg-[#2a2a2a] rounded-2xl flex items-center justify-center relative group hover:bg-[#333] transition-colors cursor-pointer'>
-                <span className='text-lg md:text-2xl'>∞</span>
-              </div>
-              <span className='text-xs md:text-sm text-gray-400 text-center'>
-                Brainstorm
-              </span>
-            </div>
-
-            <div className='flex flex-col items-center space-y-2 md:space-y-3'>
-              <div className='w-12 h-12 md:w-16 md:h-16 bg-[#2a2a2a] rounded-2xl flex items-center justify-center relative group hover:bg-[#333] transition-colors cursor-pointer'>
-                <span className='text-lg md:text-2xl'>🌐</span>
-              </div>
-              <span className='text-xs md:text-sm text-gray-400 text-center'>
-                Web search
-              </span>
-            </div>
-          </div>
+          {/* Quick Action Buttons */}
+          <QuickActions
+            onActionClick={action => {
+              // Handle quick action clicks here
+              console.log('Quick action clicked:', action);
+            }}
+          />
         </div>
       </div>
     </div>

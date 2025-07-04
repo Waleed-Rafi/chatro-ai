@@ -1,5 +1,4 @@
-import { LogIn } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { ChatArea } from '@/components/chat/ChatArea';
@@ -7,11 +6,10 @@ import { HistoryPopover } from '@/components/chat/HistoryPopover';
 import { ModelSelector } from '@/components/chat/ModelSelector';
 import { UsagePopover } from '@/components/chat/UsagePopover';
 import { Sidebar } from '@/components/layout/Sidebar';
-import { DailyPopup } from '@/components/modals/DailyPopup';
 import { PricingModal } from '@/components/modals/PricingModal';
-import { OnboardingHome } from '@/components/onboarding/OnboardingHome';
-import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
+
+import { DailyPopup } from '../components/modals/DailyPopup';
 
 const Index = () => {
   const { isLoggedIn } = useAuth();
@@ -44,48 +42,6 @@ const Index = () => {
     navigate('/auth?mode=login');
   };
 
-  if (!isLoggedIn) {
-    return (
-      <div className='min-h-screen bg-background text-foreground flex'>
-        <Sidebar
-          isCollapsed={isSidebarCollapsed}
-          onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-          onOpenPricing={() => setIsPricingOpen(true)}
-        />
-
-        {/* Header for logged out users */}
-        <div
-          className={`flex-1 flex flex-col transition-all duration-300 ${
-            isSidebarCollapsed ? 'md:ml-16' : 'md:ml-64'
-          }`}
-        >
-          <div className='hidden md:flex h-16 border-b border-border items-center justify-end px-6 bg-background'>
-            <Button
-              className='bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg'
-              onClick={handleLoginClick}
-            >
-              <LogIn size={16} className='mr-2' />
-              Login
-            </Button>
-          </div>
-
-          <OnboardingHome onLogin={handleLoginClick} />
-        </div>
-
-        {/* Daily Popup */}
-        <DailyPopup
-          isOpen={isDailyPopupOpen}
-          onClose={() => setIsDailyPopupOpen(false)}
-        />
-
-        <PricingModal
-          isOpen={isPricingOpen}
-          onClose={() => setIsPricingOpen(false)}
-        />
-      </div>
-    );
-  }
-
   return (
     <div className='min-h-screen bg-background text-foreground flex'>
       <Sidebar
@@ -101,12 +57,19 @@ const Index = () => {
           onOpenHistory={() => setIsHistoryOpen(true)}
           isSidebarCollapsed={isSidebarCollapsed}
           onToggleSidebar={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+          isLoggedIn={isLoggedIn}
+          onLogin={handleLoginClick}
         />
       </div>
 
       <PricingModal
         isOpen={isPricingOpen}
         onClose={() => setIsPricingOpen(false)}
+      />
+
+      <DailyPopup
+        isOpen={isDailyPopupOpen}
+        onClose={() => setIsDailyPopupOpen(false)}
       />
 
       <ModelSelector
