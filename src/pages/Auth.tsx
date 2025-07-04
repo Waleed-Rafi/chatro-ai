@@ -38,7 +38,7 @@ const Auth = () => {
       {/* Header */}
       <div className="p-4 md:p-6">
         <div className="flex items-center">
-          <span className="text-xl font-semibold text-foreground">ChatGPT</span>
+          <span className="text-xl font-semibold text-foreground">Chatly</span>
         </div>
       </div>
 
@@ -46,7 +46,9 @@ const Auth = () => {
       <div className="flex-1 flex items-center justify-center p-4">
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
-            <h1 className="text-2xl font-semibold text-foreground mb-2">Welcome back</h1>
+            <h1 className="text-2xl font-semibold text-foreground mb-2">
+              {isSignup ? 'Create your account' : 'Welcome back'}
+            </h1>
             {isSignup && (
               <p className="text-muted-foreground text-sm">
                 Create your account to get started
@@ -63,7 +65,7 @@ const Auth = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 onKeyPress={handleKeyPress}
-                className="w-full h-12 rounded-xl border-border bg-background"
+                className="w-full h-12 rounded-xl border-border bg-background text-foreground placeholder:text-muted-foreground"
               />
             </div>
 
@@ -71,7 +73,7 @@ const Auth = () => {
             <Button
               onClick={handleEmailSubmit}
               disabled={!email}
-              className="w-full h-12 rounded-xl bg-foreground hover:bg-foreground/90 text-background"
+              className="w-full h-12 rounded-xl bg-foreground hover:bg-foreground/90 text-background disabled:opacity-50"
             >
               Continue
             </Button>
@@ -104,7 +106,7 @@ const Auth = () => {
               <Button
                 variant="outline"
                 onClick={handleSocialLogin}
-                className="w-full h-12 rounded-xl border-border hover:bg-accent"
+                className="w-full h-12 rounded-xl border-border hover:bg-accent text-foreground"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" className="mr-3">
                   <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -118,7 +120,7 @@ const Auth = () => {
               <Button
                 variant="outline"
                 onClick={handleSocialLogin}
-                className="w-full h-12 rounded-xl border-border hover:bg-accent"
+                className="w-full h-12 rounded-xl border-border hover:bg-accent text-foreground"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" className="mr-3">
                   <path fill="#00A1F1" d="M0 0h11.377v11.372H0z"/>
@@ -132,7 +134,7 @@ const Auth = () => {
               <Button
                 variant="outline"
                 onClick={handleSocialLogin}
-                className="w-full h-12 rounded-xl border-border hover:bg-accent"
+                className="w-full h-12 rounded-xl border-border hover:bg-accent text-foreground"
               >
                 <svg width="16" height="20" viewBox="0 0 24 24" className="mr-3">
                   <path fill="currentColor" d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
@@ -143,7 +145,7 @@ const Auth = () => {
               <Button
                 variant="outline"
                 onClick={handleSocialLogin}
-                className="w-full h-12 rounded-xl border-border hover:bg-accent"
+                className="w-full h-12 rounded-xl border-border hover:bg-accent text-foreground"
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" className="mr-3" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>

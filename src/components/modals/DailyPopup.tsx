@@ -44,7 +44,7 @@ export const DailyPopup = ({ isOpen, onClose }: DailyPopupProps) => {
           <div className="space-y-3">
             <Button
               onClick={handleLogin}
-              className="w-full h-12 rounded-full bg-white hover:bg-gray-50 text-black border border-gray-200"
+              className="w-full h-12 rounded-full bg-foreground hover:bg-foreground/90 text-background"
             >
               Log in
             </Button>
@@ -52,7 +52,7 @@ export const DailyPopup = ({ isOpen, onClose }: DailyPopupProps) => {
             <Button
               onClick={handleSignup}
               variant="outline"
-              className="w-full h-12 rounded-full border-gray-600 hover:bg-gray-800 text-white"
+              className="w-full h-12 rounded-full border-border hover:bg-accent text-foreground"
             >
               Sign up for free
             </Button>

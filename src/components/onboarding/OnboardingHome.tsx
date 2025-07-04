@@ -44,7 +44,7 @@ export const OnboardingHome = ({ onLogin }: OnboardingHomeProps) => {
           <Button 
             variant="ghost" 
             size="sm" 
-            className="text-muted-foreground hover:text-foreground"
+            className="text-muted-foreground hover:text-foreground hover:bg-accent"
           >
             <span className="mr-1">⚡</span>
             Usage
@@ -52,7 +52,7 @@ export const OnboardingHome = ({ onLogin }: OnboardingHomeProps) => {
           <Button 
             variant="ghost" 
             size="sm" 
-            className="text-muted-foreground hover:text-foreground"
+            className="text-muted-foreground hover:text-foreground hover:bg-accent"
           >
             <span className="mr-1">🕒</span>
             History
@@ -77,14 +77,14 @@ export const OnboardingHome = ({ onLogin }: OnboardingHomeProps) => {
             <Button 
               variant="ghost" 
               size="sm" 
-              className="text-muted-foreground hover:text-foreground p-2"
+              className="text-muted-foreground hover:text-foreground hover:bg-accent p-2"
             >
               <span className="text-lg">⚡</span>
             </Button>
             <Button 
               variant="ghost" 
               size="sm" 
-              className="text-muted-foreground hover:text-foreground p-2"
+              className="text-muted-foreground hover:text-foreground hover:bg-accent p-2"
             >
               <span className="text-lg">🕒</span>
             </Button>
@@ -105,14 +105,14 @@ export const OnboardingHome = ({ onLogin }: OnboardingHomeProps) => {
           {/* Quick Action Buttons - Desktop Layout */}
           <div className="hidden md:grid grid-cols-5 gap-6 mb-8">
             <div className="flex flex-col items-center space-y-3">
-              <div className="w-16 h-16 bg-muted rounded-2xl flex items-center justify-center relative group hover:bg-muted/80 transition-colors cursor-pointer">
+              <div className="w-16 h-16 bg-muted hover:bg-muted/80 rounded-2xl flex items-center justify-center relative group transition-colors cursor-pointer">
                 <span className="text-2xl">✏️</span>
               </div>
               <span className="text-sm text-muted-foreground text-center">Help me write</span>
             </div>
             
             <div className="flex flex-col items-center space-y-3">
-              <div className="w-16 h-16 bg-muted rounded-2xl flex items-center justify-center relative group hover:bg-muted/80 transition-colors cursor-pointer">
+              <div className="w-16 h-16 bg-muted hover:bg-muted/80 rounded-2xl flex items-center justify-center relative group transition-colors cursor-pointer">
                 <span className="text-2xl">🎨</span>
                 <span className="absolute -top-1 -right-1 text-xs bg-purple-600 px-1 py-0.5 rounded text-white">Pro</span>
               </div>
@@ -120,14 +120,14 @@ export const OnboardingHome = ({ onLogin }: OnboardingHomeProps) => {
             </div>
             
             <div className="flex flex-col items-center space-y-3">
-              <div className="w-16 h-16 bg-muted rounded-2xl flex items-center justify-center relative group hover:bg-muted/80 transition-colors cursor-pointer">
+              <div className="w-16 h-16 bg-muted hover:bg-muted/80 rounded-2xl flex items-center justify-center relative group transition-colors cursor-pointer">
                 <span className="text-2xl">💻</span>
               </div>
               <span className="text-sm text-muted-foreground text-center">Code</span>
             </div>
             
             <div className="flex flex-col items-center space-y-3">
-              <div className="w-16 h-16 bg-muted rounded-2xl flex items-center justify-center relative group hover:bg-muted/80 transition-colors cursor-pointer">
+              <div className="w-16 h-16 bg-muted hover:bg-muted/80 rounded-2xl flex items-center justify-center relative group transition-colors cursor-pointer">
                 <span className="text-2xl">👁️</span>
                 <span className="absolute -top-1 -right-1 text-xs bg-purple-600 px-1 py-0.5 rounded text-white">Pro</span>
               </div>
@@ -135,7 +135,7 @@ export const OnboardingHome = ({ onLogin }: OnboardingHomeProps) => {
             </div>
             
             <div className="flex flex-col items-center space-y-3">
-              <div className="w-16 h-16 bg-muted rounded-2xl flex items-center justify-center relative group hover:bg-muted/80 transition-colors cursor-pointer">
+              <div className="w-16 h-16 bg-muted hover:bg-muted/80 rounded-2xl flex items-center justify-center relative group transition-colors cursor-pointer">
                 <span className="text-2xl">🔗</span>
                 <span className="absolute -top-1 -right-1 text-xs bg-purple-600 px-1 py-0.5 rounded text-white">Pro</span>
               </div>
@@ -146,14 +146,14 @@ export const OnboardingHome = ({ onLogin }: OnboardingHomeProps) => {
           {/* Second Row - Desktop */}
           <div className="hidden md:grid grid-cols-5 gap-6 mb-16">
             <div className="flex flex-col items-center space-y-3">
-              <div className="w-16 h-16 bg-muted rounded-2xl flex items-center justify-center relative group hover:bg-muted/80 transition-colors cursor-pointer">
+              <div className="w-16 h-16 bg-muted hover:bg-muted/80 rounded-2xl flex items-center justify-center relative group transition-colors cursor-pointer">
                 <span className="text-2xl">❓</span>
               </div>
               <span className="text-sm text-muted-foreground text-center">Get advice</span>
             </div>
             
             <div className="flex flex-col items-center space-y-3">
-              <div className="w-16 h-16 bg-muted rounded-2xl flex items-center justify-center relative group hover:bg-muted/80 transition-colors cursor-pointer">
+              <div className="w-16 h-16 bg-muted hover:bg-muted/80 rounded-2xl flex items-center justify-center relative group transition-colors cursor-pointer">
                 <span className="text-2xl">📄</span>
                 <span className="absolute -top-1 -right-1 text-xs bg-purple-600 px-1 py-0.5 rounded text-white">Pro</span>
               </div>
@@ -161,7 +161,7 @@ export const OnboardingHome = ({ onLogin }: OnboardingHomeProps) => {
             </div>
             
             <div className="flex flex-col items-center space-y-3">
-              <div className="w-16 h-16 bg-muted rounded-2xl flex items-center justify-center relative group hover:bg-muted/80 transition-colors cursor-pointer">
+              <div className="w-16 h-16 bg-muted hover:bg-muted/80 rounded-2xl flex items-center justify-center relative group transition-colors cursor-pointer">
                 <span className="text-2xl">📊</span>
                 <span className="absolute -top-1 -right-1 text-xs bg-purple-600 px-1 py-0.5 rounded text-white">Pro</span>
               </div>
@@ -169,14 +169,14 @@ export const OnboardingHome = ({ onLogin }: OnboardingHomeProps) => {
             </div>
             
             <div className="flex flex-col items-center space-y-3">
-              <div className="w-16 h-16 bg-muted rounded-2xl flex items-center justify-center relative group hover:bg-muted/80 transition-colors cursor-pointer">
+              <div className="w-16 h-16 bg-muted hover:bg-muted/80 rounded-2xl flex items-center justify-center relative group transition-colors cursor-pointer">
                 <span className="text-2xl">∞</span>
               </div>
               <span className="text-sm text-muted-foreground text-center">Brainstorm</span>
             </div>
             
             <div className="flex flex-col items-center space-y-3">
-              <div className="w-16 h-16 bg-muted rounded-2xl flex items-center justify-center relative group hover:bg-muted/80 transition-colors cursor-pointer">
+              <div className="w-16 h-16 bg-muted hover:bg-muted/80 rounded-2xl flex items-center justify-center relative group transition-colors cursor-pointer">
                 <span className="text-2xl">🌐</span>
               </div>
               <span className="text-sm text-muted-foreground text-center">Web search</span>
@@ -186,14 +186,14 @@ export const OnboardingHome = ({ onLogin }: OnboardingHomeProps) => {
           {/* Mobile Quick Actions */}
           <div className="md:hidden grid grid-cols-3 gap-4 mb-8">
             <div className="flex flex-col items-center space-y-2">
-              <div className="w-12 h-12 bg-muted rounded-2xl flex items-center justify-center relative group hover:bg-muted/80 transition-colors cursor-pointer">
+              <div className="w-12 h-12 bg-muted hover:bg-muted/80 rounded-2xl flex items-center justify-center relative group transition-colors cursor-pointer">
                 <span className="text-lg">✏️</span>
               </div>
               <span className="text-xs text-muted-foreground text-center">Help me write</span>
             </div>
             
             <div className="flex flex-col items-center space-y-2">
-              <div className="w-12 h-12 bg-muted rounded-2xl flex items-center justify-center relative group hover:bg-muted/80 transition-colors cursor-pointer">
+              <div className="w-12 h-12 bg-muted hover:bg-muted/80 rounded-2xl flex items-center justify-center relative group transition-colors cursor-pointer">
                 <span className="text-lg">🎨</span>
                 <span className="absolute -top-1 -right-1 text-xs bg-purple-600 px-1 py-0.5 rounded text-white">Pro</span>
               </div>
@@ -201,7 +201,7 @@ export const OnboardingHome = ({ onLogin }: OnboardingHomeProps) => {
             </div>
             
             <div className="flex flex-col items-center space-y-2">
-              <div className="w-12 h-12 bg-muted rounded-2xl flex items-center justify-center relative group hover:bg-muted/80 transition-colors cursor-pointer">
+              <div className="w-12 h-12 bg-muted hover:bg-muted/80 rounded-2xl flex items-center justify-center relative group transition-colors cursor-pointer">
                 <span className="text-lg">💻</span>
               </div>
               <span className="text-xs text-muted-foreground text-center">Code</span>
@@ -211,14 +211,14 @@ export const OnboardingHome = ({ onLogin }: OnboardingHomeProps) => {
           {/* Second Row Mobile */}
           <div className="md:hidden grid grid-cols-3 gap-4 mb-16">
             <div className="flex flex-col items-center space-y-2">
-              <div className="w-12 h-12 bg-muted rounded-2xl flex items-center justify-center relative group hover:bg-muted/80 transition-colors cursor-pointer">
+              <div className="w-12 h-12 bg-muted hover:bg-muted/80 rounded-2xl flex items-center justify-center relative group transition-colors cursor-pointer">
                 <span className="text-lg">❓</span>
               </div>
               <span className="text-xs text-muted-foreground text-center">Get advice</span>
             </div>
             
             <div className="flex flex-col items-center space-y-2">
-              <div className="w-12 h-12 bg-muted rounded-2xl flex items-center justify-center relative group hover:bg-muted/80 transition-colors cursor-pointer">
+              <div className="w-12 h-12 bg-muted hover:bg-muted/80 rounded-2xl flex items-center justify-center relative group transition-colors cursor-pointer">
                 <span className="text-lg">📄</span>
                 <span className="absolute -top-1 -right-1 text-xs bg-purple-600 px-1 py-0.5 rounded text-white">Pro</span>
               </div>
@@ -226,7 +226,7 @@ export const OnboardingHome = ({ onLogin }: OnboardingHomeProps) => {
             </div>
             
             <div className="flex flex-col items-center space-y-2">
-              <div className="w-12 h-12 bg-muted rounded-2xl flex items-center justify-center relative group hover:bg-muted/80 transition-colors cursor-pointer">
+              <div className="w-12 h-12 bg-muted hover:bg-muted/80 rounded-2xl flex items-center justify-center relative group transition-colors cursor-pointer">
                 <span className="text-lg">🌐</span>
               </div>
               <span className="text-xs text-muted-foreground text-center">Web search</span>
@@ -243,7 +243,7 @@ export const OnboardingHome = ({ onLogin }: OnboardingHomeProps) => {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  className="flex-1 bg-transparent border-0 text-foreground placeholder-muted-foreground focus:ring-0 focus:outline-none"
+                  className="flex-1 bg-transparent border-0 text-foreground placeholder:text-muted-foreground focus:ring-0 focus:outline-none"
                 />
                 <Button 
                   size="sm" 
