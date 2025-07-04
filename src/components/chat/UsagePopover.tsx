@@ -31,7 +31,7 @@ export const UsagePopover = ({ isOpen, onClose }: UsagePopoverProps) => {
           </div>
           
           <div className="text-gray-300 text-sm mb-4">
-            Create and explore ideas with Reply
+            Create and explore ideas with Chatro
           </div>
           
           <div className="mb-4">
@@ -79,7 +79,7 @@ export const UsagePopover = ({ isOpen, onClose }: UsagePopoverProps) => {
           </div>
           
           <div className="text-gray-300 text-sm mb-4">
-            Create and explore ideas with Reply
+            Create and explore ideas with Chatro
           </div>
           
           <div className="mb-6">

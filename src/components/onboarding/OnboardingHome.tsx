@@ -257,7 +257,7 @@ export const OnboardingHome = ({ onLogin }: OnboardingHomeProps) => {
             </div>
             
             <div className="text-xs text-muted-foreground text-center mt-4">
-              Chatly can make mistakes. Check important info.
+              Chatro can make mistakes. Check important info.
             </div>
           </div>
         </div>

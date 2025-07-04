@@ -8,13 +8,13 @@ const Pricing = () => {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
 
   const faqs = [
-    { question: "What can I use Reply for?", answer: "Answer for what you can use Reply for..." },
-    { question: "What platforms is Reply available on?", answer: "Answer about platform availability..." },
+    { question: "What can I use Chatro for?", answer: "Answer for what you can use Chatro for..." },
+    { question: "What platforms is Chatro available on?", answer: "Answer about platform availability..." },
     { question: "What subscription plans are available?", answer: "Answer about subscription plans..." },
     { question: "Can I switch between AI models?", answer: "Answer about switching AI models..." },
     { question: "What's new in Image Generation?", answer: "Answer about image generation updates..." },
     { question: "What file types are supported for upload?", answer: "Answer about supported file types..." },
-    { question: "Is my personal data safe and secure when using Reply?", answer: "Answer about data security..." },
+    { question: "Is my personal data safe and secure when using Chatro?", answer: "Answer about data security..." },
     { question: "Can I share my account with others?", answer: "Answer about account sharing..." },
     { question: "Who do I contact if I have questions or need support?", answer: "Answer about contacting support..." },
     { question: "How can I report a bug to the developer?", answer: "Answer about reporting bugs..." },
@@ -68,7 +68,7 @@ const Pricing = () => {
             {/* Pricing Header */}
             <div className="text-center mb-6">
               <h2 className="text-xl font-medium text-white mb-2">Pricing Plans</h2>
-              <p className="text-gray-400 text-sm">Want to get more out of Reply? Subscribe to one of our professional plans.</p>
+              <p className="text-gray-400 text-sm">Want to get more out of Chatro? Subscribe to one of our professional plans.</p>
             </div>
 
             {/* Pricing Cards */}
@@ -261,7 +261,7 @@ const Pricing = () => {
             {/* Pricing Header */}
             <div className="text-center mb-8 md:mb-12">
               <h2 className="text-2xl md:text-3xl font-medium text-white mb-4">Pricing Plans</h2>
-              <p className="text-gray-400">Want to get more out of Reply? Subscribe to one of our professional plans.</p>
+              <p className="text-gray-400">Want to get more out of Chatro? Subscribe to one of our professional plans.</p>
             </div>
 
             {/* Pricing Cards */}
@@ -325,7 +325,7 @@ const Pricing = () => {
 
             {/* Why go Pro section */}
             <div className="max-w-6xl mx-auto mb-8 md:mb-16">
-              <h3 className="text-xl md:text-2xl font-medium text-white text-center mb-8">Why go Pro with Reply?</h3>
+              <h3 className="text-xl md:text-2xl font-medium text-white text-center mb-8">Why go Pro with Chatro?</h3>
               <p className="text-gray-400 text-center mb-8 md:mb-12">Multiple productivity needs, one solution</p>
               
               {/* Feature comparison */}
@@ -336,7 +336,7 @@ const Pricing = () => {
                       <h4 className="text-white font-medium mb-2">Features</h4>
                     </div>
                     <div className="text-center">
-                      <h4 className="text-white font-medium mb-2">Reply</h4>
+                      <h4 className="text-white font-medium mb-2">Chatro</h4>
                     </div>
                     <div className="text-center">
                       <h4 className="text-white font-medium mb-2">OpenAI ChatGPT</h4>

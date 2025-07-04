@@ -38,7 +38,7 @@ const Auth = () => {
       {/* Header */}
       <div className="p-4 md:p-6">
         <div className="flex items-center">
-          <span className="text-xl font-semibold text-foreground">Chatly</span>
+          <span className="text-xl font-semibold text-foreground">Chatro</span>
         </div>
       </div>
 

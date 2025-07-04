@@ -1,8 +1,8 @@
-# Welcome to your Reply project
+# Welcome to your Chatro project
 
 This is a [Vite](https://vitejs.dev/) + [React](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/) project.
 
-**URL**: https://reply.dev/projects/62037255-cbed-47ca-8dbf-dfee9ca82cf3
+**URL**: https://chatro.dev/projects/62037255-cbed-47ca-8dbf-dfee9ca82cf3
 
 ## Getting Started
 First, run the development server:

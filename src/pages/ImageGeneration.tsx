@@ -157,7 +157,7 @@ const ImageGeneration = () => {
             </div>
             
             <div className="text-xs text-gray-500 text-center mt-4">
-              Watch your ideas come to life with Chatly Image Generator
+              Watch your ideas come to life with Chatro Image Generator
             </div>
           </div>
         </div>
@@ -265,7 +265,7 @@ const ImageGeneration = () => {
           </div>
           
           <div className="text-xs text-gray-500 text-center mt-2">
-            Watch your ideas come to life with Chatly Image Generator
+            Watch your ideas come to life with Chatro Image Generator
           </div>
         </div>
       </div>

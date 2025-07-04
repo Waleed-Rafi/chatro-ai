@@ -81,7 +81,7 @@ export const DesktopLoginModal = ({ isOpen, onClose }: DesktopLoginModalProps) =
                     ))}
                   </div>
                   <p className="text-sm text-muted-foreground mb-3">
-                    Chatly has been a lifesaver for my content needs. The AI creates amazing visuals and marketing copy that actually sounds human - it's cut my work time in half.
+                    Chatro has been a lifesaver for my content needs. The AI creates amazing visuals and marketing copy that actually sounds human - it's cut my work time in half.
                   </p>
                   <div className="flex items-center space-x-2">
                     <div className="w-8 h-8 bg-gray-400 rounded-full"></div>

@@ -248,7 +248,7 @@ export const ChatArea = ({
             </div>
             
             <div className="text-xs text-gray-500 text-center mt-4">
-              Reply can make mistakes. Check important info.
+              Chatro can make mistakes. Check important info.
             </div>
           </div>
 

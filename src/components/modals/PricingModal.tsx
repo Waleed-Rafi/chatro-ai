@@ -59,7 +59,7 @@ export const PricingModal = ({ isOpen, onClose }: PricingModalProps) => {
                 <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center">
                   <span className="text-xs font-bold">C</span>
                 </div>
-                <span className="text-white font-semibold">Reply</span>
+                <span className="text-white font-semibold">Chatro</span>
               </div>
               <Button variant="ghost" size="sm" onClick={onClose} className="text-gray-400 hover:text-white">
                 <X size={16} />
@@ -167,7 +167,7 @@ export const PricingModal = ({ isOpen, onClose }: PricingModalProps) => {
                   <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center">
                     <span className="text-xs font-bold">C</span>
                   </div>
-                  <span className="text-white font-semibold">Reply</span>
+                  <span className="text-white font-semibold">Chatro</span>
                 </div>
                 <Button variant="ghost" size="sm" onClick={onClose} className="text-gray-400 hover:text-white">
                   <X size={16} />
