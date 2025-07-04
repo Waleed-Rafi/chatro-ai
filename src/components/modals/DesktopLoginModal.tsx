@@ -3,7 +3,7 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 
 interface DesktopLoginModalProps {
@@ -13,7 +13,43 @@ interface DesktopLoginModalProps {
 
 export const DesktopLoginModal = ({ isOpen, onClose }: DesktopLoginModalProps) => {
   const [email, setEmail] = useState("");
+  const [currentReviewIndex, setCurrentReviewIndex] = useState(0);
   const { login } = useAuth();
+
+  const reviews = [
+    {
+      title: "Best AI Assistant",
+      content: "Chatly has been a lifesaver for my content needs. The AI creates amazing visuals and marketing copy that actually sounds human - it's cut my work time in half.",
+      author: "Sara Williams",
+      role: "Marketing Specialist",
+      rating: 5
+    },
+    {
+      title: "Find of the year",
+      content: "It has simplified my content creation process with its amazing chat and image generation. Plus it offers all the industry standard AI models in one place. That's totally amazing!",
+      author: "Andrew Roberts",
+      role: "UX Writer",
+      rating: 5
+    },
+    {
+      title: "Game Changer",
+      content: "This tool has completely transformed how I approach creative projects. The quality and speed are unmatched in the market today.",
+      author: "Jessica Chen",
+      role: "Creative Director",
+      rating: 5
+    }
+  ];
+
+  // Auto-scroll reviews
+  useEffect(() => {
+    if (!isOpen) return;
+    
+    const interval = setInterval(() => {
+      setCurrentReviewIndex((prev) => (prev + 1) % reviews.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [isOpen, reviews.length]);
 
   const handleLogin = () => {
     login();
@@ -29,10 +65,10 @@ export const DesktopLoginModal = ({ isOpen, onClose }: DesktopLoginModalProps) =
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-6xl w-full bg-background border-border animate-in fade-in-0 zoom-in-95 duration-200 p-0 gap-0">
+      <DialogContent className="max-w-6xl w-full bg-background border-border animate-in fade-in-0 zoom-in-95 duration-200 p-0 gap-0 md:max-w-md">
         <div className="flex min-h-[600px]">
-          {/* Left Side - Marketing Content */}
-          <div className="flex-1 bg-muted/30 p-8 flex flex-col justify-center">
+          {/* Left Side - Marketing Content - Hidden on mobile */}
+          <div className="hidden md:flex flex-1 bg-muted/30 p-8 flex-col justify-center">
             <div className="text-center mb-8">
               <div className="inline-flex items-center justify-center w-16 h-16 bg-orange-500 rounded-full mb-4">
                 <span className="text-2xl font-bold text-white">#1</span>
@@ -72,50 +108,55 @@ export const DesktopLoginModal = ({ isOpen, onClose }: DesktopLoginModalProps) =
 
             <div className="mb-8">
               <h3 className="text-xl font-semibold text-foreground text-center mb-6">Trusted by Millions</h3>
-              <div className="grid grid-cols-1 gap-6">
-                <div className="bg-background/50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-foreground mb-2">Best AI Assistant</h4>
-                  <div className="flex space-x-1 mb-2">
-                    {[...Array(5)].map((_, i) => (
-                      <span key={i} className="text-yellow-400">★</span>
-                    ))}
-                  </div>
-                  <p className="text-sm text-muted-foreground mb-3">
-                    Chatly has been a lifesaver for my content needs. The AI creates amazing visuals and marketing copy that actually sounds human - it's cut my work time in half.
-                  </p>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-8 h-8 bg-gray-400 rounded-full"></div>
-                    <div>
-                      <div className="text-sm font-medium text-foreground">Sara Williams</div>
-                      <div className="text-xs text-muted-foreground">Marketing Specialist</div>
+              
+              {/* Horizontal Carousel Reviews */}
+              <div className="relative overflow-hidden">
+                <div 
+                  className="flex transition-transform duration-500 ease-in-out"
+                  style={{ transform: `translateX(-${currentReviewIndex * 100}%)` }}
+                >
+                  {reviews.map((review, index) => (
+                    <div key={index} className="w-full flex-shrink-0">
+                      <div className="bg-background/50 p-4 rounded-lg mx-2">
+                        <h4 className="font-semibold text-foreground mb-2">{review.title}</h4>
+                        <div className="flex space-x-1 mb-2">
+                          {[...Array(review.rating)].map((_, i) => (
+                            <span key={i} className="text-yellow-400">★</span>
+                          ))}
+                        </div>
+                        <p className="text-sm text-muted-foreground mb-3">
+                          {review.content}
+                        </p>
+                        <div className="flex items-center space-x-2">
+                          <div className="w-8 h-8 bg-gray-400 rounded-full"></div>
+                          <div>
+                            <div className="text-sm font-medium text-foreground">{review.author}</div>
+                            <div className="text-xs text-muted-foreground">{review.role}</div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  ))}
                 </div>
-
-                <div className="bg-background/50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-foreground mb-2">Find of the year</h4>
-                  <div className="flex space-x-1 mb-2">
-                    {[...Array(5)].map((_, i) => (
-                      <span key={i} className="text-yellow-400">★</span>
-                    ))}
-                  </div>
-                  <p className="text-sm text-muted-foreground mb-3">
-                    It has simplified my content creation process with its amazing chat and image generation. Plus it offers all the industry standard AI models in one place. That's totally amazing!
-                  </p>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-8 h-8 bg-gray-400 rounded-full"></div>
-                    <div>
-                      <div className="text-sm font-medium text-foreground">Andrew Roberts</div>
-                      <div className="text-xs text-muted-foreground">UX Writer</div>
-                    </div>
-                  </div>
+                
+                {/* Pagination dots */}
+                <div className="flex justify-center mt-4 space-x-2">
+                  {reviews.map((_, index) => (
+                    <button
+                      key={index}
+                      className={`w-2 h-2 rounded-full transition-colors ${
+                        index === currentReviewIndex ? 'bg-orange-500' : 'bg-gray-300'
+                      }`}
+                      onClick={() => setCurrentReviewIndex(index)}
+                    />
+                  ))}
                 </div>
               </div>
             </div>
           </div>
 
           {/* Right Side - Login Form */}
-          <div className="w-96 p-8 flex flex-col justify-center relative">
+          <div className="w-full md:w-96 p-8 flex flex-col justify-center relative">
             <Button
               variant="ghost"
               size="sm"
