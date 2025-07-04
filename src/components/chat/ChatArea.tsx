@@ -16,6 +16,7 @@ interface ChatAreaProps {
   onToggleSidebar: () => void;
   onLogin: () => void;
   isLoggedIn: boolean;
+  onOpenUpgrade: () => void;
 }
 
 export const ChatArea = ({
@@ -26,6 +27,7 @@ export const ChatArea = ({
   onToggleSidebar,
   onLogin,
   isLoggedIn,
+  onOpenUpgrade,
 }: ChatAreaProps) => {
   const [message, setMessage] = useState('');
   const [isConversationStarted, setIsConversationStarted] = useState(false);
@@ -63,6 +65,7 @@ export const ChatArea = ({
           onLogin={onLogin}
           isLoggedIn={isLoggedIn}
           showBorder={true}
+          onOpenUpgrade={onOpenUpgrade}
         />
 
         <ChatConversation initialMessage={initialMessage} />
@@ -86,6 +89,7 @@ export const ChatArea = ({
         onLogin={onLogin}
         isLoggedIn={isLoggedIn}
         showBorder={false}
+        onOpenUpgrade={onOpenUpgrade}
       />
 
       {/* Main Content */}

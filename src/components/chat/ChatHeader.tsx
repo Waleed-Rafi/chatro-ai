@@ -11,6 +11,7 @@ interface ChatHeaderProps {
   onLogin: () => void;
   isLoggedIn: boolean;
   showBorder?: boolean;
+  onOpenUpgrade: () => void;
 }
 
 export const ChatHeader = ({
@@ -22,6 +23,7 @@ export const ChatHeader = ({
   onLogin,
   isLoggedIn,
   showBorder = false,
+  onOpenUpgrade,
 }: ChatHeaderProps) => {
   return (
     <>
@@ -55,7 +57,7 @@ export const ChatHeader = ({
 
         {isLoggedIn ? (
           <div className='flex items-center space-x-2'>
-            <Button
+            {/* <Button
               variant='ghost'
               size='sm'
               className='text-gray-400 hover:text-white'
@@ -63,6 +65,14 @@ export const ChatHeader = ({
             >
               <span className='mr-1'>⚡</span>
               Usage
+            </Button> */}
+            {/* upgrade to pro button */}
+            <Button
+              size='sm'
+              className='bg-blue-600 hover:bg-blue-700 text-white px-5 rounded-full'
+              onClick={onOpenUpgrade}
+            >
+              Upgrade
             </Button>
             <Button
               variant='ghost'

@@ -59,6 +59,7 @@ const Index = () => {
           onToggleSidebar={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
           isLoggedIn={isLoggedIn}
           onLogin={handleLoginClick}
+          onOpenUpgrade={() => setIsPricingOpen(true)}
         />
       </div>
 
