@@ -1,10 +1,10 @@
-import { ChevronDown, Send, Paperclip, Menu, ArrowUp } from 'lucide-react';
+import { ArrowUp, ChevronDown, Menu, Paperclip } from 'lucide-react';
 import { useState } from 'react';
-
-import { ChatConversation } from './ChatConversation';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+
+import { ChatConversation } from './ChatConversation';
 
 interface ChatAreaProps {
   onOpenModelSelector: () => void;

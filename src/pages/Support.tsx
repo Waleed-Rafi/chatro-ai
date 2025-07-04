@@ -1,4 +1,4 @@
-import { Search, Menu, ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown, ChevronUp, Menu, Search } from 'lucide-react';
 import { useState } from 'react';
 
 import { Sidebar } from '@/components/layout/Sidebar';

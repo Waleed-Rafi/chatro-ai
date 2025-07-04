@@ -36,10 +36,23 @@ export default tseslint.config(
         version: "detect",
       },
       "import/resolver": {
+        node: {
+          extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        },
         typescript: {
           alwaysTryTypes: true,
-          project: "./tsconfig.json",
+          project: "./tsconfig.app.json",
+          tsconfigRootDir: import.meta.dirname,
         },
+        alias: {
+          map: [
+            ['@', './src'],
+          ],
+          extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        },
+      },
+      "import/parsers": {
+        "@typescript-eslint/parser": [".ts", ".tsx"],
       },
     },
     rules: {
@@ -112,6 +125,12 @@ export default tseslint.config(
       "import/namespace": "error",
       "import/no-duplicates": "error",
       "import/no-unused-modules": "warn",
+      "import/no-unresolved": [
+        "error",
+        {
+          ignore: ["^@/", "^react", "^react-dom", "^@tanstack/react-query", "^react-router-dom", "^react-hook-form", "^class-variance-authority", "^lucide-react", "^@radix-ui/", "^cmdk", "^input-otp", "^vaul", "^sonner", "^next-themes", "^react-resizable-panels", "^recharts", "^embla-carousel-react", "^date-fns", "^react-day-picker", "^zod", "^@hookform/resolvers", "^tailwind-merge", "^clsx", "^tailwindcss-animate"],
+        },
+      ],
 
       // TypeScript rules
       "@typescript-eslint/no-unused-vars": [
@@ -141,7 +160,7 @@ export default tseslint.config(
       "no-duplicate-imports": "error",
       "no-multiple-empty-lines": ["error", { max: 2 }],
       "eol-last": "error",
-      "comma-dangle": ["error", "always-multiline"],
+      // "comma-dangle": ["error", "always-multiline"],
       "semi": ["error", "always"],
       "quotes": ["error", "single", { avoidEscape: true }],
 

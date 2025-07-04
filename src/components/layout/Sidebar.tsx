@@ -1,20 +1,19 @@
 import {
-  Plus,
-  MessageSquare,
-  Image,
-  Search,
-  HelpCircle,
-  BarChart,
-  Settings,
-  CreditCard,
+  ChevronDown,
   ChevronLeft,
   ChevronRight,
-  ChevronDown,
   ChevronUp,
+  CreditCard,
+  HelpCircle,
+  Image,
+  MessageSquare,
+  Plus,
+  Search,
+  Settings,
   X,
 } from 'lucide-react';
 import { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { SettingsModal } from '@/components/modals/SettingsModal';
 import { Button } from '@/components/ui/button';

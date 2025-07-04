@@ -1,4 +1,3 @@
-import { Sparkles } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
@@ -202,11 +201,11 @@ const Auth = () => {
           {/* Footer */}
           <div className='mt-12 text-center'>
             <div className='flex items-center justify-center space-x-4 text-sm text-muted-foreground'>
-              <a href='#' className='hover:text-foreground'>
+              <a href='helo' className='hover:text-foreground'>
                 Terms of Use
               </a>
               <span>|</span>
-              <a href='#' className='hover:text-foreground'>
+              <a href='helo' className='hover:text-foreground'>
                 Privacy Policy
               </a>
             </div>

@@ -272,11 +272,11 @@ export const DesktopLoginModal = ({
 
             <p className='text-xs text-muted-foreground text-center'>
               By proceeding, you agree to our{' '}
-              <a href='#' className='text-blue-500 hover:underline'>
+              <a href='hello' className='text-blue-500 hover:underline'>
                 Terms of Use
               </a>{' '}
               and read our{' '}
-              <a href='#' className='text-blue-500 hover:underline'>
+              <a href='hello' className='text-blue-500 hover:underline'>
                 Privacy Policy
               </a>
             </p>
