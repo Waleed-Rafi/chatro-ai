@@ -1,6 +1,8 @@
-import { ChevronDown, Menu } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
+
+import { ArrowRight } from '../icons/ArrowRight';
 
 interface ChatHeaderProps {
   onOpenModelSelector: () => void;
@@ -41,7 +43,7 @@ export const ChatHeader = ({
               onClick={onToggleSidebar}
               className='text-gray-400 hover:text-white'
             >
-              <Menu size={16} />
+              <ArrowRight size={18} className='text-sidebar-foreground' />
             </Button>
           )}
 

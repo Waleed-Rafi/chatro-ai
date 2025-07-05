@@ -1,6 +1,5 @@
 import {
   ChevronDown,
-  ChevronLeft,
   ChevronRight,
   ChevronUp,
   CreditCard,
@@ -18,6 +17,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { SettingsModal } from '@/components/modals/SettingsModal';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
+
+import { ArrowLeft } from '../icons/ArrowLeft';
 
 interface SidebarProps {
   isCollapsed: boolean;
@@ -48,7 +49,7 @@ export const Sidebar = ({
             className='fixed inset-0 bg-black/50 z-50 md:hidden animate-fade-in'
             onClick={() => setIsMobileMenuOpen(false)}
           />
-          <div className='fixed left-0 top-0 bottom-0 w-80 bg-sidebar z-50 md:hidden flex flex-col animate-slide-in'>
+          <div className='fixed left-0 top-0 bottom-0 w-80 bg-gradient-to-r from-[#212121] to-[#282621] z-50 md:hidden flex flex-col animate-slide-in'>
             {/* Header */}
             <div className='p-4 flex items-center justify-between'>
               <div className='flex items-center space-x-2'>
@@ -244,12 +245,12 @@ export const Sidebar = ({
 
       {/* Desktop Sidebar */}
       <div
-        className={`bg-sidebar transition-all duration-300 ${
+        className={`bg-gradient-to-r from-[#212121] to-[#282621] transition-all duration-300 ${
           isCollapsed ? 'w-16' : 'w-64'
-        } flex flex-col fixed h-full z-40 hidden md:flex border-r border-sidebar-border`}
+        } flex flex-col fixed h-full z-40 hidden md:flex`}
       >
         {/* Header */}
-        <div className='p-3'>
+        <div className='px-3 py-4'>
           <div className='flex items-center justify-between'>
             {!isCollapsed && (
               <div className='flex items-center space-x-2'>
@@ -268,9 +269,11 @@ export const Sidebar = ({
               className='text-sidebar-foreground/60 hover:text-sidebar-foreground p-1'
             >
               {isCollapsed ? (
-                <ChevronRight size={16} />
+                <div className='w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center'>
+                  <span className='text-xs font-bold'>C</span>
+                </div>
               ) : (
-                <ChevronLeft size={16} />
+                <ArrowLeft size={18} className='text-sidebar-foreground' />
               )}
             </Button>
           </div>
@@ -278,8 +281,7 @@ export const Sidebar = ({
 
         <div className='p-3'>
           <Button
-            className='w-full bg-sidebar-accent hover:bg-sidebar-accent/80 text-sidebar-foreground justify-start'
-            variant='outline'
+            className='w-full bg-transparent hover:bg-sidebar-accent/80 text-sidebar-foreground'
             onClick={() => navigate('/')}
           >
             <Plus size={16} className='mr-2' />
@@ -299,8 +301,8 @@ export const Sidebar = ({
               variant='ghost'
               className={`w-full justify-start ${
                 isActive('/')
-                  ? 'text-sidebar-foreground bg-sidebar-accent'
-                  : 'text-sidebar-foreground/60 hover:text-sidebar-foreground hover:bg-sidebar-accent'
+                  ? 'text-sidebar-foreground bg-sidebar-accent hover:bg-sidebar-accent/80'
+                  : 'text-sidebar-foreground/60 hover:bg-sidebar-accent/10'
               }`}
               onClick={() => navigate('/')}
             >
@@ -312,26 +314,13 @@ export const Sidebar = ({
               variant='ghost'
               className={`w-full justify-start ${
                 isActive('/image-generation')
-                  ? 'text-sidebar-foreground bg-sidebar-accent'
-                  : 'text-sidebar-foreground/60 hover:text-sidebar-foreground hover:bg-sidebar-accent'
+                  ? 'text-sidebar-foreground bg-sidebar-accent hover:bg-sidebar-accent/80'
+                  : 'text-sidebar-foreground/60 hover:bg-sidebar-accent/10'
               }`}
               onClick={() => navigate('/image-generation')}
             >
               <Image size={16} className='mr-3' />
               {!isCollapsed && 'Image Generation'}
-            </Button>
-
-            <Button
-              variant='ghost'
-              className='w-full justify-start text-sidebar-foreground/60 hover:text-sidebar-foreground hover:bg-sidebar-accent'
-            >
-              <Search size={16} className='mr-3' />
-              {!isCollapsed && 'AI Search Engine'}
-              {!isCollapsed && (
-                <span className='ml-auto text-xs bg-blue-600 px-1.5 py-0.5 rounded'>
-                  BETA
-                </span>
-              )}
             </Button>
           </div>
 
@@ -446,7 +435,7 @@ export const Sidebar = ({
       </div>
 
       {/* Mobile Header */}
-      <div className='fixed top-0 left-0 right-0 bg-background p-4 flex items-center justify-between z-30 md:hidden border-b border-border'>
+      <div className='fixed top-0 left-0 right-0 bg-background p-4 flex items-center justify-between z-30 md:hidden'>
         <div className='flex items-center space-x-3'>
           <Button
             variant='ghost'

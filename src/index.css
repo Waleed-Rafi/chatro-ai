@@ -38,16 +38,14 @@
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 0 0% 45.1%;
-    --sidebar-primary: 0 0% 9%;
-    --sidebar-primary-foreground: 0 0% 98%;
     --sidebar-accent: 0 0% 96.1%;
     --sidebar-accent-foreground: 0 0% 9%;
-    --sidebar-border: 0 0% 89.8%;
     --sidebar-ring: 0 0% 3.9%;
   }
 
   .dark {
-    --background: 0 0% 3.9%;
+    /* I want to change the background to rgb(33, 33, 33) */
+    --background: 0 0% 13%;
     --foreground: 0 0% 98%;
 
     --card: 0 0% 3.9%;
@@ -77,13 +75,10 @@
 
     --radius: 0.5rem;
 
-    --sidebar-background: 0 0% 3.9%;
+    --sidebar-background: 0 0% 13%;
     --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 0 0% 98%;
-    --sidebar-primary-foreground: 0 0% 9%;
-    --sidebar-accent: 0 0% 14.9%;
+    --sidebar-accent: 0 0% 9%;
     --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 0 0% 14.9%;
     --sidebar-ring: 0 0% 83.1%;
   }
 }
