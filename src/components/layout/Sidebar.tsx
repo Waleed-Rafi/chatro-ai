@@ -3,7 +3,7 @@ import {
   ChevronRight,
   ChevronUp,
   CreditCard,
-  Crown,
+  LogOut,
   Plus,
   Settings,
   X,
@@ -18,6 +18,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { ArrowLeft } from '../icons/ArrowLeft';
 import { Chat } from '../icons/Chat';
 import { CompanyIcon } from '../icons/CompanyIcon';
+import { Crown } from '../icons/Crown';
 import { ImageGeneration } from '../icons/ImageGeneration';
 import { Support } from '../icons/Support';
 
@@ -34,7 +35,7 @@ export const Sidebar = ({
 }: SidebarProps) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, logout } = useAuth();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -344,27 +345,30 @@ export const Sidebar = ({
 
         <div className='p-3'>
           {isLoggedIn && !isCollapsed && (
-            <div className='mb-3'>
-              <div className='text-xs text-sidebar-foreground/60 mb-2'>
+            <div className='mb-3 bg-sidebar-accent/60 rounded-xl px-3 py-4'>
+              <div className='text-xs text-sidebar-foreground/90 font-semibold mb-0.5'>
                 Unlock all premium features
               </div>
               <div className='text-xs text-sidebar-foreground/50 mb-3'>
                 Supercharge your productivity with Chatro Pro
               </div>
               <Button
-                className='w-full bg-blue-600 hover:bg-blue-700 text-white'
+                className='w-full bg-blue-600 hover:bg-blue-700 text-white rounded-xl'
                 onClick={onOpenPricing}
               >
-                <Crown size={16} />
+                <Crown size={16} className='mr-0.5' />
                 Upgrade
               </Button>
             </div>
           )}
 
           {isLoggedIn && (
-            <div className='relative'>
+            <div className=''>
               <div
-                className='flex items-center space-x-2 cursor-pointer p-2 rounded-lg hover:bg-sidebar-accent'
+                className={`flex items-center cursor-pointer rounded-xl ${
+                  !isCollapsed &&
+                  'bg-sidebar-accent/60 hover:bg-sidebar-accent/40 px-3 py-2 space-x-2'
+                }`}
                 onClick={() => setIsProfileOpen(!isProfileOpen)}
               >
                 <div className='w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center'>
@@ -380,12 +384,12 @@ export const Sidebar = ({
                     {isProfileOpen ? (
                       <ChevronUp
                         size={16}
-                        className='text-sidebar-foreground/60'
+                        className='text-sidebar-foreground/60 animate-pulse'
                       />
                     ) : (
                       <ChevronDown
                         size={16}
-                        className='text-sidebar-foreground/60'
+                        className='text-sidebar-foreground/60 animate-pulse'
                       />
                     )}
                   </>
@@ -398,17 +402,28 @@ export const Sidebar = ({
                     className='fixed inset-0 z-40'
                     onClick={() => setIsProfileOpen(false)}
                   />
-                  <div className='absolute bottom-full left-0 mb-2 w-full bg-sidebar-accent rounded-lg shadow-lg z-50 p-2 animate-fade-in'>
+                  <div className='absolute bottom-full left-0 mb-2 w-full bg-[#1D1C1B] shadow-lg z-50 p-2 animate-fade-in border border-sidebar-accent-foreground/15 rounded-xl'>
                     <Button
                       variant='ghost'
-                      className='w-full justify-start text-sidebar-foreground hover:bg-sidebar-accent/80 p-3'
+                      className='w-full justify-start text-sidebar-foreground p-3'
                       onClick={() => {
                         setIsSettingsOpen(true);
                         setIsProfileOpen(false);
                       }}
                     >
-                      <Settings size={16} className='mr-3' />
+                      <Settings size={16} className='mr-1' />
                       Settings
+                    </Button>
+                    <Button
+                      variant='ghost'
+                      className='w-full justify-start text-sidebar-foreground p-3'
+                      onClick={() => {
+                        setIsProfileOpen(false);
+                        logout();
+                      }}
+                    >
+                      <LogOut size={16} className='mr-1' />
+                      Log out
                     </Button>
                   </div>
                 </>
