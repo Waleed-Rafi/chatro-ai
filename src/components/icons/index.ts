@@ -1,3 +1,3 @@
-export { AppleIcon } from './AppleIcon';
-export { FacebookIcon } from './FacebookIcon';
-export { GoogleIcon } from './GoogleIcon';
+export { AppleIcon } from './Apple';
+export { FacebookIcon } from './Facebook';
+export { GoogleIcon } from './Google';

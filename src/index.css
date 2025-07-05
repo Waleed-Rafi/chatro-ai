@@ -44,8 +44,8 @@
   }
 
   .dark {
-    /* I want to change the background to rgb(33, 33, 33) */
     --background: 0 0% 13%;
+    --background-light: 0 0% 100%;
     --foreground: 0 0% 98%;
 
     --card: 0 0% 3.9%;
