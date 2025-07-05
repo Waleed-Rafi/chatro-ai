@@ -239,36 +239,39 @@ export const Sidebar = ({
       >
         {/* Header */}
         <div className='px-3 py-4'>
-          <div className='flex items-center justify-between'>
-            {!isCollapsed && (
-              <div className='flex items-center space-x-2'>
+          {isCollapsed ? (
+            <div className='flex justify-center items-center w-full'>
+              <CompanyIcon size={32} className='text-sidebar-foreground' />
+            </div>
+          ) : (
+            <div className='flex items-center justify-between w-full'>
+              <div className='flex items-center'>
                 <CompanyIcon size={32} className='text-sidebar-foreground' />
-                <span className='text-sidebar-foreground font-semibold'>
+                <span className='text-sidebar-foreground font-semibold ml-2'>
                   Chatro
                 </span>
               </div>
-            )}
-            <Button
-              variant='ghost'
-              onClick={onToggleCollapse}
-              className='text-sidebar-foreground/60 hover:text-sidebar-foreground p-1'
-              size='icon'
-            >
-              {isCollapsed ? (
-                <CompanyIcon size={32} className='text-sidebar-foreground' />
-              ) : (
+              <Button
+                variant='ghost'
+                onClick={onToggleCollapse}
+                className='text-sidebar-foreground/60 hover:text-sidebar-foreground p-1'
+                size='icon'
+              >
                 <ArrowLeft size={18} className='text-sidebar-foreground' />
-              )}
-            </Button>
-          </div>
+              </Button>
+            </div>
+          )}
         </div>
 
         <div className='p-3 mb-6'>
           <Button
-            className='w-full bg-transparent hover:bg-sidebar-accent/80 text-sidebar-foreground border border-sidebar-accent-foreground/40 rounded-xl py-5'
+            className={`w-full bg-transparent hover:bg-sidebar-accent/80 text-sidebar-foreground border border-sidebar-accent-foreground/40 rounded-xl py-5 ${isCollapsed ? 'justify-center' : 'justify-start'}`}
             onClick={() => navigate('/')}
           >
-            <Plus size={16} className='mr-1 text-sidebar-foreground/60' />
+            <Plus
+              size={16}
+              className={isCollapsed ? '' : 'mr-1 text-sidebar-foreground/60'}
+            />
             {!isCollapsed && 'Start New'}
           </Button>
         </div>
@@ -283,27 +286,30 @@ export const Sidebar = ({
           <div>
             <Button
               variant='ghost'
-              className={`w-full justify-start py-6 rounded-xl ${
+              className={`w-full rounded-xl py-6 ${isCollapsed ? 'justify-center' : 'justify-start'} ${
                 isActive('/')
                   ? 'text-sidebar-foreground bg-sidebar-accent hover:bg-sidebar-accent/80'
                   : 'text-sidebar-foreground/60 hover:bg-sidebar-accent/10'
               }`}
               onClick={() => navigate('/')}
             >
-              <Chat size={16} className='mr-1.5' />
+              <Chat size={16} className={isCollapsed ? '' : 'mr-1.5'} />
               {!isCollapsed && 'AI Chat'}
             </Button>
 
             <Button
               variant='ghost'
-              className={`w-full justify-start py-6 rounded-xl ${
+              className={`w-full rounded-xl py-6 ${isCollapsed ? 'justify-center' : 'justify-start'} ${
                 isActive('/image-generation')
                   ? 'text-sidebar-foreground bg-sidebar-accent hover:bg-sidebar-accent/80'
                   : 'text-sidebar-foreground/60 hover:bg-sidebar-accent/10'
               }`}
               onClick={() => navigate('/image-generation')}
             >
-              <ImageGeneration size={16} className='mr-1.5' />
+              <ImageGeneration
+                size={16}
+                className={isCollapsed ? '' : 'mr-1.5'}
+              />
               {!isCollapsed && 'Image Generation'}
             </Button>
           </div>
@@ -317,27 +323,27 @@ export const Sidebar = ({
           <div>
             <Button
               variant='ghost'
-              className={`w-full justify-start py-6 rounded-xl ${
+              className={`w-full rounded-xl py-6 ${isCollapsed ? 'justify-center' : 'justify-start'} ${
                 isActive('/support')
                   ? 'text-sidebar-foreground bg-sidebar-accent'
                   : 'text-sidebar-foreground/60 hover:text-sidebar-foreground hover:bg-sidebar-accent'
               }`}
               onClick={() => navigate('/support')}
             >
-              <Support size={16} className='mr-1.5' />
+              <Support size={16} className={isCollapsed ? '' : 'mr-1.5'} />
               {!isCollapsed && 'Support'}
             </Button>
 
             <Button
               variant='ghost'
-              className={`w-full justify-start py-6 rounded-xl ${
+              className={`w-full rounded-xl py-6 ${isCollapsed ? 'justify-center' : 'justify-start'} ${
                 isActive('/pricing')
                   ? 'text-sidebar-foreground bg-sidebar-accent'
                   : 'text-sidebar-foreground/60 hover:text-sidebar-foreground hover:bg-sidebar-accent'
               }`}
               onClick={() => navigate('/pricing')}
             >
-              <CreditCard size={16} className='mr-1.5' />
+              <CreditCard size={16} className={isCollapsed ? '' : 'mr-1.5'} />
               {!isCollapsed && 'Pricing Plans'}
             </Button>
           </div>
@@ -364,39 +370,42 @@ export const Sidebar = ({
 
           {isLoggedIn && (
             <div className=''>
-              <div
-                className={`flex items-center cursor-pointer rounded-xl ${
-                  !isCollapsed &&
-                  'bg-sidebar-accent/60 hover:bg-sidebar-accent/40 px-3 py-2 space-x-2'
-                }`}
-                onClick={() => setIsProfileOpen(!isProfileOpen)}
-              >
-                <div className='w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center'>
-                  <span className='text-xs'>WR</span>
+              {isCollapsed ? (
+                <div className='flex justify-center items-center'>
+                  <div className='w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center'>
+                    <span className='text-xs'>WR</span>
+                  </div>
                 </div>
-                {!isCollapsed && (
-                  <>
-                    <div className='flex-1'>
-                      <div className='text-sm text-sidebar-foreground'>
-                        Waleed Rafi
-                      </div>
+              ) : (
+                <div
+                  className={
+                    'flex items-center cursor-pointer rounded-xl bg-sidebar-accent/60 hover:bg-sidebar-accent/40 px-3 py-2 space-x-2'
+                  }
+                  onClick={() => setIsProfileOpen(!isProfileOpen)}
+                >
+                  <div className='w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center'>
+                    <span className='text-xs'>WR</span>
+                  </div>
+                  <div className='flex-1'>
+                    <div className='text-sm text-sidebar-foreground'>
+                      Waleed Rafi
                     </div>
-                    {isProfileOpen ? (
-                      <ChevronUp
-                        size={16}
-                        className='text-sidebar-foreground/60 animate-pulse'
-                      />
-                    ) : (
-                      <ChevronDown
-                        size={16}
-                        className='text-sidebar-foreground/60 animate-pulse'
-                      />
-                    )}
-                  </>
-                )}
-              </div>
+                  </div>
+                  {isProfileOpen ? (
+                    <ChevronUp
+                      size={16}
+                      className='text-sidebar-foreground/60 animate-pulse'
+                    />
+                  ) : (
+                    <ChevronDown
+                      size={16}
+                      className='text-sidebar-foreground/60 animate-pulse'
+                    />
+                  )}
+                </div>
+              )}
 
-              {isProfileOpen && !isCollapsed && (
+              {!isCollapsed && isProfileOpen && (
                 <>
                   <div
                     className='fixed inset-0 z-40'

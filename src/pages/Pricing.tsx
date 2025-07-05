@@ -1,11 +1,17 @@
-import { Check, Menu, ChevronDown, ChevronUp, X } from 'lucide-react';
-import { useState } from 'react';
+import { Check, ChevronDown, ChevronUp, Menu, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 import { Sidebar } from '@/components/layout/Sidebar';
 import { Button } from '@/components/ui/button';
 
 const Pricing = () => {
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(() => {
+    const stored = localStorage.getItem('sidebarCollapsed');
+    return stored === 'true';
+  });
+  useEffect(() => {
+    localStorage.setItem('sidebarCollapsed', isSidebarCollapsed.toString());
+  }, [isSidebarCollapsed]);
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
 
   const faqs = [
