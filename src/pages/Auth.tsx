@@ -117,7 +117,7 @@ const Auth = () => {
                 onClick={handleSocialLogin}
                 className='w-full h-12 rounded-xl border-gray-300 bg-white text-gray-900 transition-all duration-200 hover:!bg-gray-50 hover:!text-gray-900 hover:!border-gray-400'
               >
-                <GoogleIcon size={20} className='mr-3' />
+                <GoogleIcon className='mr-1 !w-5 !h-5' />
                 Continue with Google
               </Button>
 
@@ -126,7 +126,7 @@ const Auth = () => {
                 onClick={handleSocialLogin}
                 className='w-full h-12 rounded-xl border-gray-300 bg-white text-gray-900 transition-all duration-200 hover:!bg-gray-50 hover:!text-gray-900 hover:!border-gray-400'
               >
-                <FacebookIcon className='mr-3' />
+                <FacebookIcon className='mr-1 !w-5 !h-5' />
                 Continue with Facebook
               </Button>
 
@@ -135,7 +135,7 @@ const Auth = () => {
                 onClick={handleSocialLogin}
                 className='w-full h-12 rounded-xl border-gray-300 bg-white text-gray-900 transition-all duration-200 hover:!bg-gray-50 hover:!text-gray-900 hover:!border-gray-400'
               >
-                <AppleIcon className='mr-3' />
+                <AppleIcon className='mr-1 !w-5 !h-5' />
                 Continue with Apple
               </Button>
             </div>
