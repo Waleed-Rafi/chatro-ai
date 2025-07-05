@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,62 +8,75 @@ import { ModelSelector } from '@/components/chat/ModelSelector';
 import { UsagePopover } from '@/components/chat/UsagePopover';
 import { Sidebar } from '@/components/layout/Sidebar';
 import { PricingModal } from '@/components/modals/PricingModal';
+import { DailyPopup } from '@/components/modals/DailyPopup';
+import { Layout } from '@/components/design-system/organisms/Layout';
 import { useAuth } from '@/contexts/AuthContext';
-
-import { DailyPopup } from '../components/modals/DailyPopup';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { LOCAL_STORAGE_KEYS, TIMEOUTS } from '@/utils/constants';
 
 const Index = () => {
   const { isLoggedIn } = useAuth();
   const navigate = useNavigate();
+  
+  // Modal states
   const [isPricingOpen, setIsPricingOpen] = useState(false);
   const [isModelSelectorOpen, setIsModelSelectorOpen] = useState(false);
   const [isUsageOpen, setIsUsageOpen] = useState(false);
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const [isDailyPopupOpen, setIsDailyPopupOpen] = useState(false);
+  
+  // Layout state
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  
+  // Local storage for popup management
+  const [hidePopupUntil] = useLocalStorage(LOCAL_STORAGE_KEYS.HIDE_POPUP_UNTIL, null);
 
   // Check if daily popup should be shown
   useEffect(() => {
     if (!isLoggedIn) {
-      const hidePopupUntil = localStorage.getItem('hidePopupUntil');
       const now = new Date().getTime();
+      const shouldShowPopup = !hidePopupUntil || now > parseInt(hidePopupUntil);
 
-      if (!hidePopupUntil || now > parseInt(hidePopupUntil)) {
-        // Show popup after a short delay
+      if (shouldShowPopup) {
         const timer = setTimeout(() => {
           setIsDailyPopupOpen(true);
-        }, 2000);
+        }, TIMEOUTS.POPUP_DELAY);
 
         return () => clearTimeout(timer);
       }
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, hidePopupUntil]);
 
   const handleLoginClick = () => {
     navigate('/auth?mode=login');
   };
 
+  const handleToggleSidebar = () => {
+    setIsSidebarCollapsed(!isSidebarCollapsed);
+  };
+
   return (
-    <div className='min-h-screen bg-background text-foreground flex'>
-      <Sidebar
-        isCollapsed={isSidebarCollapsed}
-        onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-        onOpenPricing={() => setIsPricingOpen(true)}
+    <Layout
+      sidebar={
+        <Sidebar
+          isCollapsed={isSidebarCollapsed}
+          onToggleCollapse={handleToggleSidebar}
+          onOpenPricing={() => setIsPricingOpen(true)}
+        />
+      }
+    >
+      <ChatArea
+        onOpenModelSelector={() => setIsModelSelectorOpen(true)}
+        onOpenUsage={() => setIsUsageOpen(true)}
+        onOpenHistory={() => setIsHistoryOpen(true)}
+        isSidebarCollapsed={isSidebarCollapsed}
+        onToggleSidebar={handleToggleSidebar}
+        isLoggedIn={isLoggedIn}
+        onLogin={handleLoginClick}
+        onOpenUpgrade={() => setIsPricingOpen(true)}
       />
 
-      <div className='flex-1 flex flex-col'>
-        <ChatArea
-          onOpenModelSelector={() => setIsModelSelectorOpen(true)}
-          onOpenUsage={() => setIsUsageOpen(true)}
-          onOpenHistory={() => setIsHistoryOpen(true)}
-          isSidebarCollapsed={isSidebarCollapsed}
-          onToggleSidebar={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-          isLoggedIn={isLoggedIn}
-          onLogin={handleLoginClick}
-          onOpenUpgrade={() => setIsPricingOpen(true)}
-        />
-      </div>
-
+      {/* Modals */}
       <PricingModal
         isOpen={isPricingOpen}
         onClose={() => setIsPricingOpen(false)}
@@ -87,7 +101,7 @@ const Index = () => {
         isOpen={isHistoryOpen}
         onClose={() => setIsHistoryOpen(false)}
       />
-    </div>
+    </Layout>
   );
 };
 
