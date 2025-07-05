@@ -3,11 +3,8 @@ import {
   ChevronRight,
   ChevronUp,
   CreditCard,
-  HelpCircle,
-  Image,
-  MessageSquare,
+  Crown,
   Plus,
-  Search,
   Settings,
   X,
 } from 'lucide-react';
@@ -19,6 +16,10 @@ import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 
 import { ArrowLeft } from '../icons/ArrowLeft';
+import { Chat } from '../icons/Chat';
+import { CompanyIcon } from '../icons/CompanyIcon';
+import { ImageGeneration } from '../icons/ImageGeneration';
+import { Support } from '../icons/Support';
 
 interface SidebarProps {
   isCollapsed: boolean;
@@ -53,9 +54,7 @@ export const Sidebar = ({
             {/* Header */}
             <div className='p-4 flex items-center justify-between'>
               <div className='flex items-center space-x-2'>
-                <div className='w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center'>
-                  <span className='text-xs font-bold'>C</span>
-                </div>
+                <CompanyIcon size={32} className='text-sidebar-foreground' />
                 <span className='text-white font-semibold'>Chatro</span>
               </div>
               <Button
@@ -71,14 +70,14 @@ export const Sidebar = ({
             {/* Start New Button */}
             <div className='px-4 mb-4'>
               <Button
-                className='w-full bg-[#1a1a1a] hover:bg-[#2a2a2a] text-white justify-start'
+                className='w-full bg-[#1a1a1a] hover:bg-[#2a2a2a] text-white justify-start rounded-xl py-5'
                 variant='outline'
                 onClick={() => {
                   navigate('/');
                   setIsMobileMenuOpen(false);
                 }}
               >
-                <Plus size={16} className='mr-2' />
+                <Plus size={16} className='mr-1 text-foreground/60' />
                 Start New
               </Button>
             </div>
@@ -99,7 +98,7 @@ export const Sidebar = ({
                     setIsMobileMenuOpen(false);
                   }}
                 >
-                  <MessageSquare size={16} className='mr-3' />
+                  <Chat size={16} className='mr-3' />
                   AI Chat
                 </Button>
 
@@ -115,20 +114,8 @@ export const Sidebar = ({
                     setIsMobileMenuOpen(false);
                   }}
                 >
-                  <Image size={16} className='mr-3' />
+                  <ImageGeneration size={16} className='mr-3' />
                   Image Generation
-                </Button>
-
-                <Button
-                  variant='ghost'
-                  className='w-full justify-start text-gray-400 hover:text-white hover:bg-[#1a1a1a]'
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  <Search size={16} className='mr-3' />
-                  AI Search Engine
-                  <span className='ml-auto text-xs bg-blue-600 px-1.5 py-0.5 rounded'>
-                    BETA
-                  </span>
                 </Button>
               </div>
 
@@ -146,7 +133,7 @@ export const Sidebar = ({
                     setIsMobileMenuOpen(false);
                   }}
                 >
-                  <HelpCircle size={16} className='mr-3' />
+                  <Support size={16} className='mr-3' />
                   Support
                 </Button>
 
@@ -254,9 +241,7 @@ export const Sidebar = ({
           <div className='flex items-center justify-between'>
             {!isCollapsed && (
               <div className='flex items-center space-x-2'>
-                <div className='w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center'>
-                  <span className='text-xs font-bold'>C</span>
-                </div>
+                <CompanyIcon size={32} className='text-sidebar-foreground' />
                 <span className='text-sidebar-foreground font-semibold'>
                   Chatro
                 </span>
@@ -264,14 +249,12 @@ export const Sidebar = ({
             )}
             <Button
               variant='ghost'
-              size='sm'
               onClick={onToggleCollapse}
               className='text-sidebar-foreground/60 hover:text-sidebar-foreground p-1'
+              size='icon'
             >
               {isCollapsed ? (
-                <div className='w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center'>
-                  <span className='text-xs font-bold'>C</span>
-                </div>
+                <CompanyIcon size={32} className='text-sidebar-foreground' />
               ) : (
                 <ArrowLeft size={18} className='text-sidebar-foreground' />
               )}
@@ -279,47 +262,47 @@ export const Sidebar = ({
           </div>
         </div>
 
-        <div className='p-3'>
+        <div className='p-3 mb-6'>
           <Button
-            className='w-full bg-transparent hover:bg-sidebar-accent/80 text-sidebar-foreground'
+            className='w-full bg-transparent hover:bg-sidebar-accent/80 text-sidebar-foreground border border-sidebar-accent-foreground/40 rounded-xl py-5'
             onClick={() => navigate('/')}
           >
-            <Plus size={16} className='mr-2' />
+            <Plus size={16} className='mr-1 text-sidebar-foreground/60' />
             {!isCollapsed && 'Start New'}
           </Button>
         </div>
 
         <div className='flex-1 px-3'>
           {!isCollapsed && (
-            <div className='text-xs text-sidebar-foreground/60 mb-2 px-2'>
+            <div className='text-xs text-sidebar-foreground/60 mb-3 px-2'>
               Tools
             </div>
           )}
 
-          <div className='space-y-1'>
+          <div>
             <Button
               variant='ghost'
-              className={`w-full justify-start ${
+              className={`w-full justify-start py-6 rounded-xl ${
                 isActive('/')
                   ? 'text-sidebar-foreground bg-sidebar-accent hover:bg-sidebar-accent/80'
                   : 'text-sidebar-foreground/60 hover:bg-sidebar-accent/10'
               }`}
               onClick={() => navigate('/')}
             >
-              <MessageSquare size={16} className='mr-3' />
+              <Chat size={16} className='mr-1.5' />
               {!isCollapsed && 'AI Chat'}
             </Button>
 
             <Button
               variant='ghost'
-              className={`w-full justify-start ${
+              className={`w-full justify-start py-6 rounded-xl ${
                 isActive('/image-generation')
                   ? 'text-sidebar-foreground bg-sidebar-accent hover:bg-sidebar-accent/80'
                   : 'text-sidebar-foreground/60 hover:bg-sidebar-accent/10'
               }`}
               onClick={() => navigate('/image-generation')}
             >
-              <Image size={16} className='mr-3' />
+              <ImageGeneration size={16} className='mr-1.5' />
               {!isCollapsed && 'Image Generation'}
             </Button>
           </div>
@@ -330,30 +313,30 @@ export const Sidebar = ({
             </div>
           )}
 
-          <div className='space-y-1'>
+          <div>
             <Button
               variant='ghost'
-              className={`w-full justify-start ${
+              className={`w-full justify-start py-6 rounded-xl ${
                 isActive('/support')
                   ? 'text-sidebar-foreground bg-sidebar-accent'
                   : 'text-sidebar-foreground/60 hover:text-sidebar-foreground hover:bg-sidebar-accent'
               }`}
               onClick={() => navigate('/support')}
             >
-              <HelpCircle size={16} className='mr-3' />
+              <Support size={16} className='mr-1.5' />
               {!isCollapsed && 'Support'}
             </Button>
 
             <Button
               variant='ghost'
-              className={`w-full justify-start ${
+              className={`w-full justify-start py-6 rounded-xl ${
                 isActive('/pricing')
                   ? 'text-sidebar-foreground bg-sidebar-accent'
                   : 'text-sidebar-foreground/60 hover:text-sidebar-foreground hover:bg-sidebar-accent'
               }`}
               onClick={() => navigate('/pricing')}
             >
-              <CreditCard size={16} className='mr-3' />
+              <CreditCard size={16} className='mr-1.5' />
               {!isCollapsed && 'Pricing Plans'}
             </Button>
           </div>
@@ -372,7 +355,8 @@ export const Sidebar = ({
                 className='w-full bg-blue-600 hover:bg-blue-700 text-white'
                 onClick={onOpenPricing}
               >
-                👑 Upgrade
+                <Crown size={16} />
+                Upgrade
               </Button>
             </div>
           )}
