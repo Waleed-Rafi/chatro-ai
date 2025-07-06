@@ -1,8 +1,11 @@
-import { Check, ChevronDown, ChevronUp, Menu, X } from 'lucide-react';
+import { Check, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 import { Sidebar } from '@/components/layout/Sidebar';
 import { Button } from '@/components/ui/button';
+
+import FaqAccordion from '../components/FaqAccordion';
+import { ArrowRight } from '../components/icons/ArrowRight';
 
 const Pricing = () => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(() => {
@@ -12,7 +15,6 @@ const Pricing = () => {
   useEffect(() => {
     localStorage.setItem('sidebarCollapsed', isSidebarCollapsed.toString());
   }, [isSidebarCollapsed]);
-  const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
 
   const faqs = [
     {
@@ -74,7 +76,7 @@ const Pricing = () => {
   ];
 
   return (
-    <div className='min-h-screen bg-[#1a1a1a] text-white flex'>
+    <div className='min-h-screen bg-background text-white flex'>
       <Sidebar
         isCollapsed={isSidebarCollapsed}
         onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
@@ -96,10 +98,9 @@ const Pricing = () => {
                 onClick={() => setIsSidebarCollapsed(false)}
                 className='text-gray-400 hover:text-white hidden md:flex'
               >
-                <Menu size={16} />
+                <ArrowRight size={16} className='text-white' />
               </Button>
             )}
-            <h1 className='text-xl font-medium text-white'>Pricing Plans</h1>
           </div>
         </div>
 
@@ -337,60 +338,17 @@ const Pricing = () => {
             </div>
 
             {/* FAQ Section */}
-            <div>
-              <h3 className='text-lg font-medium text-white text-center mb-4'>
-                Frequently Asked Questions
-              </h3>
-              <p className='text-gray-400 text-center mb-6 text-sm'>
-                Discover more information by exploring our FAQ section.
-              </p>
-
-              <div className='space-y-3'>
-                {faqs.map((faq, index) => (
-                  <div key={index} className='bg-[#2a2a2a] rounded-lg'>
-                    <button
-                      className='w-full p-4 text-left flex items-center justify-between hover:bg-[#333] transition-colors rounded-lg'
-                      onClick={() =>
-                        setExpandedFaq(expandedFaq === index ? null : index)
-                      }
-                    >
-                      <span className='text-white font-medium text-sm'>
-                        {faq.question}
-                      </span>
-                      {expandedFaq === index ? (
-                        <ChevronUp
-                          className='text-gray-400 flex-shrink-0 ml-2'
-                          size={16}
-                        />
-                      ) : (
-                        <ChevronDown
-                          className='text-gray-400 flex-shrink-0 ml-2'
-                          size={16}
-                        />
-                      )}
-                    </button>
-
-                    {expandedFaq === index && (
-                      <div className='px-4 pb-4'>
-                        <div className='text-gray-300 text-sm'>
-                          {faq.answer}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
+            <FaqAccordion faqs={faqs} />
           </div>
 
           {/* Desktop Layout */}
           <div className='hidden md:block'>
             {/* Pricing Header */}
             <div className='text-center mb-8 md:mb-12'>
-              <h2 className='text-2xl md:text-3xl font-medium text-white mb-4'>
+              <h2 className='text-2xl md:text-3xl font-medium text-white mb-2'>
                 Pricing Plans
               </h2>
-              <p className='text-gray-400'>
+              <p className='text-gray-400 text-sm'>
                 Want to get more out of Chatro? Subscribe to one of our
                 professional plans.
               </p>
@@ -488,10 +446,10 @@ const Pricing = () => {
 
             {/* Why go Pro section */}
             <div className='max-w-6xl mx-auto mb-8 md:mb-16'>
-              <h3 className='text-xl md:text-2xl font-medium text-white text-center mb-8'>
+              <h3 className='text-xl md:text-2xl font-medium text-white text-center mb-2'>
                 Why go Pro with Chatro?
               </h3>
-              <p className='text-gray-400 text-center mb-8 md:mb-12'>
+              <p className='text-gray-400 text-center mb-8 text-sm'>
                 Multiple productivity needs, one solution
               </p>
 
@@ -659,48 +617,7 @@ const Pricing = () => {
 
             {/* FAQ Section */}
             <div className='max-w-4xl mx-auto'>
-              <h3 className='text-xl md:text-2xl font-medium text-white text-center mb-8'>
-                Frequently Asked Questions
-              </h3>
-              <p className='text-gray-400 text-center mb-8'>
-                Discover more information by exploring our FAQ section.
-              </p>
-
-              <div className='space-y-4'>
-                {faqs.map((faq, index) => (
-                  <div key={index} className='bg-[#2a2a2a] rounded-lg'>
-                    <button
-                      className='w-full p-4 md:p-6 text-left flex items-center justify-between hover:bg-[#333] transition-colors rounded-lg'
-                      onClick={() =>
-                        setExpandedFaq(expandedFaq === index ? null : index)
-                      }
-                    >
-                      <span className='text-white font-medium text-sm md:text-base'>
-                        {faq.question}
-                      </span>
-                      {expandedFaq === index ? (
-                        <ChevronUp
-                          className='text-gray-400 flex-shrink-0 ml-2'
-                          size={20}
-                        />
-                      ) : (
-                        <ChevronDown
-                          className='text-gray-400 flex-shrink-0 ml-2'
-                          size={20}
-                        />
-                      )}
-                    </button>
-
-                    {expandedFaq === index && (
-                      <div className='px-4 md:px-6 pb-4 md:pb-6'>
-                        <div className='text-gray-300 text-sm md:text-base'>
-                          {faq.answer}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
+              <FaqAccordion faqs={faqs} />
             </div>
           </div>
         </div>

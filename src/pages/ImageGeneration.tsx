@@ -1,4 +1,4 @@
-import { ArrowUp, Paperclip, Download, Copy } from 'lucide-react';
+import { ArrowUp, Copy, Download, Paperclip } from 'lucide-react';
 import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
@@ -63,7 +63,7 @@ const ImageGeneration = () => {
   // Empty state
   if (messages.length === 0) {
     return (
-      <div className='min-h-screen bg-[#1a1a1a] text-white flex flex-col'>
+      <div className='min-h-screen bg-background text-white flex flex-col'>
         {/* Main Content */}
         <div className='flex-1 flex flex-col items-center justify-center p-4 md:p-8'>
           <div className='text-center max-w-5xl w-full'>
@@ -72,36 +72,37 @@ const ImageGeneration = () => {
             </h1>
 
             {/* Sample Images Grid - Desktop */}
+            {/* Flexbox: 1 image full height on left, 2 images stacked in center, 1 image full height on right */}
             <div className='hidden md:block mb-8 md:mb-16'>
-              <div className='grid grid-cols-4 gap-6 max-w-5xl mx-auto'>
-                {/* Large image spanning 2 columns */}
-                <div className='col-span-2'>
+              <div className='flex w-fit mx-auto gap-6 h-[500px]'>
+                {/* Left: Large vertical image */}
+                <div className='flex-shrink-0'>
                   <img
-                    src='/lovable-uploads/photo-1618160702438-9b02ab6515c9'
+                    src='https://cdn.chatly.imagine.art/everask-web/images/image-generation/presets/image-gen-presets-asset-1.webp'
                     alt='Sample 1'
-                    className='w-full h-80 object-cover rounded-2xl cursor-pointer hover:opacity-80 transition-opacity'
+                    className='w-60 h-full object-cover rounded-2xl cursor-pointer hover:opacity-80 transition-opacity'
                   />
                 </div>
-
-                {/* Two smaller images in right column */}
-                <div className='col-span-2 grid grid-rows-2 gap-6'>
+                {/* Center: Two stacked images */}
+                <div className='flex flex-col gap-6 flex-shrink-0'>
                   <img
-                    src='/lovable-uploads/photo-1721322800607-8c38375eef04'
+                    src='https://cdn.chatly.imagine.art/everask-web/images/image-generation/presets/image-gen-presets-asset-2.webp'
                     alt='Sample 2'
-                    className='w-full h-36 object-cover rounded-2xl cursor-pointer hover:opacity-80 transition-opacity'
+                    className='w-60 h-1/2 object-cover rounded-2xl cursor-pointer hover:opacity-80 transition-opacity flex-1'
                   />
-                  <div className='grid grid-cols-2 gap-6'>
-                    <img
-                      src='/lovable-uploads/photo-1470813740244-df37b8c1edcb'
-                      alt='Sample 3'
-                      className='w-full h-36 object-cover rounded-2xl cursor-pointer hover:opacity-80 transition-opacity'
-                    />
-                    <img
-                      src='/lovable-uploads/photo-1465146344425-f00d5f5c8f07'
-                      alt='Sample 4'
-                      className='w-full h-36 object-cover rounded-2xl cursor-pointer hover:opacity-80 transition-opacity'
-                    />
-                  </div>
+                  <img
+                    src='https://cdn.chatly.imagine.art/everask-web/images/image-generation/presets/image-gen-presets-asset-3.webp'
+                    alt='Sample 3'
+                    className='w-60 h-1/2 object-cover rounded-2xl cursor-pointer hover:opacity-80 transition-opacity flex-1'
+                  />
+                </div>
+                {/* Right: Large vertical image */}
+                <div className='flex-shrink-0'>
+                  <img
+                    src='https://cdn.chatly.imagine.art/everask-web/images/image-generation/presets/image-gen-presets-asset-4.webp'
+                    alt='Sample 4'
+                    className='w-60 h-full object-cover rounded-2xl cursor-pointer hover:opacity-80 transition-opacity'
+                  />
                 </div>
               </div>
             </div>
@@ -110,22 +111,22 @@ const ImageGeneration = () => {
             <div className='md:hidden mb-8'>
               <div className='grid grid-cols-2 gap-4 max-w-sm mx-auto'>
                 <img
-                  src='/lovable-uploads/photo-1618160702438-9b02ab6515c9'
+                  src='https://cdn.chatly.imagine.art/everask-web/images/image-generation/presets/image-gen-presets-asset-1.webp'
                   alt='Sample 1'
                   className='w-full h-32 object-cover rounded-xl cursor-pointer hover:opacity-80 transition-opacity'
                 />
                 <img
-                  src='/lovable-uploads/photo-1721322800607-8c38375eef04'
+                  src='https://cdn.chatly.imagine.art/everask-web/images/image-generation/presets/image-gen-presets-asset-2.webp'
                   alt='Sample 2'
                   className='w-full h-32 object-cover rounded-xl cursor-pointer hover:opacity-80 transition-opacity'
                 />
                 <img
-                  src='/lovable-uploads/photo-1470813740244-df37b8c1edcb'
+                  src='https://cdn.chatly.imagine.art/everask-web/images/image-generation/presets/image-gen-presets-asset-3.webp'
                   alt='Sample 3'
                   className='w-full h-32 object-cover rounded-xl cursor-pointer hover:opacity-80 transition-opacity'
                 />
                 <img
-                  src='/lovable-uploads/photo-1465146344425-f00d5f5c8f07'
+                  src='https://cdn.chatly.imagine.art/everask-web/images/image-generation/presets/image-gen-presets-asset-4.webp'
                   alt='Sample 4'
                   className='w-full h-32 object-cover rounded-xl cursor-pointer hover:opacity-80 transition-opacity'
                 />
@@ -135,7 +136,7 @@ const ImageGeneration = () => {
         </div>
 
         {/* Fixed Input Area at Bottom */}
-        <div className='border-t border-[#2a2a2a] p-4 bg-[#1a1a1a]'>
+        <div className='p-4 bg-background'>
           <div className='max-w-3xl mx-auto'>
             <div className='flex items-center bg-[#2a2a2a] rounded-full px-4 py-3'>
               <Paperclip

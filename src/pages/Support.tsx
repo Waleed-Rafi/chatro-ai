@@ -1,9 +1,12 @@
-import { ChevronDown, ChevronUp, Menu, Search } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 import { Sidebar } from '@/components/layout/Sidebar';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+
+import FaqAccordion from '../components/FaqAccordion';
+import { ArrowRight } from '../components/icons/ArrowRight';
 
 const Support = () => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(() => {
@@ -13,7 +16,6 @@ const Support = () => {
   useEffect(() => {
     localStorage.setItem('sidebarCollapsed', isSidebarCollapsed.toString());
   }, [isSidebarCollapsed]);
-  const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
 
   const faqs = [
@@ -86,7 +88,7 @@ const Support = () => {
   );
 
   return (
-    <div className='min-h-screen bg-[#1a1a1a] text-white flex'>
+    <div className='min-h-screen bg-background text-white flex'>
       <Sidebar
         isCollapsed={isSidebarCollapsed}
         onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
@@ -101,6 +103,7 @@ const Support = () => {
         {/* Header */}
         <div className='flex items-center justify-between p-4'>
           <div className='flex items-center space-x-3'>
+            {/* this is not vertically centered */}
             {isSidebarCollapsed && (
               <Button
                 variant='ghost'
@@ -108,10 +111,10 @@ const Support = () => {
                 onClick={() => setIsSidebarCollapsed(false)}
                 className='text-gray-400 hover:text-white hidden md:flex'
               >
-                <Menu size={16} />
+                <ArrowRight size={16} className='text-white' />
               </Button>
             )}
-            <h1 className='text-xl font-medium text-white'>Support</h1>
+            {/* <h1 className='text-xl font-medium text-white'>Support</h1> */}
           </div>
         </div>
 
@@ -120,10 +123,10 @@ const Support = () => {
           <div className='max-w-4xl mx-auto'>
             {/* Header */}
             <div className='text-center mb-8 md:mb-12'>
-              <h2 className='text-2xl md:text-3xl font-medium text-white mb-4'>
+              <h2 className='text-2xl md:text-3xl font-medium text-white mb-2'>
                 How can we help you?
               </h2>
-              <p className='text-gray-400 text-sm md:text-base'>
+              <p className='text-gray-400 text-sm'>
                 Find answers to common questions or contact our support team
               </p>
             </div>
@@ -139,60 +142,14 @@ const Support = () => {
                   placeholder='Search for help...'
                   value={searchQuery}
                   onChange={e => setSearchQuery(e.target.value)}
-                  className='bg-[#2a2a2a] text-white placeholder-gray-500 pl-12 py-3 md:py-4 text-sm md:text-base'
+                  className='bg-[#2a2a2a] text-white placeholder-gray-500 pl-12 py-3 md:py-4 text-sm md:text-base outline-none'
                 />
               </div>
             </div>
 
             {/* FAQ Section */}
             <div className='mb-8 md:mb-12'>
-              <h3 className='text-xl md:text-2xl font-medium text-white text-center mb-6 md:mb-8'>
-                Frequently Asked Questions
-              </h3>
-
-              <div className='space-y-3 md:space-y-4'>
-                {filteredFaqs.map((faq, index) => (
-                  <div key={index} className='bg-[#2a2a2a] rounded-lg'>
-                    <button
-                      className='w-full p-4 md:p-6 text-left flex items-center justify-between hover:bg-[#333] transition-colors rounded-lg'
-                      onClick={() =>
-                        setExpandedFaq(expandedFaq === index ? null : index)
-                      }
-                    >
-                      <span className='text-white font-medium text-sm md:text-base pr-4'>
-                        {faq.question}
-                      </span>
-                      {expandedFaq === index ? (
-                        <ChevronUp
-                          className='text-gray-400 flex-shrink-0'
-                          size={20}
-                        />
-                      ) : (
-                        <ChevronDown
-                          className='text-gray-400 flex-shrink-0'
-                          size={20}
-                        />
-                      )}
-                    </button>
-
-                    {expandedFaq === index && (
-                      <div className='px-4 md:px-6 pb-4 md:pb-6'>
-                        <div className='text-gray-300 text-sm md:text-base leading-relaxed'>
-                          {faq.answer}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-
-              {filteredFaqs.length === 0 && (
-                <div className='text-center py-8 md:py-12'>
-                  <p className='text-gray-400 text-sm md:text-base'>
-                    No questions found matching your search.
-                  </p>
-                </div>
-              )}
+              <FaqAccordion faqs={filteredFaqs} />
             </div>
 
             {/* Contact Section */}
