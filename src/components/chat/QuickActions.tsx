@@ -42,7 +42,7 @@ export const QuickActions = ({ onActionClick }: QuickActionsProps) => {
 
   return (
     <>
-      <div className='grid grid-cols-3 md:grid-cols-5 mb-6 justify-center items-center'>
+      <div className='grid grid-cols-3 md:grid-cols-5 mb-8 justify-center items-center'>
         {quickActions.slice(0, 5).map((action, index) => (
           <div
             key={index}
@@ -54,7 +54,7 @@ export const QuickActions = ({ onActionClick }: QuickActionsProps) => {
             >
               <span className='text-lg md:text-2xl'>{action.icon}</span>
               {action.isPro && (
-                <span className='absolute -top-1 -right-1 text-xs bg-purple-600 px-1 py-0.5 rounded text-white'>
+                <span className='absolute -top-1 -right-2 text-xs bg-purple-800 px-2 py-0.5 rounded text-white/80 rounded-full'>
                   Pro
                 </span>
               )}
@@ -79,7 +79,7 @@ export const QuickActions = ({ onActionClick }: QuickActionsProps) => {
             >
               <span className='text-lg md:text-2xl'>{action.icon}</span>
               {action.isPro && (
-                <span className='absolute -top-1 -right-1 text-xs bg-purple-600 px-1 py-0.5 rounded text-white'>
+                <span className='absolute -top-1 -right-2 text-xs bg-purple-800 px-2 py-0.5 rounded text-white/80 rounded-full'>
                   Pro
                 </span>
               )}
