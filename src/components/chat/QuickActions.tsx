@@ -42,7 +42,7 @@ export const QuickActions = ({ onActionClick }: QuickActionsProps) => {
 
   return (
     <>
-      <div className='grid grid-cols-3 md:grid-cols-5 mb-8 justify-center items-center'>
+      <div className='grid grid-cols-3 md:grid-cols-5 gap-x-6 mb-8 justify-center items-center'>
         {quickActions.slice(0, 5).map((action, index) => (
           <div
             key={index}
@@ -67,7 +67,7 @@ export const QuickActions = ({ onActionClick }: QuickActionsProps) => {
       </div>
 
       {/* Second Row - Hidden on smallest screens */}
-      <div className='hidden sm:grid grid-cols-3 md:grid-cols-5'>
+      <div className='hidden sm:grid grid-cols-3 md:grid-cols-5 gap-x-6'>
         {quickActions.slice(5).map((action, index) => (
           <div
             key={index + 5}
