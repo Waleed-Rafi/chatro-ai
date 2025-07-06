@@ -1,5 +1,18 @@
+import {
+  Chain,
+  Code,
+  Doc,
+  Eye,
+  GalleryColored,
+  Glasses,
+  Globe,
+  Graph,
+  Pencil,
+  QuestionMark,
+} from '../icons';
+
 interface QuickAction {
-  icon: string;
+  icon: React.ReactNode;
   label: string;
   isPro?: boolean;
   onClick?: () => void;
@@ -10,16 +23,16 @@ interface QuickActionsProps {
 }
 
 const quickActions: QuickAction[] = [
-  { icon: '✏️', label: 'Help me write' },
-  { icon: '🎨', label: 'Create images', isPro: true },
-  { icon: '💻', label: 'Code' },
-  { icon: '👁️', label: 'Analyze image', isPro: true },
-  { icon: '🔗', label: 'Summarize link', isPro: true },
-  { icon: '❓', label: 'Get advice' },
-  // { icon: '📄', label: 'Process doc', isPro: true },
-  // { icon: '📊', label: 'Analyze data', isPro: true },
-  { icon: '∞', label: 'Brainstorm' },
-  { icon: '🌐', label: 'Web search' },
+  { icon: <Pencil size={32} />, label: 'Help me write' },
+  { icon: <GalleryColored size={32} />, label: 'Create images', isPro: true },
+  { icon: <Code size={32} />, label: 'Code' },
+  { icon: <Eye size={32} />, label: 'Analyze image', isPro: true },
+  { icon: <Chain size={32} />, label: 'Summarize link', isPro: true },
+  { icon: <QuestionMark size={32} />, label: 'Get advice' },
+  { icon: <Doc size={32} />, label: 'Process doc', isPro: true },
+  { icon: <Graph size={32} />, label: 'Analyze data', isPro: true },
+  { icon: <Glasses size={32} />, label: 'Brainstorm' },
+  { icon: <Globe size={32} />, label: 'Web search' },
 ];
 
 export const QuickActions = ({ onActionClick }: QuickActionsProps) => {
@@ -29,8 +42,8 @@ export const QuickActions = ({ onActionClick }: QuickActionsProps) => {
 
   return (
     <>
-      <div className='grid grid-cols-3 md:grid-cols-4 mb-6 justify-center items-center'>
-        {quickActions.slice(0, 4).map((action, index) => (
+      <div className='grid grid-cols-3 md:grid-cols-5 mb-6 justify-center items-center'>
+        {quickActions.slice(0, 5).map((action, index) => (
           <div
             key={index}
             className='flex flex-col items-center space-y-2 md:space-y-3'
@@ -54,8 +67,8 @@ export const QuickActions = ({ onActionClick }: QuickActionsProps) => {
       </div>
 
       {/* Second Row - Hidden on smallest screens */}
-      <div className='hidden sm:grid grid-cols-3 md:grid-cols-4'>
-        {quickActions.slice(4).map((action, index) => (
+      <div className='hidden sm:grid grid-cols-3 md:grid-cols-5'>
+        {quickActions.slice(5).map((action, index) => (
           <div
             key={index + 5}
             className='flex flex-col items-center space-y-2 md:space-y-3'

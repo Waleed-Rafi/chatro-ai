@@ -1,3 +1,13 @@
 export { AppleIcon } from './Apple';
+export { Chain } from './Chain';
+export { Code } from './Code';
+export { Doc } from './Doc';
+export { Eye } from './Eye';
 export { FacebookIcon } from './Facebook';
+export { GalleryColored } from './GalleryColored';
+export { Glasses } from './Glasses';
+export { Globe } from './Globe';
 export { GoogleIcon } from './Google';
+export { Graph } from './Graph';
+export { Pencil } from './Pencil';
+export { QuestionMark } from './QuestionMark';

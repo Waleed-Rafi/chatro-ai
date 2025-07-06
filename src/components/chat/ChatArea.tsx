@@ -100,7 +100,7 @@ export const ChatArea = ({
           </h1>
 
           {/* Input Area */}
-          <div className='max-w-3xl mx-auto mb-8 md:mb-16'>
+          <div className='max-w-3xl mx-auto mb-6 md:mb-12'>
             <div className='relative'>
               <div className='flex items-center bg-[#2a2a2a] rounded-full px-4 py-2'>
                 <Paperclip
