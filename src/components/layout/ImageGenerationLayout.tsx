@@ -16,7 +16,7 @@ const ImageGenerationLayout = () => {
   }, [isSidebarCollapsed]);
 
   return (
-    <div className='min-h-screen bg-[#1a1a1a] text-white flex'>
+    <div className='min-h-screen bg-background text-foreground flex'>
       <Sidebar
         isCollapsed={isSidebarCollapsed}
         onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}

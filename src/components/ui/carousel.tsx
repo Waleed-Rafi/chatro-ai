@@ -1,3 +1,5 @@
+'use client';
+
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
 } from 'embla-carousel-react';
@@ -110,11 +112,12 @@ const Carousel = React.forwardRef<
       }
 
       onSelect(api);
-      api.on('reInit', onSelect);
       api.on('select', onSelect);
+      api.on('reInit', onSelect);
 
       return () => {
-        api?.off('select', onSelect);
+        api.off('select', onSelect);
+        api.off('reInit', onSelect);
       };
     }, [api, onSelect]);
 
@@ -122,7 +125,7 @@ const Carousel = React.forwardRef<
       <CarouselContext.Provider
         value={{
           carouselRef,
-          api: api,
+          api,
           opts,
           orientation:
             orientation || (opts?.axis === 'y' ? 'vertical' : 'horizontal'),
@@ -251,10 +254,10 @@ const CarouselNext = React.forwardRef<
 CarouselNext.displayName = 'CarouselNext';
 
 export {
-  type CarouselApi,
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselPrevious,
   CarouselNext,
+  CarouselPrevious,
+  type CarouselApi,
 };

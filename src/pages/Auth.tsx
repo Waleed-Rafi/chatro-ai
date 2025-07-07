@@ -1,5 +1,7 @@
+'use client';
+
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { AppleIcon, FacebookIcon } from '@/components/icons';
 import { Button } from '@/components/ui/button';
@@ -11,21 +13,21 @@ import { GoogleIcon } from '../components/icons/Google';
 const Auth = () => {
   const [email, setEmail] = useState('');
   const { login } = useAuth();
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const mode = searchParams.get('mode') || 'login';
   const isSignup = mode === 'signup';
 
   const handleEmailSubmit = () => {
     if (email) {
       login();
-      navigate('/');
+      router.push('/');
     }
   };
 
   const handleSocialLogin = () => {
     login();
-    navigate('/');
+    router.push('/');
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -91,7 +93,7 @@ const Auth = () => {
                   : "Don't have an account? "}
                 <button
                   onClick={() =>
-                    navigate(`/auth?mode=${isSignup ? 'login' : 'signup'}`)
+                    router.push(`/auth?mode=${isSignup ? 'login' : 'signup'}`)
                   }
                   className='text-blue-600 hover:text-blue-700 font-medium transition-colors'
                 >

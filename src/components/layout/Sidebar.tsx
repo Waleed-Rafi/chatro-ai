@@ -1,3 +1,5 @@
+'use client';
+
 import {
   ChevronDown,
   ChevronRight,
@@ -8,8 +10,8 @@ import {
   Settings,
   X,
 } from 'lucide-react';
+import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
 
 import { SettingsModal } from '@/components/modals/SettingsModal';
 import { Button } from '@/components/ui/button';
@@ -33,14 +35,14 @@ export const Sidebar = ({
   onToggleCollapse,
   onOpenPricing,
 }: SidebarProps) => {
-  const navigate = useNavigate();
-  const location = useLocation();
+  const router = useRouter();
+  const pathname = usePathname();
   const { isLoggedIn, logout } = useAuth();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
-  const isActive = (path: string) => location.pathname === path;
+  const isActive = (path: string) => pathname === path;
 
   return (
     <>
@@ -74,7 +76,7 @@ export const Sidebar = ({
                 className='w-full bg-[#1a1a1a] hover:bg-[#2a2a2a] text-white justify-start rounded-xl py-5'
                 variant='outline'
                 onClick={() => {
-                  navigate('/');
+                  router.push('/');
                   setIsMobileMenuOpen(false);
                 }}
               >
@@ -95,7 +97,7 @@ export const Sidebar = ({
                       : 'text-gray-400 hover:text-white hover:bg-[#1a1a1a]'
                   }`}
                   onClick={() => {
-                    navigate('/');
+                    router.push('/');
                     setIsMobileMenuOpen(false);
                   }}
                 >
@@ -111,7 +113,7 @@ export const Sidebar = ({
                       : 'text-gray-400 hover:text-white hover:bg-[#1a1a1a]'
                   }`}
                   onClick={() => {
-                    navigate('/image-generation');
+                    router.push('/image-generation');
                     setIsMobileMenuOpen(false);
                   }}
                 >
@@ -130,7 +132,7 @@ export const Sidebar = ({
                       : 'text-gray-400 hover:text-white hover:bg-[#1a1a1a]'
                   }`}
                   onClick={() => {
-                    navigate('/support');
+                    router.push('/support');
                     setIsMobileMenuOpen(false);
                   }}
                 >
@@ -146,7 +148,7 @@ export const Sidebar = ({
                       : 'text-gray-400 hover:text-white hover:bg-[#1a1a1a]'
                   }`}
                   onClick={() => {
-                    navigate('/pricing');
+                    router.push('/pricing');
                     setIsMobileMenuOpen(false);
                   }}
                 >
@@ -266,7 +268,7 @@ export const Sidebar = ({
         <div className='p-3 mb-6'>
           <Button
             className={`w-full bg-transparent hover:bg-sidebar-accent/80 text-sidebar-foreground border border-sidebar-accent-foreground/40 rounded-xl py-5 ${isCollapsed ? 'justify-center' : 'justify-start'}`}
-            onClick={() => navigate('/')}
+            onClick={() => router.push('/')}
           >
             <Plus
               size={16}
@@ -291,7 +293,7 @@ export const Sidebar = ({
                   ? 'text-sidebar-foreground bg-sidebar-accent hover:bg-sidebar-accent/80'
                   : 'text-sidebar-foreground/60 hover:bg-sidebar-accent/10'
               }`}
-              onClick={() => navigate('/')}
+              onClick={() => router.push('/')}
             >
               <Chat size={16} className={isCollapsed ? '' : 'mr-1.5'} />
               {!isCollapsed && 'AI Chat'}
@@ -304,7 +306,7 @@ export const Sidebar = ({
                   ? 'text-sidebar-foreground bg-sidebar-accent hover:bg-sidebar-accent/80'
                   : 'text-sidebar-foreground/60 hover:bg-sidebar-accent/10'
               }`}
-              onClick={() => navigate('/image-generation')}
+              onClick={() => router.push('/image-generation')}
             >
               <ImageGeneration
                 size={16}
@@ -328,7 +330,7 @@ export const Sidebar = ({
                   ? 'text-sidebar-foreground bg-sidebar-accent'
                   : 'text-sidebar-foreground/60 hover:text-sidebar-foreground hover:bg-sidebar-accent'
               }`}
-              onClick={() => navigate('/support')}
+              onClick={() => router.push('/support')}
             >
               <Support size={16} className={isCollapsed ? '' : 'mr-1.5'} />
               {!isCollapsed && 'Support'}
@@ -341,7 +343,7 @@ export const Sidebar = ({
                   ? 'text-sidebar-foreground bg-sidebar-accent'
                   : 'text-sidebar-foreground/60 hover:text-sidebar-foreground hover:bg-sidebar-accent'
               }`}
-              onClick={() => navigate('/pricing')}
+              onClick={() => router.push('/pricing')}
             >
               <CreditCard size={16} className={isCollapsed ? '' : 'mr-1.5'} />
               {!isCollapsed && 'Pricing Plans'}

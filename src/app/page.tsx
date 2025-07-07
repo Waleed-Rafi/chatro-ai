@@ -13,7 +13,7 @@ import { useAuth } from '@/contexts/AuthContext';
 
 import { DailyPopup } from '../components/modals/DailyPopup';
 
-const Index = () => {
+export default function HomePage() {
   const { isLoggedIn } = useAuth();
   const router = useRouter();
   const [isPricingOpen, setIsPricingOpen] = useState(false);
@@ -22,11 +22,11 @@ const Index = () => {
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const [isDailyPopupOpen, setIsDailyPopupOpen] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(() => {
-    const stored =
-      typeof window !== 'undefined'
-        ? localStorage.getItem('sidebarCollapsed')
-        : null;
-    return stored === 'true';
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('sidebarCollapsed');
+      return stored === 'true';
+    }
+    return false;
   });
 
   useEffect(() => {
@@ -103,6 +103,4 @@ const Index = () => {
       />
     </div>
   );
-};
-
-export default Index;
+}

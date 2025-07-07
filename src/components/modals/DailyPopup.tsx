@@ -1,4 +1,6 @@
-import { useNavigate } from 'react-router-dom';
+'use client';
+
+import { useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
@@ -9,15 +11,15 @@ interface DailyPopupProps {
 }
 
 export const DailyPopup = ({ isOpen, onClose }: DailyPopupProps) => {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const handleLogin = () => {
-    navigate('/auth?mode=login');
+    router.push('/auth?mode=login');
     onClose();
   };
 
   const handleSignup = () => {
-    navigate('/auth?mode=signup');
+    router.push('/auth?mode=signup');
     onClose();
   };
 

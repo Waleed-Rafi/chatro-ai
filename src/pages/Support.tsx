@@ -158,8 +158,8 @@ const Support = () => {
                 Still need help?
               </h3>
               <p className='text-gray-400 mb-6 text-sm md:text-base'>
-                Can't find the answer you're looking for? Our support team is
-                here to help.
+                Can&apos;t find the answer you&apos;re looking for? Our support
+                team is here to help.
               </p>
               <div className='flex flex-col sm:flex-row gap-4 justify-center'>
                 <Button className='bg-blue-600 hover:bg-blue-700 text-white px-6 py-3'>
