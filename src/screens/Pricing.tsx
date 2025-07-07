@@ -1,20 +1,14 @@
 import { Check, X } from 'lucide-react';
-import { useEffect, useState } from 'react';
 
 import { Sidebar } from '@/components/layout/Sidebar';
 import { Button } from '@/components/ui/button';
+import { useSidebar } from '@/contexts/SidebarContext';
 
 import FaqAccordion from '../components/FaqAccordion';
 import { ArrowRight } from '../components/icons/ArrowRight';
 
 const Pricing = () => {
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(() => {
-    const stored = localStorage.getItem('sidebarCollapsed');
-    return stored === 'true';
-  });
-  useEffect(() => {
-    localStorage.setItem('sidebarCollapsed', isSidebarCollapsed.toString());
-  }, [isSidebarCollapsed]);
+  const { isSidebarCollapsed, setIsSidebarCollapsed } = useSidebar();
 
   const faqs = [
     {

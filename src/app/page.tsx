@@ -10,6 +10,7 @@ import { UsagePopover } from '@/components/chat/UsagePopover';
 import { Sidebar } from '@/components/layout/Sidebar';
 import { PricingModal } from '@/components/modals/PricingModal';
 import { useAuth } from '@/contexts/AuthContext';
+import { useSidebar } from '@/contexts/SidebarContext';
 
 import { DailyPopup } from '../components/modals/DailyPopup';
 
@@ -21,23 +22,11 @@ export default function HomePage() {
   const [isUsageOpen, setIsUsageOpen] = useState(false);
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const [isDailyPopupOpen, setIsDailyPopupOpen] = useState(false);
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const stored = localStorage.getItem('sidebarCollapsed');
-      return stored === 'true';
-    }
-    return false;
-  });
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('sidebarCollapsed', isSidebarCollapsed.toString());
-    }
-  }, [isSidebarCollapsed]);
+  const { isSidebarCollapsed, setIsSidebarCollapsed } = useSidebar();
 
   // Check if daily popup should be shown
   useEffect(() => {
-    if (!isLoggedIn && typeof window !== 'undefined') {
+    if (!isLoggedIn) {
       const hidePopupUntil = localStorage.getItem('hidePopupUntil');
       const now = new Date().getTime();
 

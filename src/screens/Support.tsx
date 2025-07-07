@@ -1,21 +1,16 @@
 import { Search } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { Sidebar } from '@/components/layout/Sidebar';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useSidebar } from '@/contexts/SidebarContext';
 
 import FaqAccordion from '../components/FaqAccordion';
 import { ArrowRight } from '../components/icons/ArrowRight';
 
 const Support = () => {
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(() => {
-    const stored = localStorage.getItem('sidebarCollapsed');
-    return stored === 'true';
-  });
-  useEffect(() => {
-    localStorage.setItem('sidebarCollapsed', isSidebarCollapsed.toString());
-  }, [isSidebarCollapsed]);
+  const { isSidebarCollapsed, setIsSidebarCollapsed } = useSidebar();
   const [searchQuery, setSearchQuery] = useState('');
 
   const faqs = [

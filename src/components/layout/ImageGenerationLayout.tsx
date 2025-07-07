@@ -1,19 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { Sidebar } from '@/components/layout/Sidebar';
 import { PricingModal } from '@/components/modals/PricingModal';
-import ImageGeneration from '@/pages/ImageGeneration';
+import { useSidebar } from '@/contexts/SidebarContext';
+import ImageGeneration from '@/screens/ImageGeneration';
 
 const ImageGenerationLayout = () => {
   const [isPricingOpen, setIsPricingOpen] = useState(false);
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(() => {
-    const stored = localStorage.getItem('sidebarCollapsed');
-    return stored === 'true';
-  });
-
-  useEffect(() => {
-    localStorage.setItem('sidebarCollapsed', isSidebarCollapsed.toString());
-  }, [isSidebarCollapsed]);
+  const { isSidebarCollapsed, setIsSidebarCollapsed } = useSidebar();
 
   return (
     <div className='min-h-screen bg-background text-foreground flex'>
