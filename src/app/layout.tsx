@@ -3,16 +3,16 @@ import { Inter } from 'next/font/google';
 
 import { AuthProvider } from '@/contexts/AuthContext';
 import { SidebarProvider } from '@/contexts/SidebarContext';
-import { ThemeProvider } from '@/contexts/ThemeContext';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Chatro',
-  description: 'AI Chat Application',
+  title: 'Chatly - AI Chat Assistant',
+  description:
+    'Your intelligent AI chat assistant powered by advanced language models',
   openGraph: {
-    title: 'Chatro',
+    title: 'Chatly - AI Chat Assistant',
     type: 'website',
   },
   twitter: {
@@ -28,11 +28,9 @@ export default function RootLayout({
   return (
     <html lang='en' suppressHydrationWarning className='dark'>
       <body className={inter.className}>
-        <ThemeProvider>
-          <AuthProvider>
-            <SidebarProvider>{children}</SidebarProvider>
-          </AuthProvider>
-        </ThemeProvider>
+        <AuthProvider>
+          <SidebarProvider>{children}</SidebarProvider>
+        </AuthProvider>
       </body>
     </html>
   );

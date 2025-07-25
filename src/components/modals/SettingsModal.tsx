@@ -1,4 +1,4 @@
-import { Settings, Monitor, Sun, Moon, LogOut } from 'lucide-react';
+import { LogOut, Settings } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -8,7 +8,6 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { useAuth } from '@/contexts/AuthContext';
-import { useTheme } from '@/contexts/ThemeContext';
 
 interface SettingsModalProps {
   isOpen: boolean;
@@ -16,7 +15,6 @@ interface SettingsModalProps {
 }
 
 export const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
-  const { theme, setTheme } = useTheme();
   const { logout } = useAuth();
 
   const handleLogout = () => {
@@ -35,36 +33,6 @@ export const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
         </DialogHeader>
 
         <div className='space-y-4'>
-          <div>
-            <h3 className='text-sm font-medium mb-3'>Theme</h3>
-            <div className='space-y-2'>
-              <Button
-                variant={theme === 'light' ? 'default' : 'ghost'}
-                className='w-full justify-start'
-                onClick={() => setTheme('light')}
-              >
-                <Sun size={16} className='mr-2' />
-                Light
-              </Button>
-              <Button
-                variant={theme === 'dark' ? 'default' : 'ghost'}
-                className='w-full justify-start'
-                onClick={() => setTheme('dark')}
-              >
-                <Moon size={16} className='mr-2' />
-                Dark
-              </Button>
-              <Button
-                variant={theme === 'system' ? 'default' : 'ghost'}
-                className='w-full justify-start'
-                onClick={() => setTheme('system')}
-              >
-                <Monitor size={16} className='mr-2' />
-                System
-              </Button>
-            </div>
-          </div>
-
           <div className='border-t border-border pt-4'>
             <Button
               variant='ghost'
