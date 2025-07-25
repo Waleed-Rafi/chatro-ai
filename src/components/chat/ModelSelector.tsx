@@ -3,6 +3,11 @@ import { Search, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
+import { AnthropicCircle } from '../icons/AnthropicCircle';
+import { ChatGptCircle } from '../icons/ChatGptCircle';
+import { GeminiCircle } from '../icons/GeminiCircle';
+import { GrokCircle } from '../icons/GrokCircle';
+
 interface ModelSelectorProps {
   isOpen: boolean;
   onClose: () => void;
@@ -17,62 +22,62 @@ export const ModelSelector = ({ isOpen, onClose }: ModelSelectorProps) => {
       description: "OpenAI's fastest compact model",
       isPro: false,
       isSelected: true,
-      icon: '🤖',
+      icon: <ChatGptCircle />,
     },
     {
       name: 'Google Gemini 2.5 Flash',
       description: "Google's latest reasoning model",
       isPro: false,
       isNew: true,
-      icon: '⭐',
+      icon: <GeminiCircle />,
     },
     {
       name: 'Grok 3 Mini',
       description: "X AI's advanced reasoning model",
       isPro: false,
       isNew: true,
-      icon: '⚡',
+      icon: <GrokCircle />,
     },
     {
       name: 'OpenAI GPT-4.1-nano',
       description: "OpenAI's fastest compact model",
       isPro: false,
       isNew: true,
-      icon: '🤖',
+      icon: <ChatGptCircle />,
     },
     {
       name: 'OpenAI o4-mini',
       description: "OpenAI's efficient reasoning model",
       isPro: false,
       isNew: true,
-      icon: '🤖',
+      icon: <ChatGptCircle />,
     },
     {
       name: 'Anthropic Claude 4 Sonnet',
       description: "Anthropic's best coding model",
       isPro: true,
       isNew: true,
-      icon: '🎭',
+      icon: <AnthropicCircle />,
     },
     {
       name: 'OpenAI GPT-4.1',
       description: "OpenAI's most advanced model",
       isPro: true,
       isNew: true,
-      icon: '🤖',
+      icon: <ChatGptCircle />,
     },
     {
       name: 'OpenAI o4-mini (High)',
       description: "OpenAI's best reasoning model",
       isPro: true,
       isNew: true,
-      icon: '🤖',
+      icon: <ChatGptCircle />,
     },
     {
       name: 'OpenAI GPT-4o',
       description: "OpenAI's most advanced model",
       isPro: true,
-      icon: '🤖',
+      icon: <ChatGptCircle />,
     },
     {
       name: 'Deepseek R1',
@@ -85,7 +90,7 @@ export const ModelSelector = ({ isOpen, onClose }: ModelSelectorProps) => {
       name: 'Anthropic Claude 3.7 Sonnet',
       description: "Anthropic's most advanced model",
       isPro: true,
-      icon: '🎭',
+      icon: <AnthropicCircle />,
     },
   ];
 
@@ -110,7 +115,28 @@ export const ModelSelector = ({ isOpen, onClose }: ModelSelectorProps) => {
           </div>
 
           {/* Models List */}
-          <div className='space-y-1 max-h-96 overflow-y-auto p-4 pt-0'>
+          <div
+            className='space-y-1 max-h-96 overflow-y-auto p-4 pt-0'
+            style={{
+              scrollbarWidth: 'thin',
+              scrollbarColor: 'rgba(255, 255, 255, 0.2) transparent',
+            }}
+          >
+            <style jsx>{`
+              div::-webkit-scrollbar {
+                width: 4px;
+              }
+              div::-webkit-scrollbar-track {
+                background: transparent;
+              }
+              div::-webkit-scrollbar-thumb {
+                background: rgba(255, 255, 255, 0.2);
+                border-radius: 2px;
+              }
+              div::-webkit-scrollbar-thumb:hover {
+                background: rgba(255, 255, 255, 0.3);
+              }
+            `}</style>
             {models.map((model, index) => (
               <div
                 key={index}
@@ -149,11 +175,11 @@ export const ModelSelector = ({ isOpen, onClose }: ModelSelectorProps) => {
                   </div>
                 </div>
 
-                <div className='w-4 h-4 border border-gray-500 rounded-full flex items-center justify-center'>
+                {/* <div className='w-4 h-4 border border-gray-500 rounded-full flex items-center justify-center'>
                   {model.isSelected && (
                     <div className='w-2 h-2 bg-white rounded-full' />
                   )}
-                </div>
+                </div> */}
               </div>
             ))}
           </div>

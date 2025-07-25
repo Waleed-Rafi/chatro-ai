@@ -23,7 +23,7 @@ export const DailyPopup = ({ isOpen, onClose }: DailyPopupProps) => {
     onClose();
   };
 
-  const handleStayLoggedOut = () => {
+  const handleClose = () => {
     // Set a flag to not show popup again today
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
@@ -33,7 +33,7 @@ export const DailyPopup = ({ isOpen, onClose }: DailyPopupProps) => {
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent className='sm:max-w-md bg-background border-border animate-in fade-in-0 zoom-in-95 duration-200 p-0'>
         <div className='p-8 text-center'>
           <h2 className='text-xl font-semibold text-foreground mb-4'>
@@ -61,13 +61,13 @@ export const DailyPopup = ({ isOpen, onClose }: DailyPopupProps) => {
               Sign up for free
             </Button>
 
-            <Button
+            {/* <Button
               onClick={handleStayLoggedOut}
               variant='link'
               className='w-full text-muted-foreground text-sm hover:text-foreground underline'
             >
               Stay logged out
-            </Button>
+            </Button> */}
           </div>
         </div>
       </DialogContent>
