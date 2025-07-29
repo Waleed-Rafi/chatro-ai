@@ -3,7 +3,7 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 
-import { AppleIcon, FacebookIcon } from '@/components/icons';
+import { FacebookIcon } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useAuth } from '@/contexts/AuthContext';
@@ -132,14 +132,14 @@ const Auth = () => {
                 Continue with Facebook
               </Button>
 
-              <Button
+              {/* <Button
                 variant='outline'
                 onClick={handleSocialLogin}
                 className='w-full h-12 rounded-xl border-gray-300 bg-white text-gray-900 transition-all duration-200 hover:!bg-gray-50 hover:!text-gray-900 hover:!border-gray-400'
               >
                 <AppleIcon className='mr-1 !w-5 !h-5' />
                 Continue with Apple
-              </Button>
+              </Button> */}
             </div>
           </div>
 
