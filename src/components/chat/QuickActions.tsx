@@ -1,15 +1,13 @@
-import {
-  Chain,
-  Code,
-  Doc,
-  Eye,
-  GalleryColored,
-  Glasses,
-  Globe,
-  Graph,
-  Pencil,
-  QuestionMark,
-} from '../icons';
+import { Chain } from '../icons/Chain';
+import { Code } from '../icons/Code';
+import { Doc } from '../icons/Doc';
+import { Eye } from '../icons/Eye';
+import { GalleryColored } from '../icons/GalleryColored';
+import { Glasses } from '../icons/Glasses';
+import { Globe } from '../icons/Globe';
+import { Graph } from '../icons/Graph';
+import { Pencil } from '../icons/Pencil';
+import { QuestionMark } from '../icons/QuestionMark';
 
 interface QuickAction {
   icon: React.ReactNode;
