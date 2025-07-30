@@ -1,108 +1,114 @@
-import { Search, X, MoreHorizontal } from 'lucide-react';
+import { MoreHorizontal, Search } from 'lucide-react';
+import * as React from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
 
 interface HistoryPopoverProps {
-  isOpen: boolean;
-  onClose: () => void;
+  children: React.ReactNode;
 }
 
-export const HistoryPopover = ({ isOpen, onClose }: HistoryPopoverProps) => {
-  if (!isOpen) return null;
+export const HistoryPopover = ({ children }: HistoryPopoverProps) => {
+  const [isOpen, setIsOpen] = React.useState(false);
 
   return (
-    <>
-      {/* Desktop Popover */}
-      <div className='hidden md:block'>
-        <div className='fixed inset-0 z-40' onClick={onClose} />
-        <div className='absolute top-16 right-8 z-50 w-80 bg-[#2a2a2a] rounded-lg shadow-lg'>
-          {/* Header */}
-          <div className='p-4 border-b border-[#333]'>
-            <h3 className='text-white font-medium'>History</h3>
-          </div>
+    <Popover open={isOpen} onOpenChange={setIsOpen}>
+      <PopoverTrigger asChild>{children}</PopoverTrigger>
+      <PopoverContent
+        className='w-72 bg-[#1a1a1a] border-[#333] p-0 rounded-2xl shadow-2xl'
+        side='bottom'
+        align='end'
+        sideOffset={8}
+      >
+        {/* Header */}
+        <div className='p-4 border-b border-[#333]'>
+          <h3 className='text-white font-medium'>History</h3>
+        </div>
 
-          {/* Search */}
-          <div className='p-4'>
-            <div className='relative'>
-              <Search
-                size={16}
-                className='absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'
-              />
-              <Input
-                placeholder='Search...'
-                className='bg-[#1a1a1a] text-white placeholder-gray-500 pl-10'
-              />
-            </div>
+        {/* Search */}
+        <div className='p-4'>
+          <div className='relative'>
+            <Search
+              size={16}
+              className='absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'
+            />
+            <Input
+              placeholder='Search history...'
+              className='bg-[#0d0d0d] text-white placeholder-gray-500 pl-10 pr-4 py-3 text-sm border-[#333] rounded-xl h-11 focus:border-[#555] focus:ring-0 transition-colors'
+            />
           </div>
+        </div>
 
-          {/* History Items */}
-          <div className='max-h-96 overflow-y-auto'>
-            <div className='px-4 pb-4'>
-              <div className='text-gray-400 text-sm mb-3'>Today</div>
-              <div className='flex items-center justify-between p-3 rounded-lg hover:bg-[#333] cursor-pointer'>
-                <span className='text-white text-sm'>
+        {/* History Items */}
+        <div className='max-h-96 overflow-y-auto scrollbar-hide'>
+          <div className='px-4 pb-4'>
+            <div className='text-gray-400 text-sm mb-3 font-medium'>Today</div>
+            <div className='space-y-2'>
+              <div className='flex items-center justify-between p-3 rounded-lg hover:bg-[#2a2a2a] cursor-pointer transition-all duration-200'>
+                <span className='text-white text-sm truncate'>
                   General Chat and Greetings
                 </span>
                 <Button
                   variant='ghost'
                   size='sm'
-                  className='text-gray-400 hover:text-white'
+                  className='text-gray-400 hover:text-white p-1 h-8 w-8'
                 >
-                  <MoreHorizontal size={16} />
+                  <MoreHorizontal size={14} />
+                </Button>
+              </div>
+
+              <div className='flex items-center justify-between p-3 rounded-lg hover:bg-[#2a2a2a] cursor-pointer transition-all duration-200'>
+                <span className='text-white text-sm truncate'>
+                  Code Review and Debugging
+                </span>
+                <Button
+                  variant='ghost'
+                  size='sm'
+                  className='text-gray-400 hover:text-white p-1 h-8 w-8'
+                >
+                  <MoreHorizontal size={14} />
+                </Button>
+              </div>
+
+              <div className='flex items-center justify-between p-3 rounded-lg hover:bg-[#2a2a2a] cursor-pointer transition-all duration-200'>
+                <span className='text-white text-sm truncate'>
+                  Project Planning Discussion
+                </span>
+                <Button
+                  variant='ghost'
+                  size='sm'
+                  className='text-gray-400 hover:text-white p-1 h-8 w-8'
+                >
+                  <MoreHorizontal size={14} />
+                </Button>
+              </div>
+            </div>
+
+            <div className='text-gray-400 text-sm mb-3 font-medium mt-6'>
+              Yesterday
+            </div>
+            <div className='space-y-2'>
+              <div className='flex items-center justify-between p-3 rounded-lg hover:bg-[#2a2a2a] cursor-pointer transition-all duration-200'>
+                <span className='text-white text-sm truncate'>
+                  API Integration Help
+                </span>
+                <Button
+                  variant='ghost'
+                  size='sm'
+                  className='text-gray-400 hover:text-white p-1 h-8 w-8'
+                >
+                  <MoreHorizontal size={14} />
                 </Button>
               </div>
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Mobile Bottom Sheet */}
-      <div className='md:hidden fixed inset-0 z-50 bg-black/50'>
-        <div className='fixed bottom-0 left-0 right-0 bg-[#1a1a1a] rounded-t-lg max-h-[80vh] flex flex-col'>
-          {/* Header */}
-          <div className='flex items-center justify-between p-4 border-b border-[#333]'>
-            <h3 className='text-white font-medium text-lg'>History</h3>
-            <Button
-              variant='ghost'
-              size='sm'
-              onClick={onClose}
-              className='text-gray-400 hover:text-white'
-            >
-              <X size={20} />
-            </Button>
-          </div>
-
-          {/* Search */}
-          <div className='p-4'>
-            <div className='relative'>
-              <Search
-                size={16}
-                className='absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'
-              />
-              <Input
-                placeholder='Search...'
-                className='bg-[#2a2a2a] text-white placeholder-gray-500 pl-10'
-              />
-            </div>
-          </div>
-
-          {/* History Items */}
-          <div className='flex-1 overflow-y-auto px-4 pb-4'>
-            <div className='text-gray-400 text-sm mb-3'>Today</div>
-            <div className='flex items-center justify-between p-4 rounded-lg hover:bg-[#333] cursor-pointer'>
-              <span className='text-white'>General Chat and Greetings</span>
-              <Button
-                variant='ghost'
-                size='sm'
-                className='text-gray-400 hover:text-white'
-              >
-                <MoreHorizontal size={16} />
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
+      </PopoverContent>
+    </Popover>
   );
 };

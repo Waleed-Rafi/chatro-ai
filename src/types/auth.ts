@@ -4,6 +4,9 @@ export interface User {
   user_metadata?: {
     full_name?: string;
     avatar_url?: string;
+    email?: string;
+    name?: string;
+    picture?: string;
   };
 }
 

@@ -1,9 +1,12 @@
 import { create } from 'zustand';
 
 import { supabase } from '@/lib/supabase';
+import { extractUserProfile } from '@/lib/user-utils';
 import type { AuthProvider, AuthState, Session, User } from '@/types/auth';
+import type { UserProfile } from '@/types/user';
 
 interface AuthStore extends AuthState {
+  userProfile: UserProfile | null;
   signUp: (email: string, password: string) => Promise<void>;
   signIn: (email: string, password: string) => Promise<void>;
   signInWithProvider: (provider: AuthProvider) => Promise<void>;
@@ -12,11 +15,13 @@ interface AuthStore extends AuthState {
   clearError: () => void;
   setUser: (user: User | null) => void;
   setSession: (session: Session | null) => void;
+  setUserProfile: (profile: UserProfile | null) => void;
 }
 
 export const useAuthStore = create<AuthStore>(set => ({
   user: null,
   session: null,
+  userProfile: null,
   loading: false,
   error: null,
 
@@ -38,9 +43,11 @@ export const useAuthStore = create<AuthStore>(set => ({
         throw error;
       }
 
+      const profile = extractUserProfile(data.user);
       set({
         user: data.user,
         session: data.session,
+        userProfile: profile,
         loading: false,
         error: null,
       });
@@ -63,9 +70,11 @@ export const useAuthStore = create<AuthStore>(set => ({
 
       if (error) throw error;
 
+      const profile = extractUserProfile(data.user);
       set({
         user: data.user,
         session: data.session,
+        userProfile: profile,
         loading: false,
         error: null,
       });
@@ -106,6 +115,7 @@ export const useAuthStore = create<AuthStore>(set => ({
       set({
         user: null,
         session: null,
+        userProfile: null,
         loading: false,
       });
     } catch (error) {
@@ -124,9 +134,11 @@ export const useAuthStore = create<AuthStore>(set => ({
       } = await supabase.auth.getSession();
 
       if (session) {
+        const profile = extractUserProfile(session.user);
         set({
           user: session.user,
           session,
+          userProfile: profile,
           loading: false,
         });
       } else {
@@ -135,9 +147,11 @@ export const useAuthStore = create<AuthStore>(set => ({
 
       // Listen for auth changes
       supabase.auth.onAuthStateChange((event, session) => {
+        const profile = extractUserProfile(session?.user ?? null);
         set({
           user: session?.user ?? null,
           session,
+          userProfile: profile,
           loading: false,
         });
       });
@@ -150,6 +164,11 @@ export const useAuthStore = create<AuthStore>(set => ({
   },
 
   clearError: () => set({ error: null }),
-  setUser: (user: User | null) => set({ user }),
+  setUser: (user: User | null) => {
+    const profile = extractUserProfile(user);
+    set({ user, userProfile: profile });
+  },
   setSession: (session: Session | null) => set({ session }),
+  setUserProfile: (profile: UserProfile | null) =>
+    set({ userProfile: profile }),
 }));

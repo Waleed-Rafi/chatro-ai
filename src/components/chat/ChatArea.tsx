@@ -9,9 +9,8 @@ import { ChatHeader } from './ChatHeader';
 import { QuickActions } from './QuickActions';
 
 interface ChatAreaProps {
-  onOpenModelSelector: () => void;
-  onOpenUsage: () => void;
-  onOpenHistory: () => void;
+  selectedModel?: string;
+  onModelSelect?: (modelName: string) => void;
   isSidebarCollapsed: boolean;
   onToggleSidebar: () => void;
   onLogin: () => void;
@@ -20,9 +19,8 @@ interface ChatAreaProps {
 }
 
 export const ChatArea = ({
-  onOpenModelSelector,
-  onOpenUsage,
-  onOpenHistory,
+  selectedModel = 'OpenAI GPT-4o-mini',
+  onModelSelect,
   isSidebarCollapsed,
   onToggleSidebar,
   onLogin,
@@ -57,9 +55,8 @@ export const ChatArea = ({
         } pt-16 md:pt-0 h-screen`}
       >
         <ChatHeader
-          onOpenModelSelector={onOpenModelSelector}
-          onOpenUsage={onOpenUsage}
-          onOpenHistory={onOpenHistory}
+          selectedModel={selectedModel}
+          onModelSelect={onModelSelect}
           isSidebarCollapsed={isSidebarCollapsed}
           onToggleSidebar={onToggleSidebar}
           onLogin={onLogin}
@@ -81,9 +78,8 @@ export const ChatArea = ({
       } pt-16 md:pt-0`}
     >
       <ChatHeader
-        onOpenModelSelector={onOpenModelSelector}
-        onOpenUsage={onOpenUsage}
-        onOpenHistory={onOpenHistory}
+        selectedModel={selectedModel}
+        onModelSelect={onModelSelect}
         isSidebarCollapsed={isSidebarCollapsed}
         onToggleSidebar={onToggleSidebar}
         onLogin={onLogin}

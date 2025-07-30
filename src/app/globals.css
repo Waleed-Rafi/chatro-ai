@@ -94,4 +94,17 @@
       transform: translateY(0);
     }
   }
+
+  .input-focus {
+    @apply focus-visible:border-blue-500 focus-visible:border-2;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 }

@@ -65,6 +65,7 @@ export const useAuth = () => {
   return {
     user: user || auth.user,
     session: session || auth.session,
+    userProfile: auth.userProfile,
     loading: auth.loading || sessionLoading || userLoading,
     error: auth.error,
     isAuthenticated: !!(user || auth.user),

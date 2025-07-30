@@ -4,9 +4,6 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { ChatArea } from '@/components/chat/ChatArea';
-import { HistoryPopover } from '@/components/chat/HistoryPopover';
-import { ModelSelector } from '@/components/chat/ModelSelector';
-import { UsagePopover } from '@/components/chat/UsagePopover';
 import { Sidebar } from '@/components/layout/Sidebar';
 import { PricingModal } from '@/components/modals/PricingModal';
 import { useSidebar } from '@/contexts/SidebarContext';
@@ -18,9 +15,7 @@ export default function HomePage() {
   const { isAuthenticated } = useAuth();
   const router = useRouter();
   const [isPricingOpen, setIsPricingOpen] = useState(false);
-  const [isModelSelectorOpen, setIsModelSelectorOpen] = useState(false);
-  const [isUsageOpen, setIsUsageOpen] = useState(false);
-  const [isHistoryOpen, setIsHistoryOpen] = useState(false);
+  const [selectedModel, setSelectedModel] = useState('OpenAI GPT-4o-mini');
   const [isDailyPopupOpen, setIsDailyPopupOpen] = useState(false);
   const { isSidebarCollapsed, setIsSidebarCollapsed } = useSidebar();
 
@@ -55,9 +50,8 @@ export default function HomePage() {
 
       <div className='flex-1 flex flex-col'>
         <ChatArea
-          onOpenModelSelector={() => setIsModelSelectorOpen(true)}
-          onOpenUsage={() => setIsUsageOpen(true)}
-          onOpenHistory={() => setIsHistoryOpen(true)}
+          selectedModel={selectedModel}
+          onModelSelect={setSelectedModel}
           isSidebarCollapsed={isSidebarCollapsed}
           onToggleSidebar={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
           isLoggedIn={isAuthenticated}
@@ -74,21 +68,6 @@ export default function HomePage() {
       <DailyPopup
         isOpen={isDailyPopupOpen}
         onClose={() => setIsDailyPopupOpen(false)}
-      />
-
-      <ModelSelector
-        isOpen={isModelSelectorOpen}
-        onClose={() => setIsModelSelectorOpen(false)}
-      />
-
-      <UsagePopover
-        isOpen={isUsageOpen}
-        onClose={() => setIsUsageOpen(false)}
-      />
-
-      <HistoryPopover
-        isOpen={isHistoryOpen}
-        onClose={() => setIsHistoryOpen(false)}
       />
     </div>
   );

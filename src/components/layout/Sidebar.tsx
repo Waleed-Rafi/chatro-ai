@@ -3,7 +3,6 @@
 import {
   ChevronDown,
   ChevronRight,
-  ChevronUp,
   CreditCard,
   LogOut,
   Plus,
@@ -15,7 +14,14 @@ import { useState } from 'react';
 
 import { SettingsModal } from '@/components/modals/SettingsModal';
 import { Button } from '@/components/ui/button';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import { UserAvatar } from '@/components/ui/user-avatar';
 import { useAuth } from '@/hooks/use-auth';
+import { useUserDisplay } from '@/hooks/use-user-display';
 
 import { ArrowLeft } from '../icons/ArrowLeft';
 import { Chat } from '../icons/Chat';
@@ -37,10 +43,14 @@ export const Sidebar = ({
 }: SidebarProps) => {
   const router = useRouter();
   const pathname = usePathname();
-  const { isAuthenticated, signOut } = useAuth();
-  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const { isAuthenticated, signOut, userProfile } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isMobileProfileOpen, setIsMobileProfileOpen] = useState(false);
+  const [isDesktopProfileOpen, setIsDesktopProfileOpen] = useState(false);
+
+  // Get user display information
+  const userDisplayInfo = useUserDisplay();
 
   const isActive = (path: string) => pathname === path;
 
@@ -182,54 +192,53 @@ export const Sidebar = ({
 
               {/* Profile Section */}
               {isAuthenticated && (
-                <div className='relative'>
-                  <div
-                    className='flex items-center space-x-2 cursor-pointer p-2 rounded-lg hover:bg-[#1a1a1a]'
-                    onClick={() => setIsProfileOpen(!isProfileOpen)}
-                  >
-                    <div className='w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center'>
-                      <span className='text-xs'>WR</span>
-                    </div>
-                    <div className='flex-1'>
-                      <div className='text-sm text-white'>Waleed Rafi</div>
-                    </div>
-                    {isProfileOpen ? (
-                      <ChevronUp size={16} className='text-gray-400' />
-                    ) : (
-                      <ChevronDown size={16} className='text-gray-400' />
-                    )}
-                  </div>
-
-                  {isProfileOpen && (
-                    <>
-                      <div
-                        className='fixed inset-0 z-40'
-                        onClick={() => setIsProfileOpen(false)}
+                <Popover
+                  open={isMobileProfileOpen}
+                  onOpenChange={setIsMobileProfileOpen}
+                >
+                  <PopoverTrigger asChild>
+                    <div className='flex items-center space-x-2 cursor-pointer p-2 rounded-lg hover:bg-[#1a1a1a]'>
+                      <UserAvatar
+                        size='md'
+                        profilePictureUrl={userProfile?.avatarUrl}
+                        className='flex-shrink-0'
                       />
-                      <div className='absolute bottom-full left-0 mb-2 w-full bg-[#2a2a2a] rounded-lg shadow-lg z-50 p-2'>
-                        <Button
-                          variant='ghost'
-                          className='w-full justify-start text-white hover:bg-[#333] p-3'
-                          onClick={() => setIsProfileOpen(false)}
-                        >
-                          <Settings size={16} className='mr-3' />
-                          Settings
-                        </Button>
-                        <Button
-                          variant='ghost'
-                          className='w-full justify-start text-white hover:bg-[#333] p-3'
-                          onClick={() => {
-                            signOut();
-                            setIsProfileOpen(false);
-                          }}
-                        >
-                          <span className='mr-3'>↗</span>
-                          Log out
-                        </Button>
+                      <div className='flex-1'>
+                        <div className='text-sm text-white'>
+                          {userDisplayInfo.displayName}
+                        </div>
                       </div>
-                    </>
-                  )}
-                </div>
+                      <ChevronDown
+                        size={16}
+                        className={`text-gray-400 transition-transform duration-200 ${
+                          isMobileProfileOpen ? 'rotate-180' : ''
+                        }`}
+                      />
+                    </div>
+                  </PopoverTrigger>
+                  <PopoverContent
+                    className='w-full bg-[#2a2a2a] border-gray-700 p-2 rounded-lg'
+                    side='top'
+                    align='start'
+                  >
+                    <Button
+                      variant='ghost'
+                      className='w-full justify-start text-white hover:bg-[#333] p-3'
+                      onClick={() => setIsSettingsOpen(true)}
+                    >
+                      <Settings size={16} className='mr-3' />
+                      Settings
+                    </Button>
+                    <Button
+                      variant='ghost'
+                      className='w-full justify-start text-white hover:bg-[#333] p-3'
+                      onClick={() => signOut()}
+                    >
+                      <span className='mr-3'>↗</span>
+                      Log out
+                    </Button>
+                  </PopoverContent>
+                </Popover>
               )}
             </div>
           </div>
@@ -377,53 +386,45 @@ export const Sidebar = ({
             <div className=''>
               {isCollapsed ? (
                 <div className='flex justify-center items-center'>
-                  <div className='w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center'>
-                    <span className='text-xs'>WR</span>
-                  </div>
+                  <UserAvatar
+                    size='md'
+                    profilePictureUrl={userProfile?.avatarUrl}
+                  />
                 </div>
               ) : (
-                <div
-                  className={
-                    'flex items-center cursor-pointer rounded-xl bg-sidebar-accent/60 hover:bg-sidebar-accent/40 px-3 py-2 space-x-2'
-                  }
-                  onClick={() => setIsProfileOpen(!isProfileOpen)}
+                <Popover
+                  open={isDesktopProfileOpen}
+                  onOpenChange={setIsDesktopProfileOpen}
                 >
-                  <div className='w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center'>
-                    <span className='text-xs'>WR</span>
-                  </div>
-                  <div className='flex-1'>
-                    <div className='text-sm text-sidebar-foreground'>
-                      Waleed Rafi
+                  <PopoverTrigger asChild>
+                    <div className='flex items-center cursor-pointer rounded-xl bg-sidebar-accent/60 hover:bg-sidebar-accent/40 px-3 py-2 space-x-2'>
+                      <UserAvatar
+                        size='md'
+                        profilePictureUrl={userProfile?.avatarUrl}
+                        className='flex-shrink-0'
+                      />
+                      <div className='flex-1'>
+                        <div className='text-sm text-sidebar-foreground'>
+                          {userDisplayInfo.displayName}
+                        </div>
+                      </div>
+                      <ChevronDown
+                        size={16}
+                        className={`text-sidebar-foreground/60 transition-transform duration-200 ${
+                          isDesktopProfileOpen ? 'rotate-180' : ''
+                        }`}
+                      />
                     </div>
-                  </div>
-                  {isProfileOpen ? (
-                    <ChevronUp
-                      size={16}
-                      className='text-sidebar-foreground/60 animate-pulse'
-                    />
-                  ) : (
-                    <ChevronDown
-                      size={16}
-                      className='text-sidebar-foreground/60 animate-pulse'
-                    />
-                  )}
-                </div>
-              )}
-
-              {!isCollapsed && isProfileOpen && (
-                <>
-                  <div
-                    className='fixed inset-0 z-40'
-                    onClick={() => setIsProfileOpen(false)}
-                  />
-                  <div className='absolute bottom-full left-0 mb-2 w-full bg-[#1D1C1B] shadow-lg z-50 p-2 animate-fade-in border border-sidebar-accent-foreground/15 rounded-xl'>
+                  </PopoverTrigger>
+                  <PopoverContent
+                    className='w-full bg-[#1D1C1B] border-sidebar-accent-foreground/15 p-2 rounded-xl'
+                    side='top'
+                    align='start'
+                  >
                     <Button
                       variant='ghost'
                       className='w-full justify-start text-sidebar-foreground p-3'
-                      onClick={() => {
-                        setIsSettingsOpen(true);
-                        setIsProfileOpen(false);
-                      }}
+                      onClick={() => setIsSettingsOpen(true)}
                     >
                       <Settings size={16} className='mr-1' />
                       Settings
@@ -431,16 +432,13 @@ export const Sidebar = ({
                     <Button
                       variant='ghost'
                       className='w-full justify-start text-sidebar-foreground p-3'
-                      onClick={() => {
-                        setIsProfileOpen(false);
-                        signOut();
-                      }}
+                      onClick={() => signOut()}
                     >
                       <LogOut size={16} className='mr-1' />
                       Log out
                     </Button>
-                  </div>
-                </>
+                  </PopoverContent>
+                </Popover>
               )}
             </div>
           )}

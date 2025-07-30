@@ -4,10 +4,12 @@ import { Button } from '@/components/ui/button';
 
 import { ArrowRight } from '../icons/ArrowRight';
 
+import { HistoryPopover } from './HistoryPopover';
+import { ModelSelector } from './ModelSelector';
+
 interface ChatHeaderProps {
-  onOpenModelSelector: () => void;
-  onOpenUsage: () => void;
-  onOpenHistory: () => void;
+  selectedModel?: string;
+  onModelSelect?: (modelName: string) => void;
   isSidebarCollapsed: boolean;
   onToggleSidebar: () => void;
   onLogin: () => void;
@@ -17,9 +19,8 @@ interface ChatHeaderProps {
 }
 
 export const ChatHeader = ({
-  onOpenModelSelector,
-  onOpenUsage,
-  onOpenHistory,
+  selectedModel = 'OpenAI GPT-4o-mini',
+  onModelSelect,
   isSidebarCollapsed,
   onToggleSidebar,
   onLogin,
@@ -47,14 +48,18 @@ export const ChatHeader = ({
             </Button>
           )}
 
-          <Button
-            variant='ghost'
-            onClick={onOpenModelSelector}
-            className='text-white bg-[#1a1a1a] hover:bg-[#1a1a1aaa] rounded-full flex items-center space-x-2'
+          <ModelSelector
+            selectedModel={selectedModel}
+            onModelSelect={onModelSelect}
           >
-            <span>OpenAI GPT-4o-mini</span>
-            <ChevronDown size={16} />
-          </Button>
+            <Button
+              variant='ghost'
+              className='text-white bg-[#1a1a1a] hover:bg-[#1a1a1aaa] rounded-full flex items-center space-x-2'
+            >
+              <span>{selectedModel}</span>
+              <ChevronDown size={16} />
+            </Button>
+          </ModelSelector>
         </div>
 
         {isLoggedIn ? (
@@ -76,15 +81,16 @@ export const ChatHeader = ({
             >
               Upgrade
             </Button>
-            <Button
-              variant='ghost'
-              size='sm'
-              className='text-gray-400 hover:text-white'
-              onClick={onOpenHistory}
-            >
-              <span className='mr-1'>🕒</span>
-              History
-            </Button>
+            <HistoryPopover>
+              <Button
+                variant='ghost'
+                size='sm'
+                className='text-gray-400 hover:text-white'
+              >
+                <span className='mr-1'>🕒</span>
+                History
+              </Button>
+            </HistoryPopover>
           </div>
         ) : (
           <div className='flex items-center space-x-2'>
@@ -107,34 +113,31 @@ export const ChatHeader = ({
       >
         <div className='flex items-center justify-between'>
           <div className='flex items-center space-x-2 flex-1 min-w-0'>
-            <Button
-              variant='ghost'
-              onClick={onOpenModelSelector}
-              className='text-white hover:bg-[#2a2a2a] flex items-center space-x-2 min-w-0 flex-1 justify-start px-3 py-2'
+            <ModelSelector
+              selectedModel={selectedModel}
+              onModelSelect={onModelSelect}
             >
-              <span className='truncate text-sm'>OpenAI GPT-4o-mini</span>
-              <ChevronDown size={14} className='flex-shrink-0' />
-            </Button>
+              <Button
+                variant='ghost'
+                className='text-white hover:bg-[#2a2a2a] flex items-center space-x-2 min-w-0 flex-1 justify-start px-3 py-2'
+              >
+                <span className='truncate text-sm'>{selectedModel}</span>
+                <ChevronDown size={14} className='flex-shrink-0' />
+              </Button>
+            </ModelSelector>
           </div>
 
           {isLoggedIn ? (
             <div className='flex items-center space-x-1 flex-shrink-0'>
-              <Button
-                variant='ghost'
-                size='sm'
-                className='text-gray-400 hover:text-white p-2'
-                onClick={onOpenUsage}
-              >
-                <span className='text-lg'>⚡</span>
-              </Button>
-              <Button
-                variant='ghost'
-                size='sm'
-                className='text-gray-400 hover:text-white p-2'
-                onClick={onOpenHistory}
-              >
-                <span className='text-lg'>🕒</span>
-              </Button>
+              <HistoryPopover>
+                <Button
+                  variant='ghost'
+                  size='sm'
+                  className='text-gray-400 hover:text-white p-2'
+                >
+                  <span className='text-lg'>🕒</span>
+                </Button>
+              </HistoryPopover>
             </div>
           ) : (
             <Button
