@@ -1,2 +1,0 @@
-# Optional: Add commit message validation here if needed
-# npx --no -- commitlint --edit "$1"

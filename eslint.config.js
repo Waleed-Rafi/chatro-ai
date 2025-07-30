@@ -39,7 +39,7 @@ module.exports = tseslint.config(
         },
         typescript: {
           alwaysTryTypes: true,
-          project: "./tsconfig.app.json",
+          project: "./tsconfig.json",
           tsconfigRootDir: __dirname,
         },
         alias: {
