@@ -1,6 +1,5 @@
 import { create } from 'zustand';
 
-import { testEmailValidation } from '@/lib/email-test';
 import { supabase } from '@/lib/supabase';
 import type { AuthProvider, AuthState, Session, User } from '@/types/auth';
 
@@ -24,9 +23,6 @@ export const useAuthStore = create<AuthStore>(set => ({
   signUp: async (email: string, password: string) => {
     set({ loading: true, error: null });
     try {
-      // Test email validation
-      testEmailValidation(email);
-
       const { data, error } = await supabase.auth.signUp({
         email,
         password,

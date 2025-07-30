@@ -1,7 +1,6 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 
-import { debugSession } from '@/lib/session-debug';
 import { supabase } from '@/lib/supabase';
 import { useAuthStore } from '@/stores/auth-store';
 
@@ -13,7 +12,6 @@ export const useAuth = () => {
   const { data: session, isLoading: sessionLoading } = useQuery({
     queryKey: ['auth-session'],
     queryFn: async () => {
-      debugSession(); // Debug session state
       const { data } = await supabase.auth.getSession();
       return data.session;
     },
