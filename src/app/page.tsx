@@ -9,13 +9,13 @@ import { ModelSelector } from '@/components/chat/ModelSelector';
 import { UsagePopover } from '@/components/chat/UsagePopover';
 import { Sidebar } from '@/components/layout/Sidebar';
 import { PricingModal } from '@/components/modals/PricingModal';
-import { useAuth } from '@/contexts/AuthContext';
 import { useSidebar } from '@/contexts/SidebarContext';
+import { useAuth } from '@/hooks/use-auth';
 
 import { DailyPopup } from '../components/modals/DailyPopup';
 
 export default function HomePage() {
-  const { isLoggedIn } = useAuth();
+  const { isAuthenticated } = useAuth();
   const router = useRouter();
   const [isPricingOpen, setIsPricingOpen] = useState(false);
   const [isModelSelectorOpen, setIsModelSelectorOpen] = useState(false);
@@ -26,7 +26,7 @@ export default function HomePage() {
 
   // Check if daily popup should be shown
   useEffect(() => {
-    if (!isLoggedIn) {
+    if (!isAuthenticated) {
       const hidePopupUntil = localStorage.getItem('hidePopupUntil');
       const now = new Date().getTime();
 
@@ -39,7 +39,7 @@ export default function HomePage() {
         return () => clearTimeout(timer);
       }
     }
-  }, [isLoggedIn]);
+  }, [isAuthenticated]);
 
   const handleLoginClick = () => {
     router.push('/auth?mode=login');
@@ -60,7 +60,7 @@ export default function HomePage() {
           onOpenHistory={() => setIsHistoryOpen(true)}
           isSidebarCollapsed={isSidebarCollapsed}
           onToggleSidebar={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-          isLoggedIn={isLoggedIn}
+          isLoggedIn={isAuthenticated}
           onLogin={handleLoginClick}
           onOpenUpgrade={() => setIsPricingOpen(true)}
         />

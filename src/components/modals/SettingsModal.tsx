@@ -7,7 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '@/hooks/use-auth';
 
 interface SettingsModalProps {
   isOpen: boolean;
@@ -15,10 +15,10 @@ interface SettingsModalProps {
 }
 
 export const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
-  const { logout } = useAuth();
+  const { signOut } = useAuth();
 
   const handleLogout = () => {
-    logout();
+    signOut();
     onClose();
   };
 

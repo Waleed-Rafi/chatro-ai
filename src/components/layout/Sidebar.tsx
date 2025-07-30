@@ -15,7 +15,7 @@ import { useState } from 'react';
 
 import { SettingsModal } from '@/components/modals/SettingsModal';
 import { Button } from '@/components/ui/button';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '@/hooks/use-auth';
 
 import { ArrowLeft } from '../icons/ArrowLeft';
 import { Chat } from '../icons/Chat';
@@ -37,7 +37,7 @@ export const Sidebar = ({
 }: SidebarProps) => {
   const router = useRouter();
   const pathname = usePathname();
-  const { isLoggedIn, logout } = useAuth();
+  const { isAuthenticated, signOut } = useAuth();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -160,7 +160,7 @@ export const Sidebar = ({
 
             {/* Bottom Section */}
             <div className='p-4'>
-              {isLoggedIn && (
+              {isAuthenticated && (
                 <div className='mb-4'>
                   <div className='text-xs text-gray-400 mb-2'>
                     Unlock all premium features
@@ -181,7 +181,7 @@ export const Sidebar = ({
               )}
 
               {/* Profile Section */}
-              {isLoggedIn && (
+              {isAuthenticated && (
                 <div className='relative'>
                   <div
                     className='flex items-center space-x-2 cursor-pointer p-2 rounded-lg hover:bg-[#1a1a1a]'
@@ -218,7 +218,10 @@ export const Sidebar = ({
                         <Button
                           variant='ghost'
                           className='w-full justify-start text-white hover:bg-[#333] p-3'
-                          onClick={() => setIsProfileOpen(false)}
+                          onClick={() => {
+                            signOut();
+                            setIsProfileOpen(false);
+                          }}
                         >
                           <span className='mr-3'>↗</span>
                           Log out
@@ -352,7 +355,7 @@ export const Sidebar = ({
         </div>
 
         <div className='p-3'>
-          {isLoggedIn && !isCollapsed && (
+          {isAuthenticated && !isCollapsed && (
             <div className='mb-3 bg-sidebar-accent/60 rounded-xl px-3 py-4'>
               <div className='text-xs text-sidebar-foreground/90 font-semibold mb-0.5'>
                 Unlock all premium features
@@ -370,7 +373,7 @@ export const Sidebar = ({
             </div>
           )}
 
-          {isLoggedIn && (
+          {isAuthenticated && (
             <div className=''>
               {isCollapsed ? (
                 <div className='flex justify-center items-center'>
@@ -430,7 +433,7 @@ export const Sidebar = ({
                       className='w-full justify-start text-sidebar-foreground p-3'
                       onClick={() => {
                         setIsProfileOpen(false);
-                        logout();
+                        signOut();
                       }}
                     >
                       <LogOut size={16} className='mr-1' />

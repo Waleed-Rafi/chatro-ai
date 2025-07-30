@@ -1,8 +1,7 @@
-
 'use client';
 
-import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { ChatArea } from '@/components/chat/ChatArea';
 import { HistoryPopover } from '@/components/chat/HistoryPopover';
@@ -10,13 +9,13 @@ import { ModelSelector } from '@/components/chat/ModelSelector';
 import { UsagePopover } from '@/components/chat/UsagePopover';
 import { Sidebar } from '@/components/layout/Sidebar';
 import { PricingModal } from '@/components/modals/PricingModal';
-import { useAuth } from '@/contexts/AuthContext';
 import { useSidebar } from '@/contexts/SidebarContext';
+import { useAuth } from '@/hooks/use-auth';
 
 import { DailyPopup } from '../components/modals/DailyPopup';
 
 export default function HomePage() {
-  const { isLoggedIn } = useAuth();
+  const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [isPricingOpen, setIsPricingOpen] = useState(false);
   const [isModelSelectorOpen, setIsModelSelectorOpen] = useState(false);
@@ -27,7 +26,7 @@ export default function HomePage() {
 
   // Check if daily popup should be shown
   useEffect(() => {
-    if (!isLoggedIn) {
+    if (!isAuthenticated) {
       const hidePopupUntil = localStorage.getItem('hidePopupUntil');
       const now = new Date().getTime();
 
@@ -40,7 +39,7 @@ export default function HomePage() {
         return () => clearTimeout(timer);
       }
     }
-  }, [isLoggedIn]);
+  }, [isAuthenticated]);
 
   const handleLoginClick = () => {
     navigate('/auth?mode=login');
@@ -61,7 +60,7 @@ export default function HomePage() {
           onOpenHistory={() => setIsHistoryOpen(true)}
           isSidebarCollapsed={isSidebarCollapsed}
           onToggleSidebar={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-          isLoggedIn={isLoggedIn}
+          isLoggedIn={isAuthenticated}
           onLogin={handleLoginClick}
           onOpenUpgrade={() => setIsPricingOpen(true)}
         />

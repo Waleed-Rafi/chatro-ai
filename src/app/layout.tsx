@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
-import { AuthProvider } from '@/contexts/AuthContext';
 import { SidebarProvider } from '@/contexts/SidebarContext';
+import { QueryProvider } from '@/providers/QueryProvider';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -28,9 +28,9 @@ export default function RootLayout({
   return (
     <html lang='en' suppressHydrationWarning className='dark'>
       <body className={inter.className}>
-        <AuthProvider>
+        <QueryProvider>
           <SidebarProvider>{children}</SidebarProvider>
-        </AuthProvider>
+        </QueryProvider>
       </body>
     </html>
   );
