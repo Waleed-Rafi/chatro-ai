@@ -1,3 +1,5 @@
+import { quickActions as quickActionsData } from '@/data';
+
 import { Chain } from '../icons/Chain';
 import { Code } from '../icons/Code';
 import { Doc } from '../icons/Doc';
@@ -20,18 +22,30 @@ interface QuickActionsProps {
   onActionClick?: (action: QuickAction) => void;
 }
 
-const quickActions: QuickAction[] = [
-  { icon: <Pencil size={32} />, label: 'Help me write' },
-  { icon: <GalleryColored size={32} />, label: 'Create images', isPro: true },
-  { icon: <Code size={32} />, label: 'Code' },
-  { icon: <Eye size={32} />, label: 'Analyze image', isPro: true },
-  { icon: <Chain size={32} />, label: 'Summarize', isPro: true },
-  { icon: <QuestionMark size={32} />, label: 'Get advice' },
-  { icon: <Doc size={32} />, label: 'Process doc', isPro: true },
-  { icon: <Graph size={32} />, label: 'Analyze data', isPro: true },
-  { icon: <Glasses size={32} />, label: 'Brainstorm' },
-  { icon: <Globe size={32} />, label: 'Web search' },
-];
+// Icon mapping
+const iconMap = {
+  Pencil: Pencil,
+  GalleryColored: GalleryColored,
+  Code: Code,
+  Eye: Eye,
+  Chain: Chain,
+  QuestionMark: QuestionMark,
+  Doc: Doc,
+  Graph: Graph,
+  Glasses: Glasses,
+  Globe: Globe,
+};
+
+// Convert data to component format
+const quickActions: QuickAction[] = quickActionsData.map(action => {
+  const IconComponent = iconMap[action.icon as keyof typeof iconMap];
+  return {
+    icon: <IconComponent size={32} />,
+    label: action.label,
+    isPro: action.isPro,
+    onClick: action.onClick,
+  };
+});
 
 export const QuickActions = ({ onActionClick }: QuickActionsProps) => {
   const handleActionClick = (action: QuickAction) => {

@@ -2,73 +2,16 @@
 
 import { Check, X } from 'lucide-react';
 
-import FaqAccordion from '@/components/FaqAccordion';
-import { ArrowRight } from '@/components/icons/ArrowRight';
 import { Sidebar } from '@/components/layout/Sidebar';
 import { Button } from '@/components/ui/button';
 import { useSidebar } from '@/contexts/SidebarContext';
+import { additionalFeatures, pricingFAQs, pricingFeatures } from '@/data';
 
-const Pricing = () => {
+import FaqAccordion from '../../components/FaqAccordion';
+import { ArrowRight } from '../../components/icons/ArrowRight';
+
+export default function PricingPage() {
   const { isSidebarCollapsed, setIsSidebarCollapsed } = useSidebar();
-
-  const faqs = [
-    {
-      question: 'What can I use Chatro for?',
-      answer: 'Answer for what you can use Chatro for...',
-    },
-    {
-      question: 'What platforms is Chatro available on?',
-      answer: 'Answer about platform availability...',
-    },
-    {
-      question: 'What subscription plans are available?',
-      answer: 'Answer about subscription plans...',
-    },
-    {
-      question: 'Can I switch between AI models?',
-      answer: 'Answer about switching AI models...',
-    },
-    {
-      question: "What's new in Image Generation?",
-      answer: 'Answer about image generation updates...',
-    },
-    {
-      question: 'What file types are supported for upload?',
-      answer: 'Answer about supported file types...',
-    },
-    {
-      question: 'Is my personal data safe and secure when using Chatro?',
-      answer: 'Answer about data security...',
-    },
-    {
-      question: 'Can I share my account with others?',
-      answer: 'Answer about account sharing...',
-    },
-    {
-      question: 'Who do I contact if I have questions or need support?',
-      answer: 'Answer about contacting support...',
-    },
-    {
-      question: 'How can I report a bug to the developer?',
-      answer: 'Answer about reporting bugs...',
-    },
-    {
-      question: 'How can I cancel my subscription?',
-      answer: 'Answer about canceling subscription...',
-    },
-  ];
-
-  const features = [
-    { feature: 'Chat with links', reply: 'Advanced', openai: 'Limited' },
-    { feature: 'Chat with documents', reply: 'Advanced', openai: 'Limited' },
-    { feature: 'Analyze data', reply: 'Advanced', openai: 'Limited' },
-    { feature: 'Chat with image', reply: true, openai: false },
-  ];
-
-  const additionalFeatures = [
-    { feature: 'Image Generation', reply: 'Advanced', openai: 'Limited' },
-    { feature: 'AI Search Engine', reply: 'Advanced', openai: 'Limited' },
-  ];
 
   return (
     <div className='min-h-screen bg-background text-white flex'>
@@ -260,7 +203,7 @@ const Pricing = () => {
                     AI Chat
                   </h5>
                   <div className='space-y-2'>
-                    {features.map((item, index) => (
+                    {pricingFeatures.map((item, index) => (
                       <div
                         key={index}
                         className='grid grid-cols-3 gap-4 items-center text-xs'
@@ -333,7 +276,7 @@ const Pricing = () => {
             </div>
 
             {/* FAQ Section */}
-            <FaqAccordion faqs={faqs} />
+            <FaqAccordion faqs={pricingFAQs} />
           </div>
 
           {/* Desktop Layout */}
@@ -503,28 +446,7 @@ const Pricing = () => {
                   <div className='mb-6'>
                     <h5 className='text-white font-medium mb-4'>AI Chat</h5>
                     <div className='space-y-3'>
-                      {[
-                        {
-                          feature: 'Chat with links',
-                          reply: 'Advanced',
-                          openai: 'Limited',
-                        },
-                        {
-                          feature: 'Chat with documents',
-                          reply: 'Advanced',
-                          openai: 'Limited',
-                        },
-                        {
-                          feature: 'Analyze data',
-                          reply: 'Advanced',
-                          openai: 'Limited',
-                        },
-                        {
-                          feature: 'Chat with image',
-                          reply: true,
-                          openai: false,
-                        },
-                      ].map((item, index) => (
+                      {pricingFeatures.map((item, index) => (
                         <div
                           key={index}
                           className='grid grid-cols-3 gap-4 md:gap-8 items-center'
@@ -573,18 +495,7 @@ const Pricing = () => {
                   <div>
                     <h5 className='text-white font-medium mb-4'>AI Tools</h5>
                     <div className='space-y-3'>
-                      {[
-                        {
-                          feature: 'Image Generation',
-                          reply: 'Advanced',
-                          openai: 'Limited',
-                        },
-                        {
-                          feature: 'AI Search Engine',
-                          reply: 'Advanced',
-                          openai: 'Limited',
-                        },
-                      ].map((item, index) => (
+                      {additionalFeatures.map((item, index) => (
                         <div
                           key={index}
                           className='grid grid-cols-3 gap-4 md:gap-8 items-center'
@@ -612,13 +523,11 @@ const Pricing = () => {
 
             {/* FAQ Section */}
             <div className='max-w-4xl mx-auto'>
-              <FaqAccordion faqs={faqs} />
+              <FaqAccordion faqs={pricingFAQs} />
             </div>
           </div>
         </div>
       </div>
     </div>
   );
-};
-
-export default Pricing;
+}
