@@ -8,11 +8,11 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Chatly - AI Chat Assistant',
+  title: 'Chatro - AI Chat Assistant',
   description:
     'Your intelligent AI chat assistant powered by advanced language models',
   openGraph: {
-    title: 'Chatly - AI Chat Assistant',
+    title: 'Chatro - AI Chat Assistant',
     type: 'website',
   },
   twitter: {

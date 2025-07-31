@@ -238,7 +238,7 @@ export const PricingModal = ({ isOpen, onClose }: PricingModalProps) => {
                   <div className='w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center'>
                     <span className='text-xs font-bold text-white'>C</span>
                   </div>
-                  <span className='text-neutral-900 font-semibold'>Chatly</span>
+                  <span className='text-neutral-900 font-semibold'>Chatro</span>
                 </div>
                 <Button
                   variant='ghost'
