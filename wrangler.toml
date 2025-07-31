@@ -1,8 +1,14 @@
 [env.production]
-compatibility_flags = ["nodejs_compat"]
+compatibility_flags = [
+  "nodejs_compat_populate_process_env",
+  "nodejs_compat"
+]
 
 [env.preview]
-compatibility_flags = ["nodejs_compat"]
+compatibility_flags = [
+  "nodejs_compat_populate_process_env",
+  "nodejs_compat"
+]
 
 [build]
 command = "npm run build"
