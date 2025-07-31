@@ -3,10 +3,19 @@ import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { quickActions } from '@/data/quickActions';
 
 import { ChatConversation } from './ChatConversation';
 import { ChatHeader } from './ChatHeader';
 import { QuickActions } from './QuickActions';
+import { SuggestionsPopover } from './SuggestionsPopover';
+
+interface QuickAction {
+  icon: React.ReactNode;
+  label: string;
+  isPro?: boolean;
+  onClick?: () => void;
+}
 
 interface ChatAreaProps {
   selectedModel?: string;
@@ -30,6 +39,8 @@ export const ChatArea = ({
   const [message, setMessage] = useState('');
   const [isConversationStarted, setIsConversationStarted] = useState(false);
   const [initialMessage, setInitialMessage] = useState('');
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [currentSuggestions, setCurrentSuggestions] = useState<string[]>([]);
 
   const handleSendMessage = () => {
     if (!message.trim()) return;
@@ -37,6 +48,7 @@ export const ChatArea = ({
     setInitialMessage(message);
     setIsConversationStarted(true);
     setMessage('');
+    setShowSuggestions(false);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -44,6 +56,28 @@ export const ChatArea = ({
       e.preventDefault();
       handleSendMessage();
     }
+  };
+
+  const handleQuickActionClick = (action: QuickAction) => {
+    // Find the action data from quickActions array
+    const actionData = quickActions.find(qa => qa.label === action.label);
+
+    if (actionData?.suggestions) {
+      setCurrentSuggestions(actionData.suggestions);
+      setShowSuggestions(true);
+    } else {
+      // If no suggestions, just set the action label as the message
+      setMessage(action.label);
+    }
+  };
+
+  const handleSuggestionClick = (suggestion: string) => {
+    setMessage(suggestion);
+    setShowSuggestions(false);
+  };
+
+  const handleCloseSuggestions = () => {
+    setShowSuggestions(false);
   };
 
   // If conversation has started, show the conversation component
@@ -119,21 +153,24 @@ export const ChatArea = ({
                   <ArrowUp size={16} />
                 </Button>
               </div>
-            </div>
 
-            {/* <div className='text-xs text-gray-500 text-center mt-4'>
-              Chatro can make mistakes. Check important info.
-            </div> */}
+              {/* Suggestions Popover - Below input field */}
+              <SuggestionsPopover
+                suggestions={currentSuggestions}
+                onSuggestionClick={handleSuggestionClick}
+                onClose={handleCloseSuggestions}
+                isVisible={showSuggestions}
+              />
+            </div>
           </div>
 
-          {/* Quick Action Buttons */}
-          <div className='w-4/6 mx-auto'>
-            <QuickActions
-              onActionClick={action => {
-                // Handle quick action clicks here
-                console.log('Quick action clicked:', action);
-              }}
-            />
+          {/* Quick Action Buttons - Always in DOM but invisible when suggestions shown */}
+          <div
+            className={`w-4/6 mx-auto transition-opacity duration-200 ${
+              showSuggestions ? 'opacity-0 pointer-events-none' : 'opacity-100'
+            }`}
+          >
+            <QuickActions onActionClick={handleQuickActionClick} />
           </div>
         </div>
       </div>
