@@ -82,9 +82,7 @@ const AuthContent = () => {
                 Create your account to get started
               </p>
             ) : (
-              <p className='text-gray-600 text-sm'>
-                We missed you, welcome back to {companyInfo.name}!
-              </p>
+              <p className='text-gray-600 text-sm'>{companyInfo.name}!</p>
             )}
           </div>
 

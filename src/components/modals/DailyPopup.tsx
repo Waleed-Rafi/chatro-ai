@@ -37,7 +37,7 @@ export const DailyPopup = ({ isOpen, onClose }: DailyPopupProps) => {
       <DialogContent className='sm:max-w-md bg-background border-border animate-in fade-in-0 zoom-in-95 duration-200 p-0'>
         <div className='p-8 text-center'>
           <h2 className='text-xl font-semibold text-foreground mb-4'>
-            Welcome back
+            Welcome
           </h2>
           <p className='text-muted-foreground text-sm mb-8 leading-relaxed'>
             Log in or sign up to get smarter
