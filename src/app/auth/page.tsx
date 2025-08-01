@@ -3,14 +3,14 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
 
-import { GoogleIcon } from '@/components/icons/Google';
+import { GoogleIcon } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { companyInfo, footerLinks } from '@/data';
 import { useAnalytics } from '@/hooks/use-analytics';
 import { useAuth } from '@/hooks/use-auth';
 
-const AuthContent = () => {
+const AuthContentInner = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -244,6 +244,14 @@ const AuthContent = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+const AuthContent = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <AuthContentInner />
+    </Suspense>
   );
 };
 

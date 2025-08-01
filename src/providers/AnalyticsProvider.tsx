@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 
 import { trackPageView } from '@/lib/analytics/events';
 import { initializeGTM } from '@/lib/analytics/gtm';
@@ -10,14 +10,9 @@ interface AnalyticsProviderProps {
   children: React.ReactNode;
 }
 
-export const AnalyticsProvider = ({ children }: AnalyticsProviderProps) => {
+const AnalyticsTracker = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-
-  // Initialize analytics on mount
-  useEffect(() => {
-    initializeGTM();
-  }, []);
 
   // Track page views on route changes
   useEffect(() => {
@@ -25,5 +20,21 @@ export const AnalyticsProvider = ({ children }: AnalyticsProviderProps) => {
     trackPageView(url);
   }, [pathname, searchParams]);
 
-  return <>{children}</>;
+  return null;
+};
+
+export const AnalyticsProvider = ({ children }: AnalyticsProviderProps) => {
+  // Initialize analytics on mount
+  useEffect(() => {
+    initializeGTM();
+  }, []);
+
+  return (
+    <>
+      <Suspense fallback={null}>
+        <AnalyticsTracker />
+      </Suspense>
+      {children}
+    </>
+  );
 };
