@@ -78,10 +78,10 @@
     color-scheme: light;
   }
 
-  /* Remove all input focus styles for chat inputs */
-  input:focus,
-  input:focus-visible,
-  input:focus-within {
+  /* Remove focus styles only for chat inputs */
+  .chat-input:focus,
+  .chat-input:focus-visible,
+  .chat-input:focus-within {
     outline: none !important;
     border: none !important;
     box-shadow: none !important;

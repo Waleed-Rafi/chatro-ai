@@ -27,7 +27,6 @@ import { ArrowLeft } from '../icons/ArrowLeft';
 import { Chat } from '../icons/Chat';
 import { CompanyIcon } from '../icons/CompanyIcon';
 import { Crown } from '../icons/Crown';
-import { ImageGeneration } from '../icons/ImageGeneration';
 import { Support } from '../icons/Support';
 
 interface SidebarProps {
@@ -115,7 +114,7 @@ export const Sidebar = ({
                   AI Chat
                 </Button>
 
-                <Button
+                {/* <Button
                   variant='ghost'
                   className={`w-full justify-start ${
                     isActive('/image-generation')
@@ -129,7 +128,7 @@ export const Sidebar = ({
                 >
                   <ImageGeneration size={16} className='mr-3' />
                   Image Generation
-                </Button>
+                </Button> */}
               </div>
 
               <div className='text-xs text-gray-400 mb-2 px-2'>Others</div>
@@ -311,7 +310,7 @@ export const Sidebar = ({
               {!isCollapsed && 'AI Chat'}
             </Button>
 
-            <Button
+            {/* <Button
               variant='ghost'
               className={`w-full rounded-xl py-6 ${isCollapsed ? 'justify-center' : 'justify-start'} ${
                 isActive('/image-generation')
@@ -325,7 +324,7 @@ export const Sidebar = ({
                 className={isCollapsed ? '' : 'mr-1.5'}
               />
               {!isCollapsed && 'Image Generation'}
-            </Button>
+            </Button> */}
           </div>
 
           {!isCollapsed && (
