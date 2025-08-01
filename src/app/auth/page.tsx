@@ -10,8 +10,10 @@ import { companyInfo, footerLinks } from '@/data';
 import { useAuth } from '@/hooks/use-auth';
 
 const AuthContent = () => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
   const { signIn, signUp, signInWithProvider, loading, error, clearError } =
     useAuth();
   const router = useRouter();
@@ -22,15 +24,23 @@ const AuthContent = () => {
   // Clear everything when switching modes - treat as new page
   useEffect(() => {
     clearError();
+    setName('');
     setEmail('');
     setPassword('');
+    setHasAttemptedSubmit(false);
   }, [mode, clearError]);
 
   const handleEmailSubmit = async () => {
+    setHasAttemptedSubmit(true);
+
     if (email && password) {
       try {
         if (isSignup) {
-          await signUp(email, password);
+          if (!name.trim()) {
+            // Show error for missing name
+            return;
+          }
+          await signUp(email, password, name.trim());
         } else {
           await signIn(email, password);
         }
@@ -41,6 +51,13 @@ const AuthContent = () => {
         // Don't redirect - let the error show in the UI
       }
     }
+  };
+
+  const isFormValid = () => {
+    if (isSignup) {
+      return email && password && name.trim();
+    }
+    return email && password;
   };
 
   const handleSocialLogin = async (provider: 'google' | 'facebook') => {
@@ -87,15 +104,27 @@ const AuthContent = () => {
           </div>
 
           <div className='space-y-4'>
-            {/* Email Input */}
+            {/* Input Fields */}
             <div>
+              {isSignup && (
+                <Input
+                  type='text'
+                  placeholder='Full name'
+                  value={name}
+                  onChange={e => setName(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  className='w-full h-12 rounded-xl border-gray-300 bg-white text-gray-900 placeholder:text-gray-500'
+                />
+              )}
               <Input
                 type='email'
                 placeholder='Email address'
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 onKeyPress={handleKeyPress}
-                className='w-full h-12 rounded-xl border-gray-300 bg-white text-gray-900 placeholder:text-gray-500'
+                className={`w-full h-12 rounded-xl border-gray-300 bg-white text-gray-900 placeholder:text-gray-500 ${
+                  isSignup ? 'mt-3' : ''
+                }`}
               />
               <Input
                 type='password'
@@ -116,10 +145,21 @@ const AuthContent = () => {
               </div>
             )}
 
+            {isSignup && hasAttemptedSubmit && !name.trim() && (
+              <div className='text-red-600 text-sm mt-3 px-3 text-left bg-red-50 border border-red-200 rounded-lg py-3 shadow-sm'>
+                <div className='flex items-start space-x-2'>
+                  <span className='text-red-500 mt-0.5 flex-shrink-0'>⚠️</span>
+                  <span className='leading-relaxed'>
+                    Please enter your full name
+                  </span>
+                </div>
+              </div>
+            )}
+
             {/* Continue Button */}
             <Button
               onClick={handleEmailSubmit}
-              disabled={loading}
+              disabled={loading || !isFormValid()}
               className='w-full h-12 rounded-xl bg-gray-900 text-white disabled:opacity-50 transition-colors hover:!bg-gray-800 hover:!text-white'
             >
               {loading ? 'Loading...' : isSignup ? 'Create Account' : 'Sign In'}

@@ -7,7 +7,7 @@ import type { UserProfile } from '@/types/user';
 
 interface AuthStore extends AuthState {
   userProfile: UserProfile | null;
-  signUp: (email: string, password: string) => Promise<void>;
+  signUp: (email: string, password: string, name?: string) => Promise<void>;
   signIn: (email: string, password: string) => Promise<void>;
   signInWithProvider: (provider: AuthProvider) => Promise<void>;
   signOut: () => Promise<void>;
@@ -25,12 +25,17 @@ export const useAuthStore = create<AuthStore>(set => ({
   loading: false,
   error: null,
 
-  signUp: async (email: string, password: string) => {
+  signUp: async (email: string, password: string, name?: string) => {
     set({ loading: true, error: null });
     try {
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          data: {
+            full_name: name,
+          },
+        },
       });
 
       if (error) {
