@@ -1,10 +1,10 @@
 import {
   ArrowUp,
-  Paperclip,
   Copy,
-  ThumbsUp,
-  ThumbsDown,
+  Paperclip,
   RefreshCw,
+  ThumbsDown,
+  ThumbsUp,
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -91,77 +91,77 @@ export const ChatConversation = ({ initialMessage }: ChatConversationProps) => {
   };
 
   return (
-    <div className='flex-1 flex flex-col h-full'>
+    <div className='flex-1 flex flex-col min-h-0'>
       {/* Scrollable Messages Area */}
-      <div className='flex-1 overflow-y-auto p-4 md:p-8 space-y-6'>
-        <div className='max-w-4xl mx-auto'>
+      <div className='flex-1 overflow-y-auto px-4 py-4'>
+        <div className='max-w-3xl mx-auto space-y-3'>
           {messages.map(msg => (
             <div
               key={msg.id}
-              className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'} mb-6`}
+              className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               {msg.type === 'assistant' && (
-                <div className='w-8 h-8 bg-[#2a2a2a] rounded-full flex items-center justify-center mr-3 mt-1 flex-shrink-0'>
-                  <span className='text-sm'>🤖</span>
+                <div className='w-6 h-6 bg-[#2a2a2a] rounded-full flex items-center justify-center mr-2 mt-1 flex-shrink-0'>
+                  <span className='text-xs'>🤖</span>
                 </div>
               )}
 
               <div
-                className={`max-w-xs md:max-w-2xl ${
+                className={`max-w-xs md:max-w-lg ${
                   msg.type === 'user'
                     ? 'bg-[#2a2a2a] text-white'
                     : 'bg-transparent'
-                } rounded-2xl p-4`}
+                } rounded-xl p-3`}
               >
-                <p className='text-white'>{msg.content}</p>
+                <p className='text-white leading-relaxed'>{msg.content}</p>
 
                 {msg.type === 'assistant' && (
-                  <div className='mt-4 pt-4 border-t border-gray-600'>
+                  <div className='mt-2'>
                     <div className='flex items-center justify-between'>
-                      <div className='flex items-center space-x-3'>
+                      <div className='flex items-center space-x-1'>
                         <Button
                           variant='ghost'
                           size='sm'
-                          className='text-gray-400 hover:text-white p-1'
+                          className='text-gray-400 hover:text-white p-1 h-6 w-6'
                         >
-                          <Copy size={16} />
+                          <Copy size={12} />
                         </Button>
                         <Button
                           variant='ghost'
                           size='sm'
-                          className='text-gray-400 hover:text-white p-1'
+                          className='text-gray-400 hover:text-white p-1 h-6 w-6'
                         >
-                          <RefreshCw size={16} />
+                          <RefreshCw size={12} />
                         </Button>
                         <Button
                           variant='ghost'
                           size='sm'
-                          className='text-gray-400 hover:text-white p-1'
+                          className='text-gray-400 hover:text-white p-1 h-6 w-6'
                         >
-                          <ThumbsUp size={16} />
+                          <ThumbsUp size={12} />
                         </Button>
                         <Button
                           variant='ghost'
                           size='sm'
-                          className='text-gray-400 hover:text-white p-1'
+                          className='text-gray-400 hover:text-white p-1 h-6 w-6'
                         >
-                          <ThumbsDown size={16} />
+                          <ThumbsDown size={12} />
                         </Button>
                       </div>
 
                       {msg.model && (
-                        <div className='flex items-center space-x-2'>
+                        <div className='flex items-center space-x-1'>
                           <span className='text-xs text-gray-400'>
                             {msg.model}
                           </span>
                           <Button
                             variant='ghost'
                             size='sm'
-                            className='text-gray-400 hover:text-white p-1'
+                            className='text-gray-400 hover:text-white p-1 h-6 w-6'
                           >
                             <svg
-                              width='16'
-                              height='16'
+                              width='12'
+                              height='12'
                               viewBox='0 0 24 24'
                               fill='none'
                               className='text-gray-400'
@@ -185,19 +185,19 @@ export const ChatConversation = ({ initialMessage }: ChatConversationProps) => {
           ))}
 
           {isTyping && (
-            <div className='flex justify-start mb-6'>
-              <div className='w-8 h-8 bg-[#2a2a2a] rounded-full flex items-center justify-center mr-3 mt-1'>
-                <span className='text-sm'>🤖</span>
+            <div className='flex justify-start'>
+              <div className='w-6 h-6 bg-[#2a2a2a] rounded-full flex items-center justify-center mr-2 mt-1'>
+                <span className='text-xs'>🤖</span>
               </div>
-              <div className='bg-[#2a2a2a] rounded-2xl p-4'>
-                <div className='flex items-center space-x-2'>
-                  <div className='w-2 h-2 bg-gray-400 rounded-full animate-bounce' />
+              <div className='bg-[#2a2a2a] rounded-xl p-3'>
+                <div className='flex items-center space-x-1'>
+                  <div className='w-1.5 h-1.5 bg-gray-400 rounded-full animate-pulse' />
                   <div
-                    className='w-2 h-2 bg-gray-400 rounded-full animate-bounce'
+                    className='w-1.5 h-1.5 bg-gray-400 rounded-full animate-pulse'
                     style={{ animationDelay: '0.1s' }}
                   />
                   <div
-                    className='w-2 h-2 bg-gray-400 rounded-full animate-bounce'
+                    className='w-1.5 h-1.5 bg-gray-400 rounded-full animate-pulse'
                     style={{ animationDelay: '0.2s' }}
                   />
                 </div>
@@ -209,8 +209,8 @@ export const ChatConversation = ({ initialMessage }: ChatConversationProps) => {
 
       {/* Fixed Input Area at Bottom */}
       <div className='border-t border-[#2a2a2a] p-4 bg-[#1a1a1a]'>
-        <div className='max-w-4xl mx-auto'>
-          <div className='flex items-center bg-[#2a2a2a] rounded-full px-4 py-3'>
+        <div className='max-w-3xl mx-auto'>
+          <div className='flex items-center bg-[#2a2a2a] rounded-full px-4 py-2'>
             <Paperclip
               size={20}
               className='text-gray-400 mr-3 cursor-pointer hover:text-white'
@@ -224,16 +224,12 @@ export const ChatConversation = ({ initialMessage }: ChatConversationProps) => {
             />
             <Button
               size='sm'
-              className='bg-[#555] hover:bg-[#666] text-white p-2 rounded-full ml-3'
+              className='bg-[#555] hover:bg-[#666] text-white p-2.5 rounded-full'
               disabled={!message.trim() || isTyping}
               onClick={handleSendMessage}
             >
               <ArrowUp size={16} />
             </Button>
-          </div>
-
-          <div className='text-xs text-gray-500 text-center mt-2'>
-            Chatro can make mistakes. Check important info.
           </div>
         </div>
       </div>

@@ -77,6 +77,33 @@
   html.light {
     color-scheme: light;
   }
+
+  /* Remove all input focus styles for chat inputs */
+  input:focus,
+  input:focus-visible,
+  input:focus-within {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    ring: none !important;
+  }
+
+  /* Specific styles for chat input fields */
+  .chat-input {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    ring: none !important;
+  }
+
+  .chat-input:focus,
+  .chat-input:focus-visible,
+  .chat-input:focus-within {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    ring: none !important;
+  }
 }
 
 @layer utilities {
@@ -106,5 +133,22 @@
 
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
+  }
+
+  /* Chat-specific utilities */
+  .chat-input-no-focus {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    ring: none !important;
+  }
+
+  .chat-input-no-focus:focus,
+  .chat-input-no-focus:focus-visible,
+  .chat-input-no-focus:focus-within {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    ring: none !important;
   }
 }

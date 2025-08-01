@@ -76,7 +76,7 @@ const Support = () => {
                   placeholder='Search for help...'
                   value={searchQuery}
                   onChange={e => setSearchQuery(e.target.value)}
-                  className='bg-[#2a2a2a] text-white placeholder-gray-500 pl-12 py-3 md:py-4 text-sm md:text-base outline-none'
+                  className='bg-[#2a2a2a] text-white placeholder-gray-500 pl-12 py-3 md:py-4 text-sm md:text-base outline-none chat-input-no-focus'
                 />
               </div>
             </div>

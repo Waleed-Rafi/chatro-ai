@@ -122,7 +122,7 @@ export const ModelSelector = ({
             />
             <Input
               placeholder='Search models...'
-              className='bg-[#0d0d0d] text-white placeholder-gray-500 pl-10 pr-4 py-3 text-sm border-[#333] rounded-xl h-11 focus:border-[#555] focus:ring-0 transition-colors'
+              className='bg-[#0d0d0d] text-white placeholder-gray-500 pl-10 pr-4 py-3 text-sm border-[#333] rounded-xl h-11 focus:border-[#555] focus:ring-0 transition-colors chat-input-no-focus'
             />
           </div>
         </div>

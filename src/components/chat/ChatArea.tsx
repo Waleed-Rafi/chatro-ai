@@ -95,7 +95,7 @@ export const ChatArea = ({
           onToggleSidebar={onToggleSidebar}
           onLogin={onLogin}
           isLoggedIn={isLoggedIn}
-          showBorder={true}
+          showBorder={false}
           onOpenUpgrade={onOpenUpgrade}
         />
 
