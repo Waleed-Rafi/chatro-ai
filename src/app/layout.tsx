@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
 import { SidebarProvider } from '@/contexts/SidebarContext';
+import { AnalyticsProvider } from '@/providers/AnalyticsProvider';
 import { QueryProvider } from '@/providers/QueryProvider';
 import './globals.css';
 
@@ -28,9 +29,11 @@ export default function RootLayout({
   return (
     <html lang='en' suppressHydrationWarning className='dark'>
       <body className={inter.className}>
-        <QueryProvider>
-          <SidebarProvider>{children}</SidebarProvider>
-        </QueryProvider>
+        <AnalyticsProvider>
+          <QueryProvider>
+            <SidebarProvider>{children}</SidebarProvider>
+          </QueryProvider>
+        </AnalyticsProvider>
       </body>
     </html>
   );

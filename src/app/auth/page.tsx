@@ -7,6 +7,7 @@ import { GoogleIcon } from '@/components/icons/Google';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { companyInfo, footerLinks } from '@/data';
+import { useAnalytics } from '@/hooks/use-analytics';
 import { useAuth } from '@/hooks/use-auth';
 
 const AuthContent = () => {
@@ -16,6 +17,7 @@ const AuthContent = () => {
   const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
   const { signIn, signUp, signInWithProvider, loading, error, clearError } =
     useAuth();
+  const analytics = useAnalytics();
   const router = useRouter();
   const searchParams = useSearchParams();
   const mode = searchParams.get('mode') || 'login';
@@ -41,8 +43,10 @@ const AuthContent = () => {
             return;
           }
           await signUp(email, password, name.trim());
+          analytics.trackSignUp('email');
         } else {
           await signIn(email, password);
+          analytics.trackLogin('email');
         }
         // Only redirect on success
         router.push('/');
@@ -63,6 +67,8 @@ const AuthContent = () => {
   const handleSocialLogin = async (provider: 'google' | 'facebook') => {
     try {
       await signInWithProvider(provider);
+      analytics.trackLogin(provider);
+      analytics.trackButtonClick(`${provider}_login_button`, 'auth_page');
     } catch (error) {
       console.error('Social login error:', error);
       // Error will be handled by the store and shown in UI

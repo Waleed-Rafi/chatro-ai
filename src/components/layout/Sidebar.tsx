@@ -20,6 +20,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { UserAvatar } from '@/components/ui/user-avatar';
+import { useAnalytics } from '@/hooks/use-analytics';
 import { useAuth } from '@/hooks/use-auth';
 import { useUserDisplay } from '@/hooks/use-user-display';
 
@@ -43,6 +44,7 @@ export const Sidebar = ({
   const router = useRouter();
   const pathname = usePathname();
   const { isAuthenticated, signOut, userProfile } = useAuth();
+  const analytics = useAnalytics();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isMobileProfileOpen, setIsMobileProfileOpen] = useState(false);
@@ -373,7 +375,10 @@ export const Sidebar = ({
               </div>
               <Button
                 className='w-full bg-blue-600 hover:bg-blue-700 text-white rounded-xl'
-                onClick={onOpenPricing}
+                onClick={() => {
+                  analytics.trackUpgradeClick('sidebar');
+                  onOpenPricing();
+                }}
               >
                 <Crown size={16} className='mr-0.5' />
                 Upgrade
