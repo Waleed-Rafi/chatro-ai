@@ -108,7 +108,7 @@ export const ModelSelector = ({
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>{children}</PopoverTrigger>
       <PopoverContent
-        className='w-80 bg-[#1a1a1a] border-[#333] p-0 rounded-2xl shadow-2xl'
+        className='w-80 bg-[#2a2a2a] border-[#404040] p-0 rounded-2xl shadow-2xl'
         side='bottom'
         align='start'
         sideOffset={8}
@@ -122,7 +122,7 @@ export const ModelSelector = ({
             />
             <Input
               placeholder='Search models...'
-              className='bg-[#0d0d0d] text-white placeholder-gray-500 pl-10 pr-4 py-3 text-sm border-[#333] rounded-xl h-11 focus:border-[#555] focus:ring-0 transition-colors chat-input-no-focus'
+              className='bg-[#2a2a2a] text-white placeholder-gray-500 pl-10 pr-4 py-3 text-sm border border-[#404040] rounded-xl h-11 focus:border-[#404040] focus:ring-0 transition-colors popover-input'
             />
           </div>
         </div>

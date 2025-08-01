@@ -42,9 +42,8 @@ export const SuggestionsPopover = ({
   return (
     <div
       ref={popoverRef}
-      className='absolute top-full left-0 right-0 mt-2 backdrop-blur-xl rounded-2xl z-50 overflow-hidden'
+      className='absolute top-full left-0 right-0 mt-2 bg-[#2a2a2a] backdrop-blur-xl rounded-2xl z-50 overflow-hidden'
       style={{
-        backgroundColor: colors.background.secondary,
         border: `1px solid ${colors.border.primary}`,
         boxShadow: shadows['2xl'],
       }}

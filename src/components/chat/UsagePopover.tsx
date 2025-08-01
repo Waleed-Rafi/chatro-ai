@@ -53,7 +53,7 @@ export const UsagePopover = ({ isOpen, onClose }: UsagePopoverProps) => {
       </div>
 
       {/* Mobile Full Screen Modal */}
-      <div className='md:hidden fixed inset-0 z-50 bg-[#1a1a1a] p-4'>
+      <div className='md:hidden fixed inset-0 z-50 bg-[#2a2a2a] p-4'>
         {/* Header */}
         <div className='flex items-center justify-between mb-6'>
           <h2 className='text-white text-lg font-medium'>Usage</h2>

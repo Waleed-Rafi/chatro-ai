@@ -54,7 +54,7 @@ export const ChatHeader = ({
           >
             <Button
               variant='ghost'
-              className='text-white bg-[#1a1a1a] hover:bg-[#1a1a1aaa] rounded-full flex items-center space-x-2'
+              className='text-white bg-[#2a2a2a] hover:bg-[#2a2a2aaa] rounded-full flex items-center space-x-2'
             >
               <span>{selectedModel}</span>
               <ChevronDown size={16} />
@@ -85,7 +85,7 @@ export const ChatHeader = ({
               <Button
                 variant='ghost'
                 size='sm'
-                className='text-gray-400 hover:text-white'
+                className='text-white bg-[#2a2a2a] hover:bg-[#2a2a2aaa] rounded-full flex items-center space-x-2'
               >
                 <span className='mr-1'>🕒</span>
                 History
