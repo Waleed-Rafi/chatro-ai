@@ -113,7 +113,7 @@ export const ChatConversation = ({ initialMessage }: ChatConversationProps) => {
               className={`flex items-start ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               {msg.type === 'assistant' && (
-                <div className='w-8 h-8 bg-white rounded-full flex items-center justify-center mr-3 flex-shrink-0'>
+                <div className='w-8 h-8 bg-white rounded-full flex items-center justify-center mr-3 flex-shrink-0 self-start mt-3'>
                   <CompanyIcon size={20} className='text-gray-800' />
                 </div>
               )}
@@ -197,8 +197,8 @@ export const ChatConversation = ({ initialMessage }: ChatConversationProps) => {
           ))}
 
           {isTyping && (
-            <div className='flex justify-start items-start'>
-              <div className='w-8 h-8 bg-white rounded-full flex items-center justify-center mr-3'>
+            <div className='flex justify-start'>
+              <div className='w-8 h-8 bg-white rounded-full flex items-center justify-center mr-3 flex-shrink-0 self-start mt-3'>
                 <CompanyIcon size={20} className='text-gray-800' />
               </div>
               <div className='bg-[#2a2a2a] rounded-xl p-3'>
