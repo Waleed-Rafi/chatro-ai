@@ -141,7 +141,7 @@ const FeatureRow = ({ feature }: { feature: Feature }) => (
     <div className='col-span-8 flex items-center space-x-4'>
       <div className='flex items-center justify-center'>{feature.icon}</div>
       <div>
-        <div className='text-neutral-900 font-semibold text-sm leading-tight tracking-tight'>
+        <div className='text-neutral-800 font-medium text-sm leading-tight tracking-tight'>
           {feature.name}
         </div>
         <div className='text-neutral-400 text-xs leading-relaxed mt-0.5'>
@@ -186,7 +186,7 @@ const PlanCard = ({
   >
     <div className='flex flex-col gap-1'>
       <div className='flex items-center gap-2'>
-        <span className='text-sm md:text-base font-semibold text-neutral-900'>
+        <span className='text-sm md:text-base font-medium text-neutral-800'>
           {plan.name}
         </span>
         {plan.badge && (
@@ -204,7 +204,7 @@ const PlanCard = ({
       <span className='text-xs md:text-sm text-neutral-400'>{plan.price}</span>
     </div>
     <div className='text-right'>
-      <span className='text-lg md:text-xl font-bold text-neutral-900'>
+      <span className='text-lg md:text-xl font-semibold text-neutral-800'>
         {plan.daily}
       </span>
       <span className='text-xs text-neutral-400 ml-1'>/day</span>
@@ -297,7 +297,7 @@ export const PricingModal = ({ isOpen, onClose }: PricingModalProps) => {
               <div className='flex items-center justify-between mb-2'>
                 <div className='flex items-center space-x-2'>
                   <CompanyIcon size={28} className='text-neutral-900' />
-                  <span className='text-neutral-900 font-semibold'>Chatro</span>
+                  <span className='text-neutral-800 font-medium'>Chatro</span>
                 </div>
               </div>
             </DialogHeader>
@@ -306,13 +306,13 @@ export const PricingModal = ({ isOpen, onClose }: PricingModalProps) => {
             <div className='flex-1 mt-10'>
               {/* Features Header - Hidden on mobile */}
               <div className='hidden sm:grid grid-cols-12 gap-4 text-center mb-3 items-center'>
-                <div className='col-span-8 flex items-center h-full text-left text-sm font-medium text-neutral-500'>
+                <div className='col-span-8 flex items-center h-full text-left text-sm font-medium text-neutral-600'>
                   Combined Access to All Features
                 </div>
-                <div className='col-span-2 text-neutral-500 font-bold text-sm'>
+                <div className='col-span-2 text-neutral-600 font-semibold text-sm'>
                   Free
                 </div>
-                <div className='col-span-2 text-neutral-500 font-bold text-sm'>
+                <div className='col-span-2 text-neutral-600 font-semibold text-sm'>
                   Pro
                 </div>
               </div>
@@ -330,7 +330,7 @@ export const PricingModal = ({ isOpen, onClose }: PricingModalProps) => {
 
             {/* Mobile Features Summary */}
             <div className='sm:hidden mt-4 p-4 bg-white rounded-lg'>
-              <h4 className='font-semibold text-neutral-900 mb-2'>
+              <h4 className='font-medium text-neutral-800 mb-2'>
                 Pro Features Include:
               </h4>
               <ul className='text-sm text-neutral-600 space-y-1'>
@@ -349,7 +349,7 @@ export const PricingModal = ({ isOpen, onClose }: PricingModalProps) => {
             <div className='mt-6 text-center'>
               <Button
                 variant='link'
-                className='text-blue-600 hover:text-blue-500 font-medium'
+                className='text-blue-600 hover:text-blue-500 font-medium text-sm'
                 onClick={() => {
                   onClose();
                   window.location.href = '/pricing';
@@ -363,7 +363,7 @@ export const PricingModal = ({ isOpen, onClose }: PricingModalProps) => {
           {/* Right: Pricing Plans */}
           <div className='w-full md:w-1/2 bg-white px-4 md:px-12 py-4 md:py-8 flex flex-col items-center justify-between flex-1'>
             <div className='w-full'>
-              <h3 className='text-2xl md:text-3xl font-bold mb-6 md:mb-10 text-center text-neutral-900'>
+              <h3 className='text-2xl md:text-3xl font-semibold mb-6 md:mb-10 text-center text-neutral-800 tracking-tight'>
                 Upgrade your plan
               </h3>
 
