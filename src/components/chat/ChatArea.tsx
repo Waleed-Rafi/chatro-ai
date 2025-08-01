@@ -1,12 +1,10 @@
-import { ArrowUp, Paperclip } from 'lucide-react';
 import { useState } from 'react';
 
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { quickActions } from '@/data/quickActions';
 
 import { ChatConversation } from './ChatConversation';
 import { ChatHeader } from './ChatHeader';
+import { ChatInput } from './ChatInput';
 import { QuickActions } from './QuickActions';
 import { SuggestionsPopover } from './SuggestionsPopover';
 
@@ -51,13 +49,6 @@ export const ChatArea = ({
     setShowSuggestions(false);
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      handleSendMessage();
-    }
-  };
-
   const handleQuickActionClick = (action: QuickAction) => {
     // Find the action data from quickActions array
     const actionData = quickActions.find(qa => qa.label === action.label);
@@ -99,7 +90,9 @@ export const ChatArea = ({
           onOpenUpgrade={onOpenUpgrade}
         />
 
-        <ChatConversation initialMessage={initialMessage} />
+        <div className='flex-1 min-h-0'>
+          <ChatConversation initialMessage={initialMessage} />
+        </div>
       </div>
     );
   }
@@ -132,27 +125,12 @@ export const ChatArea = ({
           {/* Input Area */}
           <div className='max-w-3xl mx-auto mb-6 md:mb-12'>
             <div className='relative'>
-              <div className='flex items-center bg-[#2a2a2a] rounded-full px-4 py-2'>
-                <Paperclip
-                  size={20}
-                  className='text-gray-400 mr-3 cursor-pointer hover:text-white'
-                />
-                <Input
-                  placeholder='Type your message...'
-                  value={message}
-                  onChange={e => setMessage(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                  className='flex-1 bg-transparent border-0 text-white placeholder-gray-500 focus:ring-0 focus:outline-none'
-                />
-                <Button
-                  size='sm'
-                  className='bg-[#555] hover:bg-[#666] text-white p-2.5 rounded-full'
-                  disabled={!message.trim()}
-                  onClick={handleSendMessage}
-                >
-                  <ArrowUp size={16} />
-                </Button>
-              </div>
+              <ChatInput
+                value={message}
+                onChange={setMessage}
+                onSend={handleSendMessage}
+                placeholder='Type your message...'
+              />
 
               {/* Suggestions Popover - Below input field */}
               <SuggestionsPopover

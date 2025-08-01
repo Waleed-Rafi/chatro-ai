@@ -1,15 +1,9 @@
-import {
-  ArrowUp,
-  Copy,
-  Paperclip,
-  RefreshCw,
-  ThumbsDown,
-  ThumbsUp,
-} from 'lucide-react';
-import { useState } from 'react';
+import { Copy, RefreshCw, ThumbsDown, ThumbsUp } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 
+import { ChatInput } from '@/components/chat/ChatInput';
+import { CompanyIcon } from '@/components/icons/CompanyIcon';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 
 interface Message {
   id: string;
@@ -47,9 +41,34 @@ export const ChatConversation = ({ initialMessage }: ChatConversationProps) => {
     return [];
   });
   const [isTyping, setIsTyping] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  // Auto-focus input when AI response is received
+  useEffect(() => {
+    if (
+      !isTyping &&
+      messages.length > 0 &&
+      messages[messages.length - 1].type === 'assistant'
+    ) {
+      // Small delay to ensure the response is fully rendered
+      const timer = setTimeout(() => {
+        inputRef.current?.focus();
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [isTyping, messages]);
 
   const handleSendMessage = async () => {
-    if (!message.trim()) return;
+    if (!message.trim() || isTyping) return;
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -83,41 +102,34 @@ export const ChatConversation = ({ initialMessage }: ChatConversationProps) => {
     }, 1500);
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      handleSendMessage();
-    }
-  };
-
   return (
-    <div className='flex-1 flex flex-col min-h-0'>
+    <div className='flex-1 flex flex-col relative h-full'>
       {/* Scrollable Messages Area */}
       <div className='flex-1 overflow-y-auto px-4 py-4'>
         <div className='max-w-3xl mx-auto space-y-3'>
           {messages.map(msg => (
             <div
               key={msg.id}
-              className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}
+              className={`flex items-start ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               {msg.type === 'assistant' && (
-                <div className='w-6 h-6 bg-[#2a2a2a] rounded-full flex items-center justify-center mr-2 mt-1 flex-shrink-0'>
-                  <span className='text-xs'>🤖</span>
+                <div className='w-8 h-8 bg-white rounded-full flex items-center justify-center mr-3 flex-shrink-0'>
+                  <CompanyIcon size={20} className='text-gray-800' />
                 </div>
               )}
 
               <div
-                className={`max-w-xs md:max-w-lg ${
+                className={`${
                   msg.type === 'user'
-                    ? 'bg-[#2a2a2a] text-white'
-                    : 'bg-transparent'
+                    ? 'max-w-sm md:max-w-xl bg-[#2a2a2a] text-white'
+                    : 'max-w-full bg-transparent'
                 } rounded-xl p-3`}
               >
                 <p className='text-white leading-relaxed'>{msg.content}</p>
 
                 {msg.type === 'assistant' && (
                   <div className='mt-2'>
-                    <div className='flex items-center justify-between'>
+                    <div className='flex items-center justify-start'>
                       <div className='flex items-center space-x-1'>
                         <Button
                           variant='ghost'
@@ -150,7 +162,7 @@ export const ChatConversation = ({ initialMessage }: ChatConversationProps) => {
                       </div>
 
                       {msg.model && (
-                        <div className='flex items-center space-x-1'>
+                        <div className='flex items-center space-x-1 ml-2'>
                           <span className='text-xs text-gray-400'>
                             {msg.model}
                           </span>
@@ -185,9 +197,9 @@ export const ChatConversation = ({ initialMessage }: ChatConversationProps) => {
           ))}
 
           {isTyping && (
-            <div className='flex justify-start'>
-              <div className='w-6 h-6 bg-[#2a2a2a] rounded-full flex items-center justify-center mr-2 mt-1'>
-                <span className='text-xs'>🤖</span>
+            <div className='flex justify-start items-start'>
+              <div className='w-8 h-8 bg-white rounded-full flex items-center justify-center mr-3'>
+                <CompanyIcon size={20} className='text-gray-800' />
               </div>
               <div className='bg-[#2a2a2a] rounded-xl p-3'>
                 <div className='flex items-center space-x-1'>
@@ -204,32 +216,29 @@ export const ChatConversation = ({ initialMessage }: ChatConversationProps) => {
               </div>
             </div>
           )}
+
+          {/* Invisible div for auto-scroll */}
+          <div ref={messagesEndRef} />
         </div>
       </div>
 
       {/* Fixed Input Area at Bottom */}
-      <div className='border-t border-[#2a2a2a] p-4 bg-[#1a1a1a]'>
+      <div className='sticky bottom-0 p-4 bg-[#212121]'>
         <div className='max-w-3xl mx-auto'>
-          <div className='flex items-center bg-[#2a2a2a] rounded-full px-4 py-2'>
-            <Paperclip
-              size={20}
-              className='text-gray-400 mr-3 cursor-pointer hover:text-white'
-            />
-            <Input
-              placeholder='Type your message...'
-              value={message}
-              onChange={e => setMessage(e.target.value)}
-              onKeyPress={handleKeyPress}
-              className='flex-1 bg-transparent border-0 text-white placeholder-gray-500 focus:ring-0 focus:outline-none'
-            />
-            <Button
-              size='sm'
-              className='bg-[#555] hover:bg-[#666] text-white p-2.5 rounded-full'
-              disabled={!message.trim() || isTyping}
-              onClick={handleSendMessage}
-            >
-              <ArrowUp size={16} />
-            </Button>
+          <ChatInput
+            ref={inputRef}
+            value={message}
+            onChange={setMessage}
+            onSend={handleSendMessage}
+            placeholder={isTyping ? 'AI is typing...' : 'Type your message...'}
+            disabled={isTyping}
+          />
+
+          {/* Disclaimer Text */}
+          <div className='mt-2 text-center'>
+            <p className='text-xs text-gray-500'>
+              Chatro can make mistakes. Consider checking important information.
+            </p>
           </div>
         </div>
       </div>
