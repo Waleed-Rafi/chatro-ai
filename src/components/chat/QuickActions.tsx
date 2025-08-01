@@ -54,14 +54,11 @@ export const QuickActions = ({ onActionClick }: QuickActionsProps) => {
 
   return (
     <>
-      <div className='grid grid-cols-3 md:grid-cols-5 gap-x-6 mb-8 justify-center items-center'>
+      <div className='grid grid-cols-3 md:grid-cols-5 gap-8 md:gap-10 mb-8 w-full'>
         {quickActions.slice(0, 5).map((action, index) => (
-          <div
-            key={index}
-            className='flex flex-col items-center space-y-2 md:space-y-3'
-          >
+          <div key={index} className='flex flex-col items-center justify-start'>
             <div
-              className='w-12 h-12 md:w-16 md:h-16 bg-[#2a2a2a] rounded-2xl flex items-center justify-center relative group hover:bg-[#333] transition-colors cursor-pointer'
+              className='w-12 h-12 md:w-16 md:h-16 bg-[#2a2a2a] rounded-2xl flex items-center justify-center relative group hover:bg-[#333] transition-colors cursor-pointer mb-3 flex-shrink-0'
               onClick={() => handleActionClick(action)}
             >
               <span className='text-lg md:text-2xl'>{action.icon}</span>
@@ -71,7 +68,7 @@ export const QuickActions = ({ onActionClick }: QuickActionsProps) => {
                 </span>
               )}
             </div>
-            <span className='text-xs md:text-sm text-gray-400 text-center'>
+            <span className='text-xs md:text-sm text-gray-400 text-center leading-relaxed px-1 whitespace-nowrap'>
               {action.label}
             </span>
           </div>
@@ -79,14 +76,14 @@ export const QuickActions = ({ onActionClick }: QuickActionsProps) => {
       </div>
 
       {/* Second Row - Hidden on smallest screens */}
-      <div className='hidden sm:grid grid-cols-3 md:grid-cols-5 gap-x-6'>
+      <div className='hidden sm:grid grid-cols-3 md:grid-cols-5 gap-8 md:gap-10 w-full'>
         {quickActions.slice(5).map((action, index) => (
           <div
             key={index + 5}
-            className='flex flex-col items-center space-y-2 md:space-y-3'
+            className='flex flex-col items-center justify-start'
           >
             <div
-              className='w-12 h-12 md:w-16 md:h-16 bg-[#2a2a2a] rounded-2xl flex items-center justify-center relative group hover:bg-[#333] transition-colors cursor-pointer'
+              className='w-12 h-12 md:w-16 md:h-16 bg-[#2a2a2a] rounded-2xl flex items-center justify-center relative group hover:bg-[#333] transition-colors cursor-pointer mb-3 flex-shrink-0'
               onClick={() => handleActionClick(action)}
             >
               <span className='text-lg md:text-2xl'>{action.icon}</span>
@@ -96,7 +93,7 @@ export const QuickActions = ({ onActionClick }: QuickActionsProps) => {
                 </span>
               )}
             </div>
-            <span className='text-xs md:text-sm text-gray-400 text-center'>
+            <span className='text-xs md:text-sm text-gray-400 text-center leading-relaxed px-1 whitespace-nowrap'>
               {action.label}
             </span>
           </div>
