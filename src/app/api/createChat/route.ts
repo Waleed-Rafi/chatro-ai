@@ -73,26 +73,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Step 3: Insert user message
-    const { error: userMsgError } = await supabase
-      .from('chat_messages')
-      .insert([
-        {
-          chat_id: chat.id,
-          user_id: userId,
-          message: chatMessage,
-          created_at: new Date().toISOString(),
-        },
-      ]);
-
-    if (userMsgError) {
-      console.error('Error inserting user message:', userMsgError);
-      return NextResponse.json(
-        { error: 'Chat created but failed to add user message' },
-        { status: 500 }
-      );
-    }
-
     // Step 4: Call Azure OpenAI for reply
     const params: ChatCompletionCreateParams = {
       messages: [
@@ -106,12 +86,33 @@ export async function POST(request: NextRequest) {
     const response = await client.chat.completions.create(params);
     const botReply = response.choices[0]?.message?.content ?? '';
 
+    // Step 3: Insert user message
+    const { error: userMsgError } = await supabase
+      .from('chat_messages')
+      .insert([
+        {
+          chat_id: chat.id,
+          user_id: userId,
+          prompt: chatMessage,
+          model_output: botReply,
+          created_at: new Date().toISOString(),
+        },
+      ]);
+
+    if (userMsgError) {
+      console.error('Error inserting user message:', userMsgError);
+      return NextResponse.json(
+        { error: 'Chat created but failed to add user message' },
+        { status: 500 }
+      );
+    }
+
     // Step 5: Insert bot reply into chat_messages
     const { error: botMsgError } = await supabase.from('chat_messages').insert([
       {
         chat_id: chat.id,
         user_id: null, // null means system/bot
-        message: botReply,
+        model_output: botReply,
         created_at: new Date().toISOString(),
       },
     ]);
