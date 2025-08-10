@@ -24,7 +24,6 @@ export async function GET(request: NextRequest) {
         `
         id,
         chat_id,
-        user_id,
         prompt,
         created_at,
         model_output
