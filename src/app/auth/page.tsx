@@ -119,7 +119,7 @@ const AuthContentInner = () => {
                   value={name}
                   onChange={e => setName(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  className='w-full h-12 rounded-xl border-gray-300 bg-white text-gray-900 placeholder:text-gray-500'
+                  className='w-full h-12 rounded-xl border-gray-300 bg-white text-gray-900 placeholder:text-gray-500 auth-input'
                 />
               )}
               <Input
@@ -128,7 +128,7 @@ const AuthContentInner = () => {
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 onKeyPress={handleKeyPress}
-                className={`w-full h-12 rounded-xl border-gray-300 bg-white text-gray-900 placeholder:text-gray-500 ${
+                className={`w-full h-12 rounded-xl border-gray-300 bg-white text-gray-900 placeholder:text-gray-500 auth-input ${
                   isSignup ? 'mt-3' : ''
                 }`}
               />
@@ -138,7 +138,7 @@ const AuthContentInner = () => {
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 onKeyPress={handleKeyPress}
-                className='w-full h-12 mt-3 rounded-xl border-gray-300 bg-white text-gray-900 placeholder:text-gray-500'
+                className='w-full h-12 mt-3 rounded-xl border-gray-300 bg-white text-gray-900 placeholder:text-gray-500 auth-input'
               />
             </div>
 
