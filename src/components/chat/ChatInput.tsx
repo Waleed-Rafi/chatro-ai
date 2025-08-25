@@ -47,7 +47,7 @@ export const ChatInput = forwardRef<HTMLInputElement, ChatInputProps>(
           onChange={e => onChange(e.target.value)}
           onKeyPress={handleKeyPress}
           disabled={disabled}
-          className='flex-1 bg-transparent border-0 text-white placeholder-gray-500 focus:ring-0 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed chat-input'
+          className='flex-1 bg-transparent border-0 text-white placeholder-gray-500 focus:ring-0 focus:outline-none focus-visible:border-0 focus-visible:ring-0 disabled:opacity-50 disabled:cursor-not-allowed'
         />
         <Button
           size='sm'
