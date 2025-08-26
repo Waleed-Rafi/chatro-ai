@@ -64,15 +64,6 @@ export const ChatHeader = ({
 
         {isLoggedIn ? (
           <div className='flex items-center space-x-2'>
-            {/* <Button
-              variant='ghost'
-              size='sm'
-              className='text-gray-400 hover:text-white'
-              onClick={onOpenUsage}
-            >
-              <span className='mr-1'>⚡</span>
-              Usage
-            </Button> */}
             {/* upgrade to pro button */}
             <Button
               size='sm'

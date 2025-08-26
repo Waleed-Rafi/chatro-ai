@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 
 import { ChatArea } from '@/components/chat/ChatArea';
 import { Sidebar } from '@/components/layout/Sidebar';
@@ -40,24 +40,32 @@ export default function HomePage() {
     router.push('/auth?mode=login');
   };
 
+  const handleStartNew = () => {
+    // Navigate to home page with new chat state
+    router.push('/?chat=new');
+  };
+
   return (
     <div className='min-h-screen bg-background text-foreground flex'>
       <Sidebar
         isCollapsed={isSidebarCollapsed}
         onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
         onOpenPricing={() => setIsPricingOpen(true)}
+        onStartNew={handleStartNew}
       />
 
       <div className='flex-1 flex flex-col'>
-        <ChatArea
-          selectedModel={selectedModel}
-          onModelSelect={setSelectedModel}
-          isSidebarCollapsed={isSidebarCollapsed}
-          onToggleSidebar={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-          isLoggedIn={isAuthenticated}
-          onLogin={handleLoginClick}
-          onOpenUpgrade={() => setIsPricingOpen(true)}
-        />
+        <Suspense fallback={<div>Loading chat...</div>}>
+          <ChatArea
+            selectedModel={selectedModel}
+            onModelSelect={setSelectedModel}
+            isSidebarCollapsed={isSidebarCollapsed}
+            onToggleSidebar={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+            isLoggedIn={isAuthenticated}
+            onLogin={handleLoginClick}
+            onOpenUpgrade={() => setIsPricingOpen(true)}
+          />
+        </Suspense>
       </div>
 
       <PricingModal
