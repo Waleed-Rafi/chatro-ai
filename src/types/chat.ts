@@ -15,10 +15,10 @@ export interface Chat {
   id: string;
   title?: string;
   model?: string;
-  createdAt: Date;
-  updatedAt: Date;
-  messageCount: number;
-  userId: string;
+  created_at: string;
+  updated_at?: string;
+  messageCount?: number;
+  userId?: string;
 }
 
 // API Response types

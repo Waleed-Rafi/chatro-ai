@@ -238,6 +238,10 @@ export const ChatArea = ({
     setShowSuggestions(false);
   };
 
+  const handleChatSelect = (chatId: string) => {
+    router.push(`/?chat=${chatId}`);
+  };
+
   // If there's an active chat, show the conversation component
   if (!isNewChat) {
     return (
@@ -255,6 +259,8 @@ export const ChatArea = ({
           isLoggedIn={isLoggedIn}
           showBorder={false}
           onOpenUpgrade={onOpenUpgrade}
+          onChatSelect={handleChatSelect}
+          currentChatId={currentChatId}
         />
 
         <div className='flex-1 min-h-0'>
@@ -288,6 +294,8 @@ export const ChatArea = ({
         isLoggedIn={isLoggedIn}
         showBorder={false}
         onOpenUpgrade={onOpenUpgrade}
+        onChatSelect={handleChatSelect}
+        currentChatId={currentChatId}
       />
 
       {/* Main Content */}
