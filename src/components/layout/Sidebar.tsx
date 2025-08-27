@@ -34,12 +34,14 @@ interface SidebarProps {
   isCollapsed: boolean;
   onToggleCollapse: () => void;
   onOpenPricing: () => void;
+  onStartNew?: () => void;
 }
 
 export const Sidebar = ({
   isCollapsed,
   onToggleCollapse,
   onOpenPricing,
+  onStartNew,
 }: SidebarProps) => {
   const router = useRouter();
   const pathname = usePathname();
@@ -87,7 +89,11 @@ export const Sidebar = ({
                 className='w-full bg-[#1a1a1a] hover:bg-[#2a2a2a] text-white justify-start rounded-xl py-5'
                 variant='outline'
                 onClick={() => {
-                  router.push('/');
+                  if (onStartNew) {
+                    onStartNew();
+                  } else {
+                    router.push('/');
+                  }
                   setIsMobileMenuOpen(false);
                 }}
               >
@@ -281,7 +287,13 @@ export const Sidebar = ({
         <div className='p-3 mb-6'>
           <Button
             className={`w-full bg-transparent hover:bg-sidebar-accent/80 text-sidebar-foreground border border-sidebar-accent-foreground/40 rounded-xl py-5 ${isCollapsed ? 'justify-center' : 'justify-start'}`}
-            onClick={() => router.push('/')}
+            onClick={() => {
+              if (onStartNew) {
+                onStartNew();
+              } else {
+                router.push('/');
+              }
+            }}
           >
             <Plus
               size={16}

@@ -126,6 +126,17 @@
     @apply focus-visible:border-blue-500 focus-visible:border-2;
   }
 
+  /* Auth input focus styles - override the default input-focus for auth inputs */
+  .auth-input:focus,
+  .auth-input:focus-visible,
+  .auth-input:focus-within {
+    border-color: #9ca3af !important; /* gray-400 */
+    border-width: 2px !important;
+    outline: none !important;
+    box-shadow: none !important;
+    ring: none !important;
+  }
+
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
