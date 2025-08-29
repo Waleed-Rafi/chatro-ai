@@ -11,6 +11,10 @@ import {
 } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader } from '@/components/ui/dialog';
+import { CLIENT_SUBSCRIPTION_PLANS } from '@/data/pricing';
+import { useAuth } from '@/hooks/use-auth';
+import { usePayment } from '@/hooks/use-payment';
+import { formatStripeAmount } from '@/lib/stripe';
 
 // Types
 interface Feature {
@@ -213,7 +217,9 @@ const PlanCard = ({
 );
 
 export const PricingModal = ({ isOpen, onClose }: PricingModalProps) => {
-  const [selectedPlan, setSelectedPlan] = React.useState(1);
+  const [selectedPlan, setSelectedPlan] = React.useState(0);
+  const { createCheckoutSession, isLoading, error, clearError } = usePayment();
+  const { user } = useAuth(); // Get user info for email
 
   const features: Feature[] = [
     {
@@ -261,31 +267,14 @@ export const PricingModal = ({ isOpen, onClose }: PricingModalProps) => {
     },
   ];
 
-  const plans: Plan[] = [
-    {
-      name: 'Pro Monthly',
-      price: '20 USD/month',
-      daily: '0.67 USD',
-      badge: '',
-      highlight: false,
-    },
-    {
-      name: 'Pro Quarterly',
-      price: '45 USD/quarter',
-      daily: '0.5 USD',
-      badge: 'Save 25%',
-      highlight: true,
-      badgeColor: 'bg-red-500',
-    },
-    {
-      name: 'Pro Yearly',
-      price: '90 USD/year',
-      daily: '0.25 USD',
-      badge: 'Save 63%',
-      highlight: false,
-      badgeColor: 'bg-yellow-400',
-    },
-  ];
+  const plans: Plan[] = CLIENT_SUBSCRIPTION_PLANS.map(plan => ({
+    name: plan.name,
+    price: `${formatStripeAmount(plan.price, plan.currency)}/${plan.interval}`,
+    daily: `$${plan.dailyPrice.toFixed(2)} USD`,
+    badge: plan.badge || '',
+    highlight: plan.highlight || false,
+    badgeColor: plan.badgeColor || '',
+  }));
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -379,8 +368,28 @@ export const PricingModal = ({ isOpen, onClose }: PricingModalProps) => {
               </div>
 
               <div className='mt-6 md:mt-10'>
-                <button className='w-full py-3 md:py-4 rounded-2xl text-base md:text-lg font-semibold text-white bg-gradient-to-r from-blue-500 to-blue-400 shadow flex items-center justify-center relative'>
-                  Continue
+                {error && (
+                  <div className='mb-4 p-3 bg-red-50 border border-red-200 rounded-lg'>
+                    <p className='text-red-600 text-sm'>{error}</p>
+                    <button
+                      onClick={clearError}
+                      className='text-red-500 text-xs underline mt-1'
+                    >
+                      Dismiss
+                    </button>
+                  </div>
+                )}
+                <Button
+                  onClick={() =>
+                    createCheckoutSession(
+                      CLIENT_SUBSCRIPTION_PLANS[selectedPlan],
+                      user?.email // Pass user email if available
+                    )
+                  }
+                  disabled={isLoading}
+                  className='w-full py-3 md:py-4 rounded-2xl text-base md:text-lg font-semibold text-white bg-gradient-to-r from-blue-500 to-blue-400 shadow flex items-center justify-center relative disabled:opacity-50 disabled:cursor-not-allowed'
+                >
+                  {isLoading ? 'Processing...' : 'Continue'}
                   <span className='absolute right-4 md:right-6 top-1/2 -translate-y-1/2'>
                     <svg
                       className='w-6 h-6 md:w-7 md:h-7'
@@ -397,7 +406,7 @@ export const PricingModal = ({ isOpen, onClose }: PricingModalProps) => {
                       />
                     </svg>
                   </span>
-                </button>
+                </Button>
               </div>
 
               <div className='text-center mt-4 md:mt-8'>
