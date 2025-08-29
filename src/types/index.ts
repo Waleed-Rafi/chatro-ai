@@ -1,5 +1,6 @@
 // Export all types from a central location
 export * from './auth';
+export * from './payment';
 export * from './user';
 
 // Explicitly export chat types to avoid conflicts with database types

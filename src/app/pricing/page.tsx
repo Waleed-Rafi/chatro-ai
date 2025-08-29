@@ -1,17 +1,32 @@
 'use client';
 
-import { Check, X } from 'lucide-react';
+import { Check } from 'lucide-react';
+import { useState } from 'react';
 
 import { Sidebar } from '@/components/layout/Sidebar';
 import { Button } from '@/components/ui/button';
 import { useSidebar } from '@/contexts/SidebarContext';
-import { additionalFeatures, pricingFAQs, pricingFeatures } from '@/data';
+import { supportFAQs } from '@/data';
+import { getClientSubscriptionPlans } from '@/data/pricing';
+import { useAuth } from '@/hooks/use-auth';
+import { usePayment } from '@/hooks/use-payment';
+import { formatStripeAmount } from '@/lib/stripe';
 
 import FaqAccordion from '../../components/FaqAccordion';
 import { ArrowRight } from '../../components/icons/ArrowRight';
 
 export default function PricingPage() {
   const { isSidebarCollapsed, setIsSidebarCollapsed } = useSidebar();
+  const { createCheckoutSession, isLoading, error, clearError } = usePayment();
+  const [selectedPlan, setSelectedPlan] = useState(0);
+  const { user } = useAuth(); // Get user info for email
+
+  const handleSubscribe = (planIndex: number) => {
+    setSelectedPlan(planIndex);
+    const plans = getClientSubscriptionPlans();
+    const plan = plans[planIndex];
+    createCheckoutSession(plan, user?.email); // Pass user email if available
+  };
 
   return (
     <div className='min-h-screen bg-background text-white flex'>
@@ -59,471 +74,173 @@ export default function PricingPage() {
 
             {/* Pricing Cards */}
             <div className='space-y-4 mb-8'>
-              {/* Pro Monthly */}
-              <div className='bg-[#2a2a2a] rounded-lg p-4'>
-                <h3 className='text-white text-lg font-medium mb-2'>
-                  Pro Monthly
-                </h3>
-                <div className='mb-4'>
-                  <span className='text-2xl font-bold text-white'>$20</span>
-                  <span className='text-gray-400 ml-2 text-sm'>
-                    per month, paid monthly
-                  </span>
-                </div>
-                <Button className='w-full bg-[#444] hover:bg-[#555] text-white mb-4'>
-                  Subscribe
-                </Button>
-                <p className='text-gray-400 text-xs'>
-                  Get a taste of pro membership and enjoy unlimited chats for
-                  one month.
-                </p>
-              </div>
-
-              {/* Pro Quarterly - Popular */}
-              <div className='bg-blue-600 rounded-lg p-4 relative'>
-                <div className='absolute -top-2 left-4'>
-                  <span className='bg-blue-800 text-white px-3 py-1 rounded text-xs font-medium'>
-                    POPULAR
-                  </span>
-                </div>
-                <h3 className='text-white text-lg font-medium mb-2'>
-                  Pro Quarterly
-                </h3>
-                <div className='mb-1'>
-                  <span className='text-2xl font-bold text-white'>$15</span>
-                  <span className='text-gray-200 ml-2 line-through text-sm'>
-                    $20
-                  </span>
-                </div>
-                <div className='mb-4'>
-                  <span className='text-white text-sm'>
-                    per month, paid quarterly
-                  </span>
-                  <div className='bg-orange-500 text-white px-2 py-1 rounded text-xs inline-block ml-2'>
-                    Save 25%
+              {getClientSubscriptionPlans().map((plan, index) => (
+                <div
+                  key={plan.id}
+                  className={`rounded-lg p-4 ${
+                    plan.highlight ? 'bg-blue-600 relative' : 'bg-[#2a2a2a]'
+                  }`}
+                >
+                  {plan.highlight && (
+                    <div className='absolute -top-2 left-4'>
+                      <span className='bg-blue-800 text-white px-3 py-1 rounded text-xs font-medium'>
+                        {plan.badge}
+                      </span>
+                    </div>
+                  )}
+                  <h3 className='text-white text-lg font-medium mb-2'>
+                    {plan.name}
+                  </h3>
+                  <div className='mb-4'>
+                    <span className='text-2xl font-bold text-white'>
+                      {formatStripeAmount(plan.price, plan.currency)}
+                    </span>
+                    <span className='text-gray-400 ml-2 text-sm'>
+                      per {plan.interval}
+                    </span>
                   </div>
+                  <Button
+                    className='w-full bg-[#444] hover:bg-[#555] text-white mb-4'
+                    onClick={() => handleSubscribe(index)}
+                    disabled={isLoading}
+                  >
+                    {isLoading && index === selectedPlan
+                      ? 'Processing...'
+                      : 'Subscribe'}
+                  </Button>
+                  <p className='text-gray-400 text-xs'>
+                    {plan.features.slice(0, 2).join(', ')} and more.
+                  </p>
                 </div>
-                <Button className='w-full bg-white text-blue-600 hover:bg-gray-100 mb-4'>
-                  Subscribe
-                </Button>
-                <p className='text-gray-200 text-xs'>
-                  Enjoy access to pro member features and unlimited chats for 3
-                  months.
-                </p>
-              </div>
-
-              {/* Pro Yearly */}
-              <div className='bg-[#2a2a2a] rounded-lg p-4'>
-                <h3 className='text-white text-lg font-medium mb-2'>
-                  Pro Yearly
-                </h3>
-                <div className='mb-1'>
-                  <span className='text-2xl font-bold text-white'>$7.5</span>
-                  <span className='text-gray-400 ml-2 line-through text-sm'>
-                    $20
-                  </span>
-                </div>
-                <div className='mb-4'>
-                  <span className='text-white text-sm'>
-                    per month, paid yearly
-                  </span>
-                  <div className='bg-red-500 text-white px-2 py-1 rounded text-xs inline-block ml-2'>
-                    Save 62%
-                  </div>
-                </div>
-                <Button className='w-full bg-[#444] hover:bg-[#555] text-white mb-4'>
-                  Subscribe
-                </Button>
-                <p className='text-gray-400 text-xs'>
-                  Access to all pro member-only features with unlimited chats
-                  for the entire year.
-                </p>
-              </div>
+              ))}
             </div>
-
-            {/* Why go Pro section */}
-            <div className='mb-8'>
-              <h3 className='text-lg font-medium text-white text-center mb-4'>
-                Why go Pro with Reply?
-              </h3>
-              <p className='text-gray-400 text-center mb-6 text-sm'>
-                Multiple productivity needs, one solution
-              </p>
-
-              {/* Feature comparison */}
-              <div className='bg-[#2a2a2a] rounded-lg p-4'>
-                <div className='grid grid-cols-3 gap-4 mb-6 text-center'>
-                  <div>
-                    <h4 className='text-white font-medium text-sm'>Features</h4>
-                  </div>
-                  <div>
-                    <h4 className='text-white font-medium text-sm'>Reply</h4>
-                  </div>
-                  <div>
-                    <h4 className='text-white font-medium text-sm'>
-                      OpenAI ChatGPT
-                    </h4>
-                  </div>
-                </div>
-
-                {/* AI Chat Models */}
-                <div className='mb-4'>
-                  <h5 className='text-white font-medium mb-3 text-sm'>
-                    AI Chat Models
-                  </h5>
-                  <div className='space-y-2'>
-                    {[
-                      'OpenAI GPT-4.1',
-                      'OpenAI o1-mini (Beta)',
-                      'Google Gemini 2.5 Flash',
-                      'X AI Grok 3 Mini',
-                      'Deepseek R1',
-                      'Anthropic Claude 4 Sonnet',
-                      'Anthropic Claude 3.7 Sonnet',
-                    ].map((model, index) => (
-                      <div
-                        key={index}
-                        className='grid grid-cols-3 gap-4 items-center text-xs'
-                      >
-                        <span className='text-gray-300'>{model}</span>
-                        <div className='text-center'>
-                          <Check className='text-blue-500 mx-auto' size={16} />
-                        </div>
-                        <div className='text-center'>
-                          <div className='w-4 h-4 border-2 border-gray-500 rounded-full mx-auto' />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* AI Chat Features */}
-                <div className='mb-4'>
-                  <h5 className='text-white font-medium mb-3 text-sm'>
-                    AI Chat
-                  </h5>
-                  <div className='space-y-2'>
-                    {pricingFeatures.map((item, index) => (
-                      <div
-                        key={index}
-                        className='grid grid-cols-3 gap-4 items-center text-xs'
-                      >
-                        <span className='text-gray-300'>{item.feature}</span>
-                        <div className='text-center'>
-                          {typeof item.reply === 'boolean' ? (
-                            item.reply ? (
-                              <Check
-                                className='text-blue-500 mx-auto'
-                                size={16}
-                              />
-                            ) : (
-                              <X className='text-gray-500 mx-auto' size={16} />
-                            )
-                          ) : (
-                            <span className='text-blue-400 text-xs'>
-                              {item.reply}
-                            </span>
-                          )}
-                        </div>
-                        <div className='text-center'>
-                          {typeof item.openai === 'boolean' ? (
-                            item.openai ? (
-                              <Check
-                                className='text-blue-500 mx-auto'
-                                size={16}
-                              />
-                            ) : (
-                              <div className='w-4 h-4 border-2 border-gray-500 rounded-full mx-auto' />
-                            )
-                          ) : (
-                            <span className='text-gray-400 text-xs'>
-                              {item.openai}
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* AI Tools */}
-                <div>
-                  <h5 className='text-white font-medium mb-3 text-sm'>
-                    AI Tools
-                  </h5>
-                  <div className='space-y-2'>
-                    {additionalFeatures.map((item, index) => (
-                      <div
-                        key={index}
-                        className='grid grid-cols-3 gap-4 items-center text-xs'
-                      >
-                        <span className='text-gray-300'>{item.feature}</span>
-                        <div className='text-center'>
-                          <span className='text-blue-400 text-xs'>
-                            {item.reply}
-                          </span>
-                        </div>
-                        <div className='text-center'>
-                          <span className='text-gray-400 text-xs'>
-                            {item.openai}
-                          </span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* FAQ Section */}
-            <FaqAccordion faqs={pricingFAQs} />
           </div>
 
           {/* Desktop Layout */}
           <div className='hidden md:block'>
             {/* Pricing Header */}
-            <div className='text-center mb-8 md:mb-12'>
-              <h2 className='text-2xl md:text-3xl font-medium text-white mb-2'>
+            <div className='text-center mb-12'>
+              <h1 className='text-4xl font-bold text-white mb-4'>
                 Pricing Plans
-              </h2>
-              <p className='text-gray-400 text-sm'>
+              </h1>
+              <p className='text-xl text-gray-400 max-w-2xl mx-auto'>
                 Want to get more out of Chatro? Subscribe to one of our
                 professional plans.
               </p>
             </div>
 
             {/* Pricing Cards */}
-            <div className='grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 max-w-6xl mx-auto mb-8 md:mb-16'>
-              {/* Pro Monthly */}
-              <div className='bg-[#2a2a2a] rounded-lg p-6 md:p-8'>
-                <h3 className='text-white text-lg md:text-xl font-medium mb-4'>
-                  Pro Monthly
-                </h3>
-                <div className='mb-6'>
-                  <span className='text-3xl md:text-4xl font-bold text-white'>
-                    $20
-                  </span>
-                  <span className='text-gray-400 ml-2 text-sm md:text-base'>
-                    per month, paid monthly
-                  </span>
-                </div>
-                <Button className='w-full bg-[#444] hover:bg-[#555] text-white mb-6'>
-                  Subscribe
-                </Button>
-                <p className='text-gray-400 text-sm'>
-                  Get a taste of pro membership and enjoy unlimited chats for
-                  one month.
-                </p>
-              </div>
-
-              {/* Pro Quarterly - Popular */}
-              <div className='bg-blue-600 rounded-lg p-6 md:p-8 relative'>
-                <div className='absolute -top-3 left-1/2 transform -translate-x-1/2'>
-                  <span className='bg-blue-800 text-white px-4 py-1 rounded text-sm font-medium'>
-                    POPULAR
-                  </span>
-                </div>
-                <h3 className='text-white text-lg md:text-xl font-medium mb-4'>
-                  Pro Quarterly
-                </h3>
-                <div className='mb-2'>
-                  <span className='text-3xl md:text-4xl font-bold text-white'>
-                    $15
-                  </span>
-                  <span className='text-gray-200 ml-2 line-through text-sm md:text-base'>
-                    $20
-                  </span>
-                </div>
-                <div className='mb-6'>
-                  <span className='text-white text-sm md:text-base'>
-                    per month, paid quarterly
-                  </span>
-                  <div className='bg-orange-500 text-white px-2 py-1 rounded text-xs inline-block ml-2'>
-                    Save 25%
+            <div className='grid grid-cols-3 gap-8 max-w-6xl mx-auto mb-16'>
+              {getClientSubscriptionPlans().map((plan, index) => (
+                <div
+                  key={plan.id}
+                  className={`rounded-2xl p-8 ${
+                    plan.highlight
+                      ? 'bg-blue-600 relative transform scale-105'
+                      : 'bg-[#2a2a2a]'
+                  }`}
+                >
+                  {plan.highlight && (
+                    <div className='absolute -top-4 left-1/2 transform -translate-x-1/2'>
+                      <span className='bg-blue-800 text-white px-4 py-2 rounded-full text-sm font-medium'>
+                        {plan.badge}
+                      </span>
+                    </div>
+                  )}
+                  <div className='text-center mb-8'>
+                    <h3 className='text-2xl font-bold text-white mb-4'>
+                      {plan.name}
+                    </h3>
+                    <div className='mb-2'>
+                      <span className='text-5xl font-bold text-white'>
+                        {formatStripeAmount(plan.price, plan.currency)}
+                      </span>
+                    </div>
+                    <p className='text-gray-300'>per {plan.interval}</p>
+                    <p className='text-gray-400 text-sm mt-2'>
+                      ${plan.dailyPrice.toFixed(2)} per day
+                    </p>
                   </div>
-                </div>
-                <Button className='w-full bg-white text-blue-600 hover:bg-gray-100 mb-6'>
-                  Subscribe
-                </Button>
-                <p className='text-gray-200 text-sm'>
-                  Enjoy access to pro member features and unlimited chats for 3
-                  months.
-                </p>
-              </div>
 
-              {/* Pro Yearly */}
-              <div className='bg-[#2a2a2a] rounded-lg p-6 md:p-8'>
-                <h3 className='text-white text-lg md:text-xl font-medium mb-4'>
-                  Pro Yearly
-                </h3>
-                <div className='mb-2'>
-                  <span className='text-3xl md:text-4xl font-bold text-white'>
-                    $7.5
-                  </span>
-                  <span className='text-gray-400 ml-2 line-through text-sm md:text-base'>
-                    $20
-                  </span>
-                </div>
-                <div className='mb-6'>
-                  <span className='text-white text-sm md:text-base'>
-                    per month, paid yearly
-                  </span>
-                  <div className='bg-red-500 text-white px-2 py-1 rounded text-xs inline-block ml-2'>
-                    Save 62%
+                  <div className='space-y-4 mb-8'>
+                    {plan.features.map((feature, featureIndex) => (
+                      <div
+                        key={featureIndex}
+                        className='flex items-center space-x-3'
+                      >
+                        <Check
+                          className='text-blue-500 flex-shrink-0'
+                          size={20}
+                        />
+                        <span className='text-gray-300 text-sm'>{feature}</span>
+                      </div>
+                    ))}
                   </div>
+
+                  <Button
+                    className='w-full py-4 rounded-xl text-lg font-semibold bg-[#444] hover:bg-[#555] text-white'
+                    onClick={() => handleSubscribe(index)}
+                    disabled={isLoading}
+                  >
+                    {isLoading && index === selectedPlan
+                      ? 'Processing...'
+                      : 'Subscribe Now'}
+                  </Button>
                 </div>
-                <Button className='w-full bg-[#444] hover:bg-[#555] text-white mb-6'>
-                  Subscribe
-                </Button>
-                <p className='text-gray-400 text-sm'>
-                  Access to all pro member-only features with unlimited chats
-                  for the entire year.
-                </p>
-              </div>
+              ))}
             </div>
 
-            {/* Why go Pro section */}
-            <div className='max-w-6xl mx-auto mb-8 md:mb-16'>
-              <h3 className='text-xl md:text-2xl font-medium text-white text-center mb-2'>
-                Why go Pro with Chatro?
-              </h3>
-              <p className='text-gray-400 text-center mb-8 text-sm'>
-                Multiple productivity needs, one solution
-              </p>
+            {/* Error Display */}
+            {error && (
+              <div className='max-w-2xl mx-auto mb-8 p-4 bg-red-900/20 border border-red-500/30 rounded-lg'>
+                <p className='text-red-400 text-center'>{error}</p>
+                <button
+                  onClick={clearError}
+                  className='text-red-300 text-sm underline mt-2 mx-auto block'
+                >
+                  Dismiss
+                </button>
+              </div>
+            )}
 
-              {/* Feature comparison */}
-              <div className='bg-[#2a2a2a] rounded-lg p-4 md:p-8 overflow-x-auto'>
-                <div className='min-w-[600px]'>
-                  <div className='grid grid-cols-3 gap-4 md:gap-8 mb-8'>
-                    <div className='text-center'>
-                      <h4 className='text-white font-medium mb-2'>Features</h4>
-                    </div>
-                    <div className='text-center'>
-                      <h4 className='text-white font-medium mb-2'>Chatro</h4>
-                    </div>
-                    <div className='text-center'>
-                      <h4 className='text-white font-medium mb-2'>
-                        OpenAI ChatGPT
-                      </h4>
-                    </div>
-                  </div>
+            {/* Features Comparison */}
+            <div className='max-w-6xl mx-auto mb-16'>
+              <h2 className='text-3xl font-bold text-white text-center mb-12'>
+                Feature Comparison
+              </h2>
 
-                  {/* AI Chat Models */}
-                  <div className='mb-6'>
-                    <h5 className='text-white font-medium mb-4'>
-                      AI Chat Models
-                    </h5>
-                    <div className='space-y-3'>
-                      {[
-                        'OpenAI GPT-4.1',
-                        'OpenAI o1-mini (Beta)',
-                        'Google Gemini 2.5 Flash',
-                        'X AI Grok 3 Mini',
-                        'Deepseek R1',
-                        'Anthropic Claude 4 Sonnet',
-                        'Anthropic Claude 3.7 Sonnet',
-                      ].map((model, index) => (
-                        <div
-                          key={index}
-                          className='grid grid-cols-3 gap-4 items-center text-xs'
-                        >
-                          <span className='text-gray-300'>{model}</span>
-                          <div className='text-center'>
-                            <Check
-                              className='text-blue-500 mx-auto'
-                              size={16}
-                            />
-                          </div>
-                          <div className='text-center'>
-                            <div className='w-4 h-4 border-2 border-gray-500 rounded-full mx-auto' />
-                          </div>
+              {/* AI Chat Features */}
+              <div className='bg-[#2a2a2a] rounded-2xl p-8'>
+                <h5 className='text-white font-medium mb-4'>AI Chat</h5>
+                <div className='space-y-3'>
+                  {getClientSubscriptionPlans()[0].features.map(
+                    (feature, index) => (
+                      <div
+                        key={index}
+                        className='grid grid-cols-3 gap-4 md:gap-8 items-center'
+                      >
+                        <span className='text-gray-300 text-sm'>{feature}</span>
+                        <div className='text-center'>
+                          <Check className='text-blue-500 mx-auto' size={20} />
                         </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* AI Chat Features */}
-                  <div className='mb-6'>
-                    <h5 className='text-white font-medium mb-4'>AI Chat</h5>
-                    <div className='space-y-3'>
-                      {pricingFeatures.map((item, index) => (
-                        <div
-                          key={index}
-                          className='grid grid-cols-3 gap-4 md:gap-8 items-center'
-                        >
-                          <span className='text-gray-300 text-sm'>
-                            {item.feature}
-                          </span>
-                          <div className='text-center'>
-                            {typeof item.reply === 'boolean' ? (
-                              item.reply ? (
-                                <Check
-                                  className='text-blue-500 mx-auto'
-                                  size={20}
-                                />
-                              ) : (
-                                <div className='w-5 h-5 border-2 border-gray-500 rounded-full mx-auto' />
-                              )
-                            ) : (
-                              <span className='text-blue-400 text-sm'>
-                                {item.reply}
-                              </span>
-                            )}
-                          </div>
-                          <div className='text-center'>
-                            {typeof item.openai === 'boolean' ? (
-                              item.openai ? (
-                                <Check
-                                  className='text-blue-500 mx-auto'
-                                  size={20}
-                                />
-                              ) : (
-                                <div className='w-5 h-5 border-2 border-gray-500 rounded-full mx-auto' />
-                              )
-                            ) : (
-                              <span className='text-gray-400 text-sm'>
-                                {item.openai}
-                              </span>
-                            )}
-                          </div>
+                        <div className='text-center'>
+                          <Check className='text-blue-500 mx-auto' size={20} />
                         </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* AI Tools */}
-                  <div>
-                    <h5 className='text-white font-medium mb-4'>AI Tools</h5>
-                    <div className='space-y-3'>
-                      {additionalFeatures.map((item, index) => (
-                        <div
-                          key={index}
-                          className='grid grid-cols-3 gap-4 md:gap-8 items-center'
-                        >
-                          <span className='text-gray-300 text-sm'>
-                            {item.feature}
-                          </span>
-                          <div className='text-center'>
-                            <span className='text-blue-400 text-sm'>
-                              {item.reply}
-                            </span>
-                          </div>
-                          <div className='text-center'>
-                            <span className='text-gray-400 text-sm'>
-                              {item.openai}
-                            </span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+                      </div>
+                    )
+                  )}
                 </div>
               </div>
             </div>
 
             {/* FAQ Section */}
             <div className='max-w-4xl mx-auto'>
-              <FaqAccordion faqs={pricingFAQs} />
+              <h2 className='text-3xl font-bold text-white text-center mb-12'>
+                Frequently Asked Questions
+              </h2>
+              <div className='bg-[#2a2a2a] rounded-2xl p-8'>
+                <FaqAccordion faqs={supportFAQs} />
+              </div>
             </div>
           </div>
         </div>
