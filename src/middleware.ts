@@ -1,6 +1,7 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 
+// This middleware runs in Edge Runtime by default in Next.js 13+
 export async function middleware(request: NextRequest) {
   console.log('🚀🚀🚀 MIDDLEWARE IS DEFINITELY RUNNING!');
   console.log('Path:', request.nextUrl.pathname);
